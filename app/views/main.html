@@ -1,0 +1,47 @@
+<div ng-show="isLoading" layout="column" layout-margin style="position: fixed; top: -14px; left: 0px; width: 100%; z-index: 9999;">
+  <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+</div>
+
+<md-content>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>
+        <span>StockTracker</span>
+      </h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="News" ng-click="toggleRight()">
+        <md-icon md-svg-icon="images/icons/more_vert.svg"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <br>
+</md-content>
+
+<div layout="column">
+  <section layout="row" flex>
+    <!--Begin Left Navbar-->
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+      <watch-list watch-list="User.watchList"
+                  saved-symbols="User.savedSymbols"
+                  preferences="User.preferences"
+                  selected-symbol="User.selectedSymbol">
+      </watch-list>
+    </md-sidenav>
+    <!--End Left Navbar-->
+
+    <watch-list-details preferences="User.preferences"
+                        symbol="User.selectedSymbol">
+    </watch-list-details>
+
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+      <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Sidenav Right</h1>
+      </md-toolbar>
+      <md-content class="md-padding">
+        <md-button ng-click="closeRight()" class="md-primary">
+          {{User.selectedSymbol.Symbol}}
+        </md-button>
+      </md-content>
+    </md-sidenav>
+  </section>
+</div>

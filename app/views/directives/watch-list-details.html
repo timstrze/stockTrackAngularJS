@@ -1,0 +1,83 @@
+<md-content flex class="md-padding watch-list-details">
+
+  <md-button ng-click="toggleLeft()"
+             class="md-primary" hide-gt-md>
+    Toggle left
+  </md-button>
+
+  <md-content>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>
+          <span>{{symbol.Symbol}}: {{symbol.Name}}</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Favorite">
+          <md-icon md-svg-icon="images/icons/favorite.svg" style="color: greenyellow;"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="More">
+          <md-icon md-svg-icon="images/icons/more_vert.svg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-content layout="row" class="md-padding">
+      <div flex>
+        <p>
+          Open: {{symbol.Open}}, <br />
+          Ask: {{symbol.Ask}}, <br />
+          Change: {{symbol.Change}}, <br />
+          ChangeInPercent: {{symbol.ChangeinPercent}}, <br />
+          DaysHigh: {{symbol.DaysHigh}}, <br />
+          DaysLow: {{symbol.DaysLow}}, <br />
+          DaysRange: {{symbol.DaysRange}}
+        </p>
+      </div>
+      <div flex>
+        <p>
+          Prev Close:	82.21<br />
+          Open:	83.30<br />
+          Bid:	85.63 x 5000<br />
+          Ask:	85.66 x 100<br />
+          1y Target Est:	109.83<br />
+          Beta:	N/A<br />
+          Earnings Date:	Apr 27 - May 1 (Est.)<br />
+          Day's Range:	83.07 - 85.54<br />
+        </p>
+      </div>
+      <div flex hide-sm>
+        <p>
+          Open: {{symbol.Open}}, <br />
+          Ask: {{symbol.Ask}}, <br />
+          Change: {{symbol.Change}}, <br />
+          ChangeInPercent: {{symbol.ChangeinPercent}}, <br />
+          DaysHigh: {{symbol.DaysHigh}}, <br />
+          DaysLow: {{symbol.DaysLow}}, <br />
+          DaysRange: {{symbol.DaysRange}}
+        </p>
+
+
+        52wk Range:	80.03 - 120.00
+        Volume:	26,161,527
+        Avg Vol (3m):	16,977,000
+        Market Cap:	212.39B
+        P/E (ttm):	48.00
+        EPS (ttm):	1.78
+        Div & Yield:	N/A (N/A)
+      </div>
+    </md-content>
+
+    <md-tabs md-selected="preferences.selectedHistoricalIndex" md-border-bottom  md-stretch-tabs="always">
+      <md-tab ng-repeat="tab in Constants.historicalTabs"
+              ng-disabled="tab.disabled"
+              label="{{tab.title}}"
+              md-on-select="getHistoricalData(tab.startDate, tab.endDate)">
+      </md-tab>
+    </md-tabs>
+
+    <md-card style="height:500px;">
+      <line-chart historical-data="symbol.historicalData"></line-chart>
+    </md-card>
+  </md-content>
+
+</md-content>
