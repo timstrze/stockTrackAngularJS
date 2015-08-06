@@ -19,6 +19,19 @@ angular.module('stockTrackAngularJsApp')
         'WFM'
       ],
 
+      //watchList
+
+      Positions: [{
+        name: "AAPL",
+        symbol: {},
+        buys: [
+          {
+            ask: 105,
+            amount: 15
+          }
+        ]
+      }],
+
       preferences: preferencesInStore || {
         selectedHistoricalIndex: 2
       },
@@ -46,6 +59,10 @@ angular.module('stockTrackAngularJsApp')
                   }
                 });
 
+                if(!_this.selectedSymbol) {
+                  _this.selectedSymbol = _this.watchList[0];
+                }
+
               }else {
                 _this.selectedSymbol = _this.watchList[0];
                 _this.preferences.lastSelectedSymbol = _this.selectedSymbol;
@@ -58,20 +75,6 @@ angular.module('stockTrackAngularJsApp')
             }
           }
         );
-      },
-
-      getSelectedSymbol: function() {
-        //if(this.watchList) {
-        //  var selectedSymbol;
-        //
-        //  angular.forEach(this.watchList, function (symbol) {
-        //    if (symbol.selected) {
-        //      selectedSymbol = symbol;
-        //    }
-        //  });
-        //
-        //  return selectedSymbol;
-        //}
       }
     };
   });

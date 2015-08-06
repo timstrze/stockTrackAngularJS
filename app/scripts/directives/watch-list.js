@@ -7,7 +7,7 @@
  * # watchList
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('watchList', function (Symbol, Constants, localStorageService) {
+  .directive('watchList', function (Symbol, Constants, localStorageService, $mdSidenav, $log) {
     return {
       scope: {
         savedSymbols: '=',
@@ -18,6 +18,13 @@ angular.module('stockTrackAngularJsApp')
       templateUrl: 'views/directives/watch-list.html',
       restrict: 'E',
       controller: function ($scope) {
+
+        $scope.closeWatchlist = function() {
+          $mdSidenav('watch-list').close()
+            .then(function(){
+              $log.debug("close LEFT is done");
+            });
+        };
 
         $scope.search = function(searchVal) {
           if(searchVal && searchVal.length > 0) {
@@ -38,8 +45,10 @@ angular.module('stockTrackAngularJsApp')
             $scope.searchText = '';
             $scope.watchList.unshift(new Symbol(item));
 
-            $scope.savedSymbols.uSymbolft(item.Name);
+            $scope.savedSymbols.unshift(item.Symbol);
             localStorageService.set('savedSymbols', $scope.savedSymbols);
+
+            $scope.selectSymbol($scope.watchList[0]);
           }
         };
 

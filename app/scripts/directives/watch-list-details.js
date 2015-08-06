@@ -7,7 +7,7 @@
  * # watchListDetails
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('watchListDetails', function (Constants, localStorageService) {
+  .directive('watchListDetails', function (Constants, localStorageService, $mdSidenav, $log) {
     return {
       restrict: 'E',
       scope: {
@@ -18,11 +18,11 @@ angular.module('stockTrackAngularJsApp')
       controller: function ($scope) {
         $scope.Constants = Constants;
 
-        $scope.getHistoricalData = function(startDate, endDate) {
-          if($scope.symbol) {
-            $scope.symbol.getHistoricalData(startDate, endDate);
-            localStorageService.set('preferences', $scope.preferences);
-          }
+        $scope.toggleWatchlist = function() {
+          $mdSidenav('watch-list').toggle()
+            .then(function(){
+              $log.debug("toggle left is done");
+            });
         };
       }
     };

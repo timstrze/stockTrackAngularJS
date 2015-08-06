@@ -9,6 +9,12 @@
         <span>StockTracker</span>
       </h2>
       <span flex></span>
+      <md-button class="md-icon-button" aria-label="News" ng-click="toggleWatchlist()">
+        Watchlist
+      </md-button>
+      <md-button class="md-icon-button" aria-label="News" ng-click="togglePositions()">
+        Positions
+      </md-button>
       <md-button class="md-icon-button" aria-label="News" ng-click="toggleRight()">
         <md-icon md-svg-icon="images/icons/more_vert.svg"></md-icon>
       </md-button>
@@ -20,12 +26,15 @@
 <div layout="column">
   <section layout="row" flex>
     <!--Begin Left Navbar-->
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+    <md-sidenav ng-show="showWatchlist" class="md-sidenav-left md-whiteframe-z2" md-component-id="watch-list" md-is-locked-open="$mdMedia('gt-md')">
       <watch-list watch-list="User.watchList"
                   saved-symbols="User.savedSymbols"
                   preferences="User.preferences"
                   selected-symbol="User.selectedSymbol">
       </watch-list>
+    </md-sidenav>
+    <md-sidenav ng-show="!showWatchlist" class="md-sidenav-left md-whiteframe-z2" md-component-id="positions" md-is-locked-open="$mdMedia('gt-md')">
+      <h2>Positions</h2>
     </md-sidenav>
     <!--End Left Navbar-->
 

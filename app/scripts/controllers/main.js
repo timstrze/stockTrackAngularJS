@@ -8,36 +8,24 @@
  * Controller of the stockTrackAngularJsApp
  */
 angular.module('stockTrackAngularJsApp')
-  .controller('MainCtrl', function ($scope, $mdSidenav, $log, User) {
+  .controller('MainCtrl', function ($scope, $mdSidenav, User) {
 
     $scope.User = User;
 
-    $scope.toggleLeft = function() {
-      $mdSidenav('left').toggle()
-        .then(function(){
-          $log.debug("toggle left is done");
-        });
-    };
+    $scope.showWatchlist = true;
 
     $scope.toggleRight = function() {
       $mdSidenav('right').toggle()
-        .then(function(){
-          $log.debug("toggle RIGHT is done");
-        });
-    };
-
-    $scope.closeLeft = function() {
-      $mdSidenav('left').close()
-        .then(function(){
-          $log.debug("close LEFT is done");
-        });
+        .then(function(){});
     };
 
     $scope.closeRight = function() {
       $mdSidenav('right').close()
-        .then(function(){
-          $log.debug("close RIGHT is done");
-        });
+        .then(function(){});
+    };
+
+    $scope.toggleWatchlist = function() {
+      $scope.showWatchlist = !$scope.showWatchlist;
     };
 
     User.getWatchListData();
