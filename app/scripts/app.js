@@ -16,9 +16,10 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngMessages',
     'ngMaterial',
-    'LocalStorageModule'
+    'ngMessages',
+    'LocalStorageModule',
+    'ngMdIcons'
   ])
   .config(function ($routeProvider, $httpProvider) {
     $routeProvider
@@ -38,12 +39,12 @@ angular
     $httpProvider.interceptors.push('LoadingInterceptor');
 
   })
-  .config( function($mdThemingProvider){
+  .config(function ($mdThemingProvider) {
     // Configure a dark theme with primary foreground yellow
     $mdThemingProvider.theme('docs-dark', 'default')
       .primaryPalette('yellow')
       .dark();
   })
-  .config(['localStorageServiceProvider', function(localStorageServiceProvider){
+  .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
     localStorageServiceProvider.setPrefix('staja');
   }]);

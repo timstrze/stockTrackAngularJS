@@ -42,9 +42,9 @@ angular.module('stockTrackAngularJsApp')
 
         //var svg = d3.select("body").append("svg")
 
-        var render = function() {
+        var render = function () {
 
-          if(!scope.historicalData) {
+          if (!scope.historicalData) {
             return false;
           }
 
@@ -71,8 +71,12 @@ angular.module('stockTrackAngularJsApp')
             .orient("left");
 
           var line = d3.svg.line()
-            .x(function(d) { return x(d.date); })
-            .y(function(d) { return y(d.close); });
+            .x(function (d) {
+              return x(d.date);
+            })
+            .y(function (d) {
+              return y(d.close);
+            });
 
           d3.select(element[0]).selectAll("*").remove();
           //var svg = d3.select(element[0]).append("svg");
@@ -83,13 +87,17 @@ angular.module('stockTrackAngularJsApp')
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-          scope.historicalData.forEach(function(d) {
+          scope.historicalData.forEach(function (d) {
             d.date = parseDate(d.Date);
             d.close = +d.Close;
           });
 
-          x.domain(d3.extent(scope.historicalData, function(d) { return d.date; }));
-          y.domain(d3.extent(scope.historicalData, function(d) { return d.close; }));
+          x.domain(d3.extent(scope.historicalData, function (d) {
+            return d.date;
+          }));
+          y.domain(d3.extent(scope.historicalData, function (d) {
+            return d.close;
+          }));
 
           svg.append("g")
             .attr("class", "x axis")
@@ -119,7 +127,7 @@ angular.module('stockTrackAngularJsApp')
         }, true);
 
 
-        angular.element( $window ).on('resize', function() {
+        angular.element($window).on('resize', function () {
           render();
         });
 

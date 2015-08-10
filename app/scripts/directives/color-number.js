@@ -15,7 +15,7 @@ angular.module('stockTrackAngularJsApp')
       transclude: true,
       templateUrl: 'views/directives/color-number.html',
       restrict: 'E',
-      controller: function() {
+      controller: function () {
 
       }
     };

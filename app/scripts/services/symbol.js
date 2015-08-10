@@ -10,9 +10,9 @@
 angular.module('stockTrackAngularJsApp')
   .factory('Symbol', function ($resource) {
 
-    var Symbol = function(properties) {
+    var Symbol = function (properties) {
       var _this = this;
-      Object.keys(properties).forEach(function(property) {
+      Object.keys(properties).forEach(function (property) {
         _this[property] = properties[property];
       });
     };
@@ -21,20 +21,20 @@ angular.module('stockTrackAngularJsApp')
     //Symbol.prototype.historicalData = {};
 
 
-    Symbol.prototype.getHistoricalData = function(startDate, endDate) {
+    Symbol.prototype.getHistoricalData = function (startDate, endDate) {
       var _this = this;
 
       this.http.details({
         symbol: this.Symbol,
         startDate: startDate,
         endDate: endDate
-      }, function(results) {
+      }, function (results) {
         _this.historicalData = results.query.results.quote;
       });
     };
 
 
-    Symbol.prototype.remove = function(container, selectedTab) {
+    Symbol.prototype.remove = function (container, selectedTab) {
       //container.splice(container.indexOf(this), 1);
       //container[0].selected = true;
       //container[0].getDetails(selectedTab.startDate, selectedTab.endDate);

@@ -19,7 +19,7 @@ angular.module('stockTrackAngularJsApp')
           .range([0, 450]);
 
         var y = d3.scale.linear()
-          .domain([0,300])
+          .domain([0, 300])
           .range([0, 300]);
 
 // define an SVG element to hold our chart
@@ -71,7 +71,9 @@ angular.module('stockTrackAngularJsApp')
           .attr("dy", 3) // shift down slightly
           .attr("dx", -3)  // and to the left
           .attr("text-anchor", "end") // align right
-          .text(function(d) { return d == 0 ? '' : d;});
+          .text(function (d) {
+            return d == 0 ? '' : d;
+          });
 
 // add the darker X axis line
         chart.append("line")

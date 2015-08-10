@@ -1,4 +1,5 @@
-<div ng-show="isLoading" layout="column" layout-margin style="position: fixed; top: -14px; left: 0px; width: 100%; z-index: 9999;">
+<div ng-show="isLoading" layout="column" layout-margin
+     style="position: fixed; top: -14px; left: 0px; width: 100%; z-index: 9999;">
   <md-progress-linear md-mode="indeterminate"></md-progress-linear>
 </div>
 
@@ -9,14 +10,21 @@
         <span>StockTracker</span>
       </h2>
       <span flex></span>
-      <md-button class="md-icon-button" aria-label="News" ng-click="toggleWatchlist()">
-        Watchlist
+      <h4>
+        Dly PnL: {{User.dailyPNL | currency}} PnL: {{User.overallPNL | currency}} Available: {{User.availableCash | currency}}
+      </h4>
+      <span flex></span>
+      <md-button class="md-secondary" aria-label="Watchlist" ng-click="watchlistToggle()">
+        Watchlist ({{User.WatchList.length}})
       </md-button>
-      <md-button class="md-icon-button" aria-label="News" ng-click="togglePositions()">
-        Positions
+      <md-button class="md-secondary" aria-label="Positions" ng-click="positionsToggle()">
+        Positions ({{User.Positions.length}})
       </md-button>
-      <md-button class="md-icon-button" aria-label="News" ng-click="toggleRight()">
-        <md-icon md-svg-icon="images/icons/more_vert.svg"></md-icon>
+
+      <md-icon md-svg-icon="images/icons/more_vert.svg"></md-icon>
+
+      <md-button class="md-secondary" aria-label="News" ng-click="toggleUserPrefs()">
+        {{User.lastName}}, {{User.firstName}}
       </md-button>
     </div>
   </md-toolbar>
@@ -26,30 +34,37 @@
 <div layout="column">
   <section layout="row" flex>
     <!--Begin Left Navbar-->
-    <md-sidenav ng-show="showWatchlist" class="md-sidenav-left md-whiteframe-z2" md-component-id="watch-list" md-is-locked-open="$mdMedia('gt-md')">
-      <watch-list watch-list="User.watchList"
-                  saved-symbols="User.savedSymbols"
-                  preferences="User.preferences"
+    <md-sidenav ng-show="showWatchlist && !showPositions" class="md-sidenav-left md-whiteframe-z2" md-component-id="watch-list"
+                md-is-locked-open="$mdMedia('gt-md')">
+      <watch-list watch-list="User.WatchList"
+                  preferences="User.Preferences"
                   selected-symbol="User.selectedSymbol">
       </watch-list>
     </md-sidenav>
-    <md-sidenav ng-show="!showWatchlist" class="md-sidenav-left md-whiteframe-z2" md-component-id="positions" md-is-locked-open="$mdMedia('gt-md')">
-      <h2>Positions</h2>
+    <md-sidenav ng-show="!showWatchlist && showPositions" class="md-sidenav-left md-whiteframe-z2" md-component-id="positions"
+                md-is-locked-open="$mdMedia('gt-md')">
+      <positions positions="User.Positions"></positions>
     </md-sidenav>
     <!--End Left Navbar-->
 
-    <watch-list-details preferences="User.preferences"
+    <watch-list-details user="User"
                         symbol="User.selectedSymbol">
     </watch-list-details>
 
-    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="user-preferences">
       <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">Sidenav Right</h1>
+        <h1 class="md-toolbar-tools">Preferences</h1>
       </md-toolbar>
       <md-content class="md-padding">
-        <md-button ng-click="closeRight()" class="md-primary">
-          {{User.selectedSymbol.Symbol}}
-        </md-button>
+        <!--<md-button ng-click="closeUserPrefs()" class="md-primary">-->
+        <!--{{User.firstName}} {{User.lastName}}-->
+        <!--</md-button>-->
+        <input type="text" ng-model="User.firstName" />
+        <input type="text" ng-model="User.lastName" />
+        <input type="email" ng-model="User.email" />
+        <p>Daily PNL: {{User.dailyPNL | currency}}</p>
+        <p>Overall PNL: {{User.overallPNL | currency}}</p>
+        <p>Available Cash: {{User.availableCash | currency}}</p>
       </md-content>
     </md-sidenav>
   </section>

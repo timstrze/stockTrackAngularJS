@@ -7,10 +7,10 @@
  * # watchList
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('watchList', function (Symbol, Constants, localStorageService, $mdSidenav, $log) {
+  .directive('watchList', function (Symbol, Constants, localStorageService, $mdSidenav) {
     return {
       scope: {
-        savedSymbols: '=',
+//        savedSymbols: '=',
         watchList: '=',
         preferences: '=',
         selectedSymbol: '='
@@ -19,50 +19,52 @@ angular.module('stockTrackAngularJsApp')
       restrict: 'E',
       controller: function ($scope) {
 
-        $scope.closeWatchlist = function() {
-          $mdSidenav('watch-list').close()
-            .then(function(){
-              $log.debug("close LEFT is done");
-            });
+        $scope.closeWatchlist = function () {
+          $mdSidenav('watch-list').close();
         };
 
-        $scope.search = function(searchVal) {
-          if(searchVal && searchVal.length > 0) {
-            return Symbol.http.search({searchVal: searchVal}).$promise.then(function(data) {
+        $scope.search = function (searchVal) {
+          if (searchVal && searchVal.length > 0) {
+            return Symbol.http.search({searchVal: searchVal}).$promise.then(function (data) {
               var quote = data.query.results.quote;
               quote.value = quote.Name;
               quote.display = quote.Name;
 
               return (data.query.results.quote.Ask) ? [quote] : [];
             });
-          }else{
+          } else {
             return [];
           }
         };
 
-        $scope.selectedItemChange = function(item) {
-          if(item) {
+        $scope.chooseSymbol = function (item) {
+          if (item) {
             $scope.searchText = '';
+
+            // Check for duplicate entries
+            if($scope.watchList.some(function(wlItem) {return wlItem.symbol.toLowerCase() === item.symbol.toLowerCase()})) {
+              return false;
+            }
+
             $scope.watchList.unshift(new Symbol(item));
 
-            $scope.savedSymbols.unshift(item.Symbol);
-            localStorageService.set('savedSymbols', $scope.savedSymbols);
+            localStorageService.set('WatchList', $scope.watchList);
 
             $scope.selectSymbol($scope.watchList[0]);
           }
         };
 
-        $scope.selectSymbol = function(symbol) {
+        $scope.selectSymbol = function (symbol) {
 
           $scope.selectedSymbol = symbol;
 
-          $scope.preferences.lastSelectedSymbol = $scope.selectedSymbol;
+//          $scope.preferences.lastSelectedSymbol = $scope.selectedSymbol;
 
-          var selectedTab = Constants.historicalTabs[$scope.preferences.selectedHistoricalIndex];
+//          var selectedTab = Constants.historicalTabs[$scope.preferences.selectedHistoricalIndex];
+//
+//          symbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
 
-          symbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
-
-          localStorageService.set('preferences', $scope.preferences);
+//          localStorageService.set('preferences', $scope.preferences);
         };
 
       }

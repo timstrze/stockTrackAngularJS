@@ -1,0 +1,28 @@
+.watch-list {
+}
+
+.watch-list md-item-content {
+    display: -webkit-box;
+}
+
+.watch-list path {
+    stroke: steelblue;
+    stroke-width: 1;
+    fill: none;
+}
+
+.watch-list .selected {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f3f3f3+50,ededed+51,ffffff+100;White+Gloss+%232 */
+    background: rgb(255, 255, 255); /* Old browsers */
+    /* FF3.6+ */
+    /* Chrome,Safari4+ */
+    /* Chrome10+,Safari5.1+ */
+    /* Opera 11.10+ */
+    /* IE10+ */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(243, 243, 243, 1) 50%, rgba(237, 237, 237, 1) 51%, rgba(255, 255, 255, 1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0); /* IE6-9 */
+}
+
+/*.watch-list :focus {*/
+/*outline: rgba(0, 0, 0, 0.17) auto 5px;*/
+/*}*/

@@ -7,89 +7,156 @@
 
   <md-content>
     <md-toolbar>
-      <div class="md-toolbar-tools">
+      <div class="md-toolbar-tools" ng-show="symbol.Symbol">
         <h2>
-          <span style="text-transform: uppercase;">
-            {{symbol.Symbol}}: {{symbol.Name}}</span> <span ng-class="{positive: symbol.Change.indexOf('+') > -1, negative: symbol.Change.indexOf('-') > -1}">{{symbol.Ask}} {{symbol.Change}} ({{symbol.ChangeinPercent}})</span>
+            <span style="text-transform: uppercase;">
+              {{symbol.Symbol}}: {{symbol.Name}}
+            </span>
+            <span
+              ng-class="{positive: symbol.Change.indexOf('+') > -1, negative: symbol.Change.indexOf('-') > -1}">
+              {{symbol.Ask}} {{symbol.Change}} ({{symbol.ChangeinPercent}})
+            </span>
         </h2>
         <span flex></span>
-        <md-button class="md-icon-button" aria-label="Favorite">
-          <md-icon md-svg-icon="images/icons/favorite.svg" style="color: greenyellow;"></md-icon>
+
+        <md-button class="md-secondary" aria-label="Buy" ng-click="openBuyModal($event)">
+          Buy
         </md-button>
-        <md-button class="md-icon-button" aria-label="More">
-          <md-icon md-svg-icon="images/icons/more_vert.svg"></md-icon>
+
+        <md-button class="md-secondary" aria-label="Sell" ng-click="openSellModal($event)">
+          Sell
+        </md-button>
+
+        <md-button class="md-secondary" aria-label="News" ng-click="removeFromWatchlist(symbol, $event)">
+          Remove
         </md-button>
       </div>
     </md-toolbar>
 
-    <md-content class="md-padding autocomplete" layout="column">
-      <md-list class="fixedRows">
-        <md-list-item class="md-2-line symbol-details">
-          <div class="md-list-item-text compact">
-            <p>
+    <div class="tabbed-details">
+      <md-content class="md-padding">
+        <md-tabs md-dynamic-height="false" md-center-tabs="false" md-border-bottom>
+          <md-tab label="details">
+            <md-content class="md-padding autocomplete" layout="column">
+              <md-list class="fixedRows">
+                <md-list-item class="md-2-line symbol-details">
+                  <div class="md-list-item-text compact">
+                    <p>
+                      Ask: <span>{{symbol.Ask}}</span> <br/>
+                      Average Daily Volume: <span>{{symbol.AverageDailyVolume}}</span> <br/>
+                      Bid: <span>{{symbol.Bid}}</span> <br/>
+                      BookValue: <span>{{symbol.BookValue}}</span> <br/>
+                      Change:
+                      <color-number number="symbol.Change"></color-number>
+                      <br/>
+                      Change From Fifty day Moving Average:
+                      <color-number number="symbol.ChangeFromFiftydayMovingAverage"></color-number>
+                      <br/>
+                      Change From Two Hundred day Moving Average:
+                      <color-number number="symbol.ChangeFromTwoHundreddayMovingAverage"></color-number>
+                      <br/>
+                      Change From Year High:
+                      <color-number number="symbol.ChangeFromYearHigh"></color-number>
+                      <br/>
+                      Change From Year Low:
+                      <color-number number="symbol.ChangeFromYearLow"></color-number>
+                      <br/>
+                      Change in Percent:
+                      <color-number number="symbol.ChangeinPercent"></color-number>
+                      <br/>
+                      Days High: <span>{{symbol.DaysHigh}}</span> <br/>
+                      Days Low: <span>{{symbol.DaysLow}}</span> <br/>
+                      Days Range: <span>{{symbol.DaysRange}}</span> <br/>
+                      EBITDA: <span>{{symbol.EBITDA}}</span> <br/>
+                      EPS Estimate Current Year: <span>{{symbol.EPSEstimateCurrentYear}}</span>
+                    </p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line symbol-details">
+                  <div class="md-list-item-text compact">
+                    <p>
+                      EPS Estimate Next Quarter: <span>{{symbol.EPSEstimateNextQuarter}}</span> <br/>
+                      EPS Estimate Next Year: <span>{{symbol.EPSEstimateNextYear}}</span> <br/>
+                      Earnings Share: <span>{{symbol.EarningsShare}}</span> <br/>
+                      Fifty day Moving Average: <span>{{symbol.FiftydayMovingAverage}}</span> <br/>
+                      Last Trade Date: <span>{{symbol.LastTradeDate}}</span> <br/>
+                      Last Trade Price Only: <span>{{symbol.LastTradePriceOnly}}</span> <br/>
+                      Last Trade Time: <span>{{symbol.LastTradeTime}}</span> <br/>
+                      Last Trade With Time: <span>{{symbol.LastTradeWithTime}}</span> <br/>
+                      Market Capitalization: <span>{{symbol.MarketCapitalization}}</span> <br/>
+                      One yr Target Price: <span>{{symbol.OneyrTargetPrice}}</span> <br/>
+                      Open: <span>{{symbol.Open}}</span> <br/>
+                      PEG Ratio: <span>{{symbol.PEGRatio}}</span> <br/>
+                      Percent Change From Year High:
+                      <color-number number="symbol.PercebtChangeFromYearHigh"></color-number>
+                      <br/>
+                      Percent Change:
+                      <color-number number="symbol.PercentChange"></color-number>
+                      <br/>
+                      PercentChange From Fifty day Moving Average:
+                      <color-number number="symbol.PercentChangeFromFiftydayMovingAverage"></color-number>
+                    </p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line symbol-details">
+                  <div class="md-list-item-text compact">
+                    <p>
+                      Percent Change From Two Hundred day Moving Average:
+                      <color-number number="symbol.PercentChangeFromTwoHundreddayMovingAverage"></color-number>
+                      <br/>
+                      Percent Change From Year Low:
+                      <color-number number="symbol.PercentChangeFromYearLow"></color-number>
+                      <br/>
+                      Previous Close: <span>{{symbol.PreviousClose}}</span> <br/>
+                      Price Book: <span>{{symbol.PriceBook}}</span> <br/>
+                      Price EPS Estimate Next Year: <span>{{symbol.PriceEPSEstimateNextYear}}</span> <br/>
+                      Price Sales: <span>{{symbol.PriceSales}}</span> <br/>
+                      Short Ratio: <span>{{symbol.ShortRatio}}</span> <br/>
+                      Stock Exchange: <span>{{symbol.StockExchange}}</span> <br/>
+                      Two Hundred day Moving Average: <span>{{symbol.YearRange}}</span> <br/>
+                      Volume: <span>{{symbol.Volume}}</span> <br/>
+                      Year High: <span>{{symbol.YearHigh}}</span> <br/>
+                      Year Low: <span>{{symbol.YearLow}}</span> <br/>
+                      Year Range: <span>{{symbol.YearRange}}</span>
+                    </p>
+                  </div>
+                </md-list-item>
+              </md-list>
+            </md-content>
+          </md-tab>
+          <md-tab label="earnings">
+            <md-content class="md-padding">
+              <h1 class="md-display-2">Earnings from {{symbol.Symbol}}</h1>
 
-              Ask: <span>{{symbol.Open}}</span> <br />
-              Average Daily Volume: <span>{{symbol.AverageDailyVolume}}</span> <br />
-              Bid: <span>{{symbol.Bid}}</span> <br />
-              BookValue: <span>{{symbol.BookValue}}</span> <br />
-              Change: <color-number number="symbol.Change"></color-number> <br />
-              Change From Fifty day Moving Average: <color-number number="symbol.ChangeFromFiftydayMovingAverage"></color-number> <br />
-              Change From Two Hundred day Moving Average: <color-number number="symbol.ChangeFromTwoHundreddayMovingAverage"></color-number> <br />
-              Change From Year High: <color-number number="symbol.ChangeFromYearHigh"></color-number> <br />
-              Change From Year Low: <color-number number="symbol.ChangeFromYearLow"></color-number> <br />
-              Change in Percent: <color-number number="symbol.ChangeinPercent"></color-number> <br />
-              DaysHigh: <span>{{symbol.DaysHigh}}</span> <br />
-              DaysLow: <span>{{symbol.DaysLow}}</span> <br />
-              DaysRange: <span>{{symbol.DaysRange}}</span> <br />
-              EBITDA: <span>{{symbol.EBITDA}}</span> <br />
-              EPS Estimate Current Year: <span>{{symbol.EPSEstimateCurrentYear}}</span>
-            </p>
-          </div>
-        </md-list-item>
-        <md-list-item class="md-2-line symbol-details">
-          <div class="md-list-item-text compact">
-            <p>
-              EPS Estimate Next Quarter: <span>{{symbol.EPSEstimateNextQuarter}}</span> <br />
-              EPS Estimate Next Year: <span>{{symbol.EPSEstimateNextYear}}</span> <br />
-              Earnings Share: <span>{{symbol.EarningsShare}}</span> <br />
-              Fifty day Moving Average: <span>{{symbol.FiftydayMovingAverage}}</span> <br />
-              Last Trade Date: <span>{{symbol.LastTradeDate}}</span> <br />
-              Last Trade Price Only: <span>{{symbol.LastTradePriceOnly}}</span> <br />
-              Last Trade Time: <span>{{symbol.LastTradeTime}}</span> <br />
-              Last Trade With Time: <span>{{symbol.LastTradeWithTime}}</span> <br />
-              Market Capitalization: <span>{{symbol.MarketCapitalization}}</span> <br />
-              One yr Target Price: <span>{{symbol.OneyrTargetPrice}}</span> <br />
-              Open: <span>{{symbol.Open}}</span> <br />
-              PEG Ratio: <span>{{symbol.PEGRatio}}</span> <br />
-              Percent Change From Year High: <color-number number="symbol.PercebtChangeFromYearHigh"></color-number> <br />
-              Percent Change: <color-number number="symbol.PercentChange"></color-number> <br />
-              PercentChange From Fifty day Moving Average: <color-number number="symbol.PercentChangeFromFiftydayMovingAverage"></color-number>
-            </p>
-          </div>
-        </md-list-item>
-        <md-list-item class="md-2-line symbol-details">
-          <div class="md-list-item-text compact">
-            <p>
-              Percent Change From Two Hundred day Moving Average: <color-number number="symbol.PercentChangeFromTwoHundreddayMovingAverage"></color-number> <br />
-              Percent Change From Year Low: <color-number number="symbol.PercentChangeFromYearLow"></color-number> <br />
-              Previous Close: <span>{{symbol.PreviousClose}}</span> <br />
-              Price Book: <span>{{symbol.PriceBook}}</span> <br />
-              Price EPS Estimate Next Year: <span>{{symbol.PriceEPSEstimateNextYear}}</span> <br />
-              Price Sales: <span>{{symbol.PriceSales}}</span> <br />
-              Short Ratio: <span>{{symbol.ShortRatio}}</span> <br />
-              Stock Exchange: <span>{{symbol.StockExchange}}</span> <br />
-              Two Hundred day Moving Average: <span>{{symbol.YearRange}}</span> <br />
-              Volume: <span>{{symbol.Volume}}</span> <br />
-              Year High: <span>{{symbol.YearHigh}}</span> <br />
-              Year Low: <span>{{symbol.YearLow}}</span> <br />
-              Year Range: <span>{{symbol.YearRange}}</span>
-            </p>
-          </div>
-        </md-list-item>
-      </md-list>
-    </md-content>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat
+                neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas
+                lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam
+                placerat,
+                tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis
+                sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada
+                consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod
+                ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis,
+                iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur
+                faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus
+                mauris semper.</p>
+            </md-content>
+          </md-tab>
+          <md-tab label="news">
+            <md-content class="md-padding">
+              <h1 class="md-display-2">News for {{symbol.Name}}</h1>
 
-    <md-tabs md-selected="preferences.selectedHistoricalIndex" md-border-bottom  md-stretch-tabs="always" style="min-height: inherit !important;">
+              <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie
+                dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi.
+                Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu
+                enim scelerisque, finibus commodo lectus.</p>
+            </md-content>
+          </md-tab>
+        </md-tabs>
+      </md-content>
+    </div>
+
+    <md-tabs md-selected="preferences.selectedHistoricalIndex" md-border-bottom md-stretch-tabs="always"
+             style="min-height: inherit !important;">
       <md-tab ng-repeat="tab in Constants.historicalTabs"
               ng-disabled="tab.disabled"
               label="{{tab.title}}"
