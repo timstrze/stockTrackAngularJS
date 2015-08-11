@@ -7,11 +7,10 @@
  * User service that contains all the properties and methods for a user
  */
 angular.module('stockTrackAngularJsApp')
-  .factory('User', function (Symbol, Constants, localStorageService, $resource) {
+  .factory('User', function (Symbol, Constants, localStorageService, $resource, SymbolList) {
 
     var symbolsInStore = localStorageService.get('Symbols');
     var preferencesInStore = localStorageService.get('Preferences');
-
 
     var User = function (properties) {
       var _this = this;
@@ -19,7 +18,6 @@ angular.module('stockTrackAngularJsApp')
         _this[property] = properties[property];
       });
     };
-
 
     User.http = $resource('json/user.json/:id', {
       id: '@id'
@@ -29,25 +27,34 @@ angular.module('stockTrackAngularJsApp')
       }
     });
 
-    User.prototype.getWatchListData = function () {
-      var _this = this;
+    User.prototype.initSymbolList = function () {
+      return SymbolList.init(this.WatchList, this.Positions);
+    };
 
-      Symbol.http.all({list: this.WatchList.map(function(item) {return item.Symbol})},
-        function (data) {
-          var tmpWatchList = [];
+    User.prototype.updatePositionSymbols = function () {
+      var symbols = SymbolList.Symbols;
+      angular.forEach(this.Positions, function(position) {
+        angular.forEach(symbols, function(smbl) {
+          if(smbl.symbol.toLowerCase() === position.symbol.toLowerCase()) {
+            position.Symbol = smbl;
+          }
+        });
+      });
+    };
 
-          if(data.query.results) {
+    User.prototype.updateWatchlistSymbols = function () {
+      var symbols = SymbolList.Symbols;
+      angular.forEach(this.WatchList, function(watchList) {
+        angular.forEach(symbols, function(smbl) {
+          if(smbl.symbol.toLowerCase() === watchList.symbol.toLowerCase()) {
+            watchList.Symbol = smbl;
+          }
+        });
+      });
 
-            angular.forEach(data.query.results.quote, function (quote) {
-              var symbol = new Symbol(quote);
-              tmpWatchList.push(symbol);
-            });
+//        localStorageService.set('WatchList', _this.WatchList);
 
-            _this.WatchList = tmpWatchList;
-
-            localStorageService.set('WatchList', _this.WatchList);
-
-            _this.selectedSymbol = _this.WatchList[0];
+//        _this.selectedSymbol = _this.WatchList[0];
 
 
 //            if (_this.preferences.lastSelectedSymbol) {
@@ -71,9 +78,8 @@ angular.module('stockTrackAngularJsApp')
 //            var selectedTab = Constants.historicalTabs[_this.preferences.selectedHistoricalIndex || 2];
 //            //
 //            _this.selectedSymbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
-          }
-        }
-      );
+
+
     };
 
     return User;

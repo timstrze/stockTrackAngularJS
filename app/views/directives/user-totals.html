@@ -1,0 +1,14 @@
+<div class="user-totals">
+  <md-button class="md-secondary" aria-label="Daily P/L">
+    Daily P/L: {{dailyPNL | currency}}
+  </md-button>
+  <md-button class="md-secondary" aria-label="Total P/L">
+    Total P/L: {{totalPNL | currency}}
+  </md-button>
+  <md-button class="md-secondary" aria-label="Total Value">
+    Total Value: {{totalValue | currency}}
+  </md-button>
+  <md-button class="md-secondary" aria-label="Available Cash">
+    Available Cash: {{user.availableCash | currency}}
+  </md-button>
+</div>

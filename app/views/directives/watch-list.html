@@ -23,17 +23,17 @@
 
         <md-content style="max-height:839px;">
             <md-list>
-                <md-list-item class="md-3-line" ng-repeat="symbol in watchList" ng-click="selectSymbol(symbol)"
-                              ng-class="{selected: symbol == selectedSymbol}">
+                <md-list-item class="md-3-line" ng-repeat="symbol in watchList" ng-click="selectSymbol(symbol.Symbol)"
+                              ng-class="{selected: symbol.Symbol == selectedSymbol}">
                     <div class="md-list-item-text">
-                        <h3><span style="text-transform: uppercase;">{{symbol.Symbol}}:</span> <span
-                                ng-class="{positive: symbol.Change.indexOf('+') > -1, negative: symbol.Change.indexOf('-') > -1}">{{symbol.Ask}} {{symbol.Change}} ({{symbol.ChangeinPercent}})</span>
+                        <h3><span style="text-transform: uppercase;">{{symbol.Symbol.Symbol}}:</span> <span
+                                ng-class="{positive: symbol.Symbol.Change.indexOf('+') > -1, negative: symbol.Symbol.Change.indexOf('-') > -1}">{{symbol.Symbol.Ask}} {{symbol.Symbol.Change}} ({{symbol.Symbol.ChangeinPercent}})</span>
                         </h3>
-                        <h4>{{symbol.Name}}</h4>
+                        <h4>{{symbol.Symbol.Name}}</h4>
                         <spark-line></spark-line>
                         <!--<p>-->
-                        <!--Open: {{symbol.Open}} <br />-->
-                        <!--Change: {{symbol.Change}}-->
+                        <!--Open: {{symbol.Symbol.Open}} <br />-->
+                        <!--Change: {{symbol.Symbol.Change}}-->
                         <!--</p>-->
                     </div>
                     <md-divider ng-if="!$last"></md-divider>

@@ -10,17 +10,23 @@
     <file url="file://$PROJECT_DIR$/app/scripts/directives/color-number.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/positions.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/spark-line.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/directives/user-preferences.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/directives/user-totals.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/watch-list-details.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/watch-list.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/position.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/services/symbol-list.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/user.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/styles/directives/modals/buy.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/styles/directives/user-preferences.css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/styles/directives/watch-list-details.css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/styles/directives/watch-list.css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/styles/main.css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/directives/color-number.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/directives/modals/buy.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/directives/positions.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/directives/user-preferences.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/directives/user-totals.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/directives/watch-list-details.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/directives/watch-list.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/main.html" charset="UTF-8" />

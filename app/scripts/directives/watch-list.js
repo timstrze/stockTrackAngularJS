@@ -46,9 +46,13 @@ angular.module('stockTrackAngularJsApp')
               return false;
             }
 
-            $scope.watchList.unshift(new Symbol(item));
+            // Add new symbol to the symbol list
+//            $scope.watchList.unshift({
+//              symbol: item.symbol,
+//              Symbol: new Symbol(item)
+//            });
 
-            localStorageService.set('WatchList', $scope.watchList);
+//            localStorageService.set('WatchList', $scope.watchList);
 
             $scope.selectSymbol($scope.watchList[0]);
           }

@@ -2,7 +2,6 @@
      style="position: fixed; top: -14px; left: 0px; width: 100%; z-index: 9999;">
   <md-progress-linear md-mode="indeterminate"></md-progress-linear>
 </div>
-
 <md-content>
   <md-toolbar>
     <div class="md-toolbar-tools">
@@ -10,9 +9,7 @@
         <span>StockTracker</span>
       </h2>
       <span flex></span>
-      <h4>
-        Dly PnL: {{User.dailyPNL | currency}} PnL: {{User.overallPNL | currency}} Available: {{User.availableCash | currency}}
-      </h4>
+      <user-totals user="User"></user-totals>
       <span flex></span>
       <md-button class="md-secondary" aria-label="Watchlist" ng-click="watchlistToggle()">
         Watchlist ({{User.WatchList.length}})
@@ -52,20 +49,7 @@
     </watch-list-details>
 
     <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="user-preferences">
-      <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">Preferences</h1>
-      </md-toolbar>
-      <md-content class="md-padding">
-        <!--<md-button ng-click="closeUserPrefs()" class="md-primary">-->
-        <!--{{User.firstName}} {{User.lastName}}-->
-        <!--</md-button>-->
-        <input type="text" ng-model="User.firstName" />
-        <input type="text" ng-model="User.lastName" />
-        <input type="email" ng-model="User.email" />
-        <p>Daily PNL: {{User.dailyPNL | currency}}</p>
-        <p>Overall PNL: {{User.overallPNL | currency}}</p>
-        <p>Available Cash: {{User.availableCash | currency}}</p>
-      </md-content>
+      <user-preferences user="User"></user-preferences>
     </md-sidenav>
   </section>
 </div>

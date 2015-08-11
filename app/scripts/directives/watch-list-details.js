@@ -71,7 +71,7 @@ angular.module('stockTrackAngularJsApp')
                   symbol: $scope.symbol.Symbol,
                   ask: $scope.symbol.Ask,
                   quantity: $scope.quantity,
-                  created: $filter('date')(new Date(), 'yyyy-MM-dd')
+                  created: $filter('date')(new Date(), 'medium')
                 });
 
                 $scope.user.availableCash = $scope.user.availableCash - ($scope.quantity * $scope.symbol.Ask);

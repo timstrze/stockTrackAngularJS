@@ -17,9 +17,6 @@ angular.module('stockTrackAngularJsApp')
       });
     };
 
-    Position.prototype.historicalData = {};
-
-
     return Position;
 
   });
