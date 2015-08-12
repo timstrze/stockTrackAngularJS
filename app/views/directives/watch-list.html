@@ -1,6 +1,14 @@
 <div class="watch-list">
-    <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Watchlist ({{watchList.length}})</h1>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>
+          Watchlist ({{watchList.length}})
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Refresh" ng-click="refreshSymbols()">
+          <ng-md-icon icon="refresh" style="fill: #fff" size="22"></ng-md-icon>
+        </md-button>
+      </div>
     </md-toolbar>
 
     <md-content>

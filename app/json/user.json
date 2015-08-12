@@ -6,7 +6,7 @@
   "address2": "#9",
   "city": "Chicago",
   "state": "Il",
-  "zip": "60610",
+  "postalCode": "60610",
   "email": "timstrze@gmail.com",
 
   "availableCash": 15000,
@@ -78,7 +78,9 @@
   ],
 
   "Preferences": {
-    "selectedHistoricalIndex": 2
+    "selectedHistoricalIndex": 2,
+    "refreshState": false,
+    "refreshRate": 10000
   }
 
 }

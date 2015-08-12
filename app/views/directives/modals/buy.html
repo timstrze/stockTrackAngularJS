@@ -2,13 +2,13 @@
     <form>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>
-          <span style="text-transform: uppercase;">
-            {{symbol.Symbol}}:
-          </span>
-          <span ng-class="{positive: symbol.Change.indexOf('+') > -1, negative: symbol.Change.indexOf('-') > -1}">
-            {{symbol.Ask}} {{symbol.Change}} ({{symbol.ChangeinPercent}})
-          </span>
+                <h2>Buy
+                  <span style="text-transform: uppercase;">
+                    {{symbol.Symbol}}:
+                  </span>
+                  <span ng-class="{positive: symbol.Change.indexOf('+') > -1, negative: symbol.Change.indexOf('-') > -1}">
+                    {{symbol.Ask}} {{symbol.Change}} ({{symbol.ChangeinPercent}})
+                  </span>
                 </h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">

@@ -1,56 +1,66 @@
-<div class="watch-list">
-    <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Positions ({{positions.length}})</h1>
-    </md-toolbar>
+<div class="positions">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>
+        Positions ({{positions.length}})
+      </h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Refresh" ng-click="refreshSymbols()">
+        <ng-md-icon icon="refresh" style="fill: #fff" size="22"></ng-md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
 
-    <md-content>
-        <md-button ng-click="closePositions()" class="md-primary" hide-gt-md>
-            Close Positions
-        </md-button>
+  <md-content>
+    <md-button ng-click="closePositions()" class="md-primary" hide-gt-md>
+      Close Positions
+    </md-button>
 
-        <form ng-submit="$event.preventDefault()">
-          <md-input-container flex style="padding-bottom: 0;">
-            <label>Filter Positions</label>
-            <input ng-model="searchText">
-          </md-input-container>
-        </form>
+    <form ng-submit="$event.preventDefault()">
+      <md-input-container flex style="padding-bottom: 0;">
+        <label>Filter Positions</label>
+        <input ng-model="searchText">
+      </md-input-container>
+    </form>
 
-        <md-content style="max-height:839px;">
-            <md-list>
-                <md-list-item class="md-3-line" ng-repeat="position in positions | filter:searchText" ng-click="selectPosition(position)"
-                              ng-class="{selected: false}">
-                    <div class="md-list-item-text">
+    <md-content style="max-height:839px;">
+      <md-list>
+        <md-list-item class="md-3-line" ng-repeat="position in positions | filter:searchText"
+                      ng-click="selectPosition(position)"
+                      ng-class="{selected: false}">
+          <div class="md-list-item-text">
 
-                      <h3>
-                        <span style="text-transform: uppercase;">{{position.Symbol.Symbol}}:</span> <span
-                          ng-class="{positive: position.Symbol.Change.indexOf('+') > -1, negative: position.Symbol.Change.indexOf('-') > -1}">{{position.Symbol.Ask}} {{position.Symbol.Change}} ({{position.Symbol.ChangeinPercent}})</span>
-                      </h3>
-                      <h4>Quantity: {{position.totalQuantity}} Value: {{position.totalValue | currency}}</h4>
-                      <p>
-                        Daily P/L: {{position.dailyPNL | currency}}
-                        Total P/L: {{position.totalPNL | currency}}
-                      </p>
-                      <!--<md-list>-->
-                        <!--<md-list-item ng-repeat="buy in position.buys">-->
-                          <!--ask: {{buy.ask}} <br />-->
-                          <!--quantity: {{buy.quantity}} <br />-->
-                          <!--created: {{buy.created}}-->
-                        <!--</md-list-item>-->
-                      <!--</md-list>-->
-                      <p>
-                        <!--Current Ask: {{position.Symbol.Ask | currency}} <br />-->
-                        <!--Original Total: {{position.ask * position.quantity | currency}} <br />-->
-                        <!--Current Total: {{position.Symbol.Ask * position.quantity | currency}} <br />-->
-                        <!--Total Earnings: {{(position.Symbol.Ask * position.quantity) - (position.ask * position.quantity) | currency}} <br />-->
-                        <!--Previous Close: {{position.Symbol.PreviousClose | currency}} <br />-->
-                        <!--Today's Earnings: {{(position.Symbol.Ask * position.quantity) - (position.Symbol.PreviousClose * position.quantity) | currency}} <br />-->
-                        <!--Created: {{position.created}}-->
-                      </p>
-                    </div>
-                    <md-divider ng-if="!$last"></md-divider>
-                </md-list-item>
-            </md-list>
-        </md-content>
+            <h3>
+              <span style="text-transform: uppercase;">{{position.Symbol.Symbol}}:</span> <span
+              ng-class="{positive: position.Symbol.Change.indexOf('+') > -1, negative: position.Symbol.Change.indexOf('-') > -1}">{{position.Symbol.Ask}} {{position.Symbol.Change}} ({{position.Symbol.ChangeinPercent}})</span>
+            </h3>
+            <h4>Quantity: {{position.totalQuantity}} Value: {{position.totalValue | currency}}</h4>
 
+            <p>
+              Daily P/L: {{position.dailyPNL | currency}}
+              Total P/L: {{position.totalPNL | currency}}
+            </p>
+            <!--<md-list>-->
+            <!--<md-list-item ng-repeat="buy in position.buys">-->
+            <!--ask: {{buy.ask}} <br />-->
+            <!--quantity: {{buy.quantity}} <br />-->
+            <!--created: {{buy.created}}-->
+            <!--</md-list-item>-->
+            <!--</md-list>-->
+            <p>
+              <!--Current Ask: {{position.Symbol.Ask | currency}} <br />-->
+              <!--Original Total: {{position.ask * position.quantity | currency}} <br />-->
+              <!--Current Total: {{position.Symbol.Ask * position.quantity | currency}} <br />-->
+              <!--Total Earnings: {{(position.Symbol.Ask * position.quantity) - (position.ask * position.quantity) | currency}} <br />-->
+              <!--Previous Close: {{position.Symbol.PreviousClose | currency}} <br />-->
+              <!--Today's Earnings: {{(position.Symbol.Ask * position.quantity) - (position.Symbol.PreviousClose * position.quantity) | currency}} <br />-->
+              <!--Created: {{position.created}}-->
+            </p>
+          </div>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+      </md-list>
     </md-content>
+
+  </md-content>
 </div>

@@ -28,7 +28,7 @@ angular.module('stockTrackAngularJsApp')
     });
 
     User.prototype.initSymbolList = function () {
-      return SymbolList.init(this.WatchList, this.Positions);
+      return SymbolList.init(this.WatchList, this.Positions, this.Preferences);
     };
 
     User.prototype.updatePositionSymbols = function () {

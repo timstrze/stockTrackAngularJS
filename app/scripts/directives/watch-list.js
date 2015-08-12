@@ -7,7 +7,7 @@
  * # watchList
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('watchList', function (Symbol, Constants, localStorageService, $mdSidenav) {
+  .directive('watchList', function (Symbol, Constants, localStorageService, $mdSidenav, SymbolList) {
     return {
       scope: {
 //        savedSymbols: '=',
@@ -37,6 +37,10 @@ angular.module('stockTrackAngularJsApp')
           }
         };
 
+        $scope.refreshSymbols = function() {
+          SymbolList.refreshSymbols();
+        };
+
         $scope.chooseSymbol = function (item) {
           if (item) {
             $scope.searchText = '';
@@ -47,14 +51,14 @@ angular.module('stockTrackAngularJsApp')
             }
 
             // Add new symbol to the symbol list
-//            $scope.watchList.unshift({
-//              symbol: item.symbol,
-//              Symbol: new Symbol(item)
-//            });
+            $scope.watchList.unshift({
+              symbol: item.symbol,
+              Symbol: SymbolList.addSymbol(item)
+            });
 
 //            localStorageService.set('WatchList', $scope.watchList);
 
-            $scope.selectSymbol($scope.watchList[0]);
+            $scope.selectSymbol($scope.watchList[0].Symbol);
           }
         };
 

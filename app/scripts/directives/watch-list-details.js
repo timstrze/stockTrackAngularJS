@@ -7,7 +7,7 @@
  * # watchListDetails
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('watchListDetails', function (Constants, localStorageService, $mdSidenav, $mdDialog, $window, $filter) {
+  .directive('watchListDetails', function (Constants, localStorageService, $mdSidenav, $mdDialog, $window, $filter, SymbolList) {
     return {
       restrict: 'E',
       scope: {
@@ -34,9 +34,16 @@ angular.module('stockTrackAngularJsApp')
             .cancel('Keep')
             .targetEvent(event);
           $mdDialog.show(confirm).then(function() {
-            var index = $scope.user.WatchList.indexOf(item);
+
+            SymbolList.removeSymbol(item);
+
+            var index = $scope.user.WatchList.map(function(wlSymbol) {
+              return wlSymbol.Symbol;
+            }).indexOf(item);
+
             $scope.user.WatchList.splice(index, 1);
-            $scope.user.selectedSymbol = $scope.user.WatchList[0];
+            $scope.user.selectedSymbol = $scope.user.WatchList[0].Symbol;
+
           });
 
         };
@@ -61,22 +68,39 @@ angular.module('stockTrackAngularJsApp')
               $scope.buy = function () {
 
                 if(($scope.user.availableCash - ($scope.quantity * $scope.symbol.Ask) < 0)) {
-                  $window.alert('not enough cash');
+                  $window.alert('Sorry, not enough available cash for this transaction.');
                   return false;
                 }
 
-                $scope.user.Positions.unshift({
-                  name: $scope.symbol.Name,
-                  Symbol: $scope.symbol,
-                  symbol: $scope.symbol.Symbol,
-                  ask: $scope.symbol.Ask,
-                  quantity: $scope.quantity,
-                  created: $filter('date')(new Date(), 'medium')
+                var isInPositions = $scope.user.Positions.some(function(position) {
+                  return position.Symbol.Symbol.toLowerCase() === $scope.symbol.Symbol.toLowerCase()
                 });
+
+                if(isInPositions) {
+                  angular.forEach($scope.user.Positions, function(position) {
+                    if(position.Symbol.Symbol.toLowerCase() === $scope.symbol.Symbol.toLowerCase()) {
+                      position.buys.push({
+                        ask: $scope.symbol.Ask,
+                        quantity: $scope.quantity,
+                        created: $filter('date')(new Date(), 'medium')
+                      });
+                    }
+                  });
+                } else {
+                  $scope.user.Positions.unshift({
+                    Symbol: $scope.symbol,
+                    symbol: $scope.symbol.Symbol,
+                    buys: [{
+                      ask: $scope.symbol.Ask,
+                      quantity: $scope.quantity,
+                      created: $filter('date')(new Date(), 'medium')
+                    }]
+                  });
+                }
 
                 $scope.user.availableCash = $scope.user.availableCash - ($scope.quantity * $scope.symbol.Ask);
 
-                localStorageService.set('Positions', $scope.user.Positions);
+//                localStorageService.set('Positions', $scope.user.Positions);
 
                 $mdDialog.cancel();
               };

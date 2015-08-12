@@ -1,35 +1,90 @@
 <div layout="column" class="user-preferences">
   <md-toolbar class="md-primary">
     <h1 class="md-toolbar-tools">
-      Top Secret Project
+      User Settings
     </h1>
   </md-toolbar>
+
   <md-content layout-padding>
-    <form name="projectForm">
-      <md-input-container>
-        <label>Description</label>
-        <input md-maxlength="30" required name="description" ng-model="project.description">
-        <div ng-messages="projectForm.description.$error">
-          <div ng-message="required">This is required.</div>
-          <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-        </div>
+    <form name="userForm">
+      <md-input-container flex>
+        <label>Company</label>
+        <input ng-model="user.company">
       </md-input-container>
-      <md-input-container>
-        <label>Client Name</label>
-        <input required name="clientName" ng-model="project.clientName">
-        <div ng-messages="projectForm.clientName.$error">
+
+      <md-input-container flex>
+        <label>First Name</label>
+        <input required name="firstName" ng-model="user.firstName">
+        <div ng-messages="userForm.firstName.$error">
           <div ng-message="required">This is required.</div>
         </div>
       </md-input-container>
-      <md-input-container>
-        <label>Hourly Rate (USD)</label>
-        <input required type="number" step="any" name="rate" ng-model="project.rate" min="800" max="4999">
-        <div ng-messages="projectForm.rate.$error">
-          <div ng-message="required">You've got to charge something! You can't just <b>give away</b> a Missile Defense System.</div>
-          <div ng-message="min">You should charge at least $800 an hour. This job is a big deal... if you mess up, everyone dies!</div>
-          <div ng-message="max">$5,000 an hour? That's a little ridiculous. I doubt event Bill Clinton could afford that.</div>
+      <md-input-container flex>
+        <label>Last Name</label>
+        <input required name="lastName" ng-model="user.lastName">
+        <div ng-messages="userForm.lastName.$error">
+          <div ng-message="required">This is required.</div>
         </div>
       </md-input-container>
+
+      <md-input-container flex>
+        <label>Address</label>
+        <input required name="address" ng-model="user.address">
+        <div ng-messages="userForm.address.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+      <md-input-container md-no-float>
+        <input ng-model="user.address2" placeholder="Address 2">
+      </md-input-container>
+
+      <div layout layout-sm="column">
+        <md-input-container flex>
+          <label>City</label>
+          <input required name="city" ng-model="user.city">
+          <div ng-messages="userForm.city.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex>
+          <label>State</label>
+          <input required name="state" ng-model="user.state">
+          <div ng-messages="userForm.state.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <md-input-container flex>
+        <label>Postal Code</label>
+        <input required name="postalCode" ng-model="user.postalCode">
+        <div ng-messages="userForm.postalCode.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+
     </form>
   </md-content>
+
+  <md-content layout-padding>
+    <md-switch ng-model="user.Preferences.refreshState" aria-label="Symbol Refresh" ng-change="symbolRefreshChange()">
+      Symbol Refresh: {{(user.Preferences.refreshState) ? "On" : "Off"}}
+    </md-switch>
+
+    <md-input-container>
+      <md-select ng-model="user.Preferences.refreshRate"
+                 aria-label="Refresh Rate"
+                 ng-disabled="!user.Preferences.refreshState"
+                 ng-change="symbolRefreshChange()">
+        <md-option value="10000">10 Seconds</md-option>
+        <md-option value="20000">20 Seconds</md-option>
+        <md-option value="30000">30 Seconds</md-option>
+        <md-option value="60000">1 Minute</md-option>
+        <md-option value="300000">5 Minutes</md-option>
+        <md-option value="1800000">30 Minutes</md-option>
+      </md-select>
+    </md-input-container>
+
+  </md-content>
+
 </div>
