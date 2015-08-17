@@ -10,7 +10,7 @@ angular.module('stockTrackAngularJsApp')
   .directive('positions', function (SymbolList) {
     return {
       scope: {
-        positions: "="
+        positions: '='
       },
       templateUrl: 'views/directives/positions.html',
       restrict: 'E',
@@ -32,11 +32,11 @@ angular.module('stockTrackAngularJsApp')
                 var todaysDate = new Date();
 
                 //call setHours to take the time out of the comparison
-                if(new Date(buy.created).setHours(0,0,0,0) == todaysDate.setHours(0,0,0,0)) {
+                if(new Date(buy.created).setHours(0,0,0,0) === todaysDate.setHours(0,0,0,0)) {
                   //Date equals today's date
-                  dailyPNL = (position.Symbol.Ask * totalQuantity) - (buy.ask * totalQuantity)
+                  dailyPNL = (position.Symbol.Ask * totalQuantity) - (buy.ask * totalQuantity);
                 }else {
-                  dailyPNL = (position.Symbol.Ask * totalQuantity) - (position.Symbol.PreviousClose * totalQuantity)
+                  dailyPNL = (position.Symbol.Ask * totalQuantity) - (position.Symbol.PreviousClose * totalQuantity);
                 }
               }
             });
@@ -58,7 +58,7 @@ angular.module('stockTrackAngularJsApp')
           if($scope.positions) {
             totalPositions();
           }
-        }, true)
+        }, true);
       }
     };
   });

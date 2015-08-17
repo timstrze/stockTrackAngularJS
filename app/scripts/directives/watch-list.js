@@ -46,7 +46,7 @@ angular.module('stockTrackAngularJsApp')
             $scope.searchText = '';
 
             // Check for duplicate entries
-            if($scope.watchList.some(function(wlItem) {return wlItem.symbol.toLowerCase() === item.symbol.toLowerCase()})) {
+            if($scope.watchList.some(function(wlItem) {return wlItem.symbol.toLowerCase() === item.symbol.toLowerCase();})) {
               return false;
             }
 

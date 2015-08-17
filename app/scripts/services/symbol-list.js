@@ -24,7 +24,7 @@ angular.module('stockTrackAngularJsApp')
 
         if(isInPositions.length === 0) {
           var index = this.Symbols.indexOf(item);
-          this.Symbols.splice(index, 1)
+          this.Symbols.splice(index, 1);
         }
 
         return this.Symbols;
@@ -36,7 +36,10 @@ angular.module('stockTrackAngularJsApp')
         if(index > -1) {
           return this.Symbols[index];
         }else{
-          var newSymbol = new Symbol(item);
+          // https://jslinterrors.com/do-not-use-a-as-a-constructor
+          var SSymbol = Symbol;
+          //
+          var newSymbol = new SSymbol(item);
           this.Symbols.push(newSymbol);
           return newSymbol;
         }
@@ -45,7 +48,7 @@ angular.module('stockTrackAngularJsApp')
       refreshSymbols: function() {
         var _this = this;
 
-        Symbol.http.all({list: this.Symbols.map(function(item) {return item.symbol})}, function (data) {
+        Symbol.http.all({list: this.Symbols.map(function(item) {return item.symbol;})}, function (data) {
 
           if(data.query.results) {
 
@@ -66,13 +69,13 @@ angular.module('stockTrackAngularJsApp')
 
         });
 
-        console.log("Refreshing Symbols: " + $filter('date')(new Date(), 'medium'));
+        console.log('Refreshing Symbols: ' + $filter('date')(new Date(), 'medium'));
       },
 
       init: function(watchList, positions, preferences) {
         var _this = this;
-        var wl = watchList.map(function(item) {return item.symbol});
-        var ps = positions.map(function(item) {return item.symbol});
+        var wl = watchList.map(function(item) {return item.symbol;});
+        var ps = positions.map(function(item) {return item.symbol;});
 
         var sList = wl.concat(ps.filter(function (item) {
           return wl.indexOf(item) < 0;
@@ -85,8 +88,10 @@ angular.module('stockTrackAngularJsApp')
           if(data.query.results) {
 
             angular.forEach(data.query.results.quote, function (quote) {
+              // https://jslinterrors.com/do-not-use-a-as-a-constructor
+              var SSymbol = Symbol;
               //
-              var symbol = new Symbol(quote);
+              var symbol = new SSymbol(quote);
               //
               symbol.askHistory.push(quote.Ask);
               //

@@ -6,13 +6,38 @@ describe('Service: User', function () {
   beforeEach(module('stockTrackAngularJsApp'));
 
   // instantiate service
-  var User;
-  beforeEach(inject(function (_User_) {
+  var User, SymbolList;
+
+  beforeEach(inject(function (_User_, _SymbolList_) {
     User = _User_;
+    SymbolList = _SymbolList_;
   }));
 
-  it('should do something', function () {
-    expect(!!User).toBe(true);
+
+  describe('User.initSymbolList', function() {
+
+    it('sets the showWatchlist to true and showPositions to false', function() {
+//      SymbolList.init should have been called
+
+    });
+  });
+
+
+  describe('User.updatePositionSymbols', function() {
+
+    it('sets the showWatchlist to true and showPositions to false', function() {
+//      SymbolList.init should have been called
+
+    });
+  });
+
+
+  describe('User.updateWatchlistSymbols', function() {
+
+    it('sets the showWatchlist to true and showPositions to false', function() {
+//      SymbolList.init should have been called
+
+    });
   });
 
 });

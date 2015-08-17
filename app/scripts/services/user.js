@@ -9,8 +9,8 @@
 angular.module('stockTrackAngularJsApp')
   .factory('User', function (Symbol, Constants, localStorageService, $resource, SymbolList) {
 
-    var symbolsInStore = localStorageService.get('Symbols');
-    var preferencesInStore = localStorageService.get('Preferences');
+//    var symbolsInStore = localStorageService.get('Symbols');
+//    var preferencesInStore = localStorageService.get('Preferences');
 
     var User = function (properties) {
       var _this = this;
@@ -19,6 +19,17 @@ angular.module('stockTrackAngularJsApp')
       });
     };
 
+
+
+    /**
+     * @ngdoc function
+     * @name User.http
+     * @methodOf stockTrackAngularJsApp.service:User
+     *
+     * @description
+     * Toggles the User Preferences Modal.
+     *
+     */
     User.http = $resource('json/user.json/:id', {
       id: '@id'
     }, {
@@ -27,10 +38,32 @@ angular.module('stockTrackAngularJsApp')
       }
     });
 
+
+
+    /**
+     * @ngdoc function
+     * @name User.initSymbolList
+     * @methodOf stockTrackAngularJsApp.service:User
+     *
+     * @description
+     * Toggles the User Preferences Modal.
+     *
+     */
     User.prototype.initSymbolList = function () {
       return SymbolList.init(this.WatchList, this.Positions, this.Preferences);
     };
 
+
+
+    /**
+     * @ngdoc function
+     * @name User.updatePositionSymbols
+     * @methodOf stockTrackAngularJsApp.service:User
+     *
+     * @description
+     * Toggles the User Preferences Modal.
+     *
+     */
     User.prototype.updatePositionSymbols = function () {
       var symbols = SymbolList.Symbols;
       angular.forEach(this.Positions, function(position) {
@@ -42,6 +75,17 @@ angular.module('stockTrackAngularJsApp')
       });
     };
 
+
+
+    /**
+     * @ngdoc function
+     * @name User.updateWatchlistSymbols
+     * @methodOf stockTrackAngularJsApp.service:User
+     *
+     * @description
+     * Toggles the User Preferences Modal.
+     *
+     */
     User.prototype.updateWatchlistSymbols = function () {
       var symbols = SymbolList.Symbols;
       angular.forEach(this.WatchList, function(watchList) {

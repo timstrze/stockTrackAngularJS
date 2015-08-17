@@ -6,6 +6,9 @@
  * @description
  * # sparkLine
  */
+
+/*global d3 */
+
 angular.module('stockTrackAngularJsApp')
   .directive('sparkLine', function () {
     return {
@@ -44,9 +47,9 @@ angular.module('stockTrackAngularJsApp')
 
           element.find('div').empty();
           // create an SVG element inside the #graph div that fills 100% of the div
-          graph = d3.select(element[0].querySelector('.spark-line')).append("svg:svg").attr("width", "100%").attr("height", "40px").attr("style", "padding-top:9px");
+          graph = d3.select(element[0].querySelector('.spark-line')).append('svg:svg').attr('width', '100%').attr('height', '40px').attr('style', 'padding-top:9px');
           // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
-          var data = askHistory;
+          data = askHistory;
 
           x = d3.scale.linear().domain([0, askHistory.length]).range([0, width]);
 
@@ -75,13 +78,13 @@ angular.module('stockTrackAngularJsApp')
             })
             .y(function (d) {
               // verbose logging to show what's actually being done
-              //console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
+              //console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + ' using our yScale.');
               // return the Y coordinate where we want to plot this datapoint
               return y(d);
             });
 
           // display the line by appending an svg:path element with the data line we created above
-          graph.append("svg:path").attr("d", line(data));
+          graph.append('svg:path').attr('d', line(data));
         };
 
 

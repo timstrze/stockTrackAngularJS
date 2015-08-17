@@ -7,7 +7,7 @@
  * # buyButton
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('buyButton', function ($window, $filter, $mdDialog, localStorageService) {
+  .directive('buyButton', function ($window, $filter, $mdDialog) {
     return {
       scope: {
         symbol: '=',
@@ -18,7 +18,7 @@ angular.module('stockTrackAngularJsApp')
       controller: function($scope) {
         //
         var _scope = $scope;
-        
+
         /**
          * @ngdoc function
          * @name openBuyModal
@@ -61,7 +61,7 @@ angular.module('stockTrackAngularJsApp')
                 }
                 //
                 var isInPositions = $scope.user.Positions.some(function (position) {
-                  return position.Symbol.Symbol.toLowerCase() === $scope.symbol.Symbol.toLowerCase()
+                  return position.Symbol.Symbol.toLowerCase() === $scope.symbol.Symbol.toLowerCase();
                 });
                 //
                 if (isInPositions) {

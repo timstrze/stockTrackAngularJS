@@ -28,7 +28,7 @@ angular.module('stockTrackAngularJsApp')
          *
          */
         $scope.openSellModal = function (event) {
-          $log.debug('sell');
+          $log.debug('sell', event);
         };
 
       }
