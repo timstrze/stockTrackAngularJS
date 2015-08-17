@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc directive
- * @name stockTrackAngularJsApp.directive:lineChart
+ * @name stockTrackAngularJsApp.directive:line-chart
  * @description
  * # lineChart
  */

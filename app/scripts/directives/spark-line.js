@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc directive
- * @name stockTrackAngularJsApp.directive:sparkLine
+ * @name stockTrackAngularJsApp.directive:spark-line
  * @description
  * # sparkLine
  */

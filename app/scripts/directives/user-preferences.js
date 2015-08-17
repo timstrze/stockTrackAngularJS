@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc directive
- * @name stockTrackAngularJsApp.directive:userPreferences
+ * @name stockTrackAngularJsApp.directive:user-preferences
  * @description
  * # userPreferences
  */

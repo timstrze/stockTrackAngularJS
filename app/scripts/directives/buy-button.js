@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc directive
- * @name stockTrackAngularJsApp.directive:buyButton
+ * @name stockTrackAngularJsApp.directive:buy-button
  * @description
  * # buyButton
  */
@@ -22,7 +22,7 @@ angular.module('stockTrackAngularJsApp')
         /**
          * @ngdoc function
          * @name openBuyModal
-         * @methodOf stockTrackAngularJsApp.directive:buyButton
+         * @methodOf stockTrackAngularJsApp.directive:buy-button
          *
          * @description
          * Opens the buy modal
@@ -46,7 +46,7 @@ angular.module('stockTrackAngularJsApp')
               /**
                * @ngdoc function
                * @name buy
-               * @methodOf stockTrackAngularJsApp.directive:buyButton
+               * @methodOf stockTrackAngularJsApp.directive:buy-button
                *
                * @description
                * Buys the selected symbol and quantity

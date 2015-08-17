@@ -2,31 +2,98 @@
 
 /**
  * @ngdoc service
- * @name stockTrackAngularJsApp.SymbolList
+ * @name stockTrackAngularJsApp.service:SymbolList
  * @description
  * # SymbolList
  * Gets all Symbols from the watch list and position list. All Symbols should be cloned from this list.
  */
+
 angular.module('stockTrackAngularJsApp')
-  .factory('SymbolList', function (Symbol, $interval, $filter) {
+  .factory('SymbolList', function (Symbol, $interval, $filter, $log) {
 
     return {
+
+
+      /**
+       * @ngdoc function
+       * @name SymbolList.Symbols
+       * @propertyOf stockTrackAngularJsApp.service:SymbolList
+       *
+       * @description
+       * Symbol objects that all Symbol data is referenced
+       *
+       * @returns {Array} Returns an array of Symbol Objects
+       *
+       */
       Symbols: [],
+
+
+      /**
+       * @ngdoc function
+       * @name SymbolList.WatchList
+       * @propertyOf stockTrackAngularJsApp.service:SymbolList
+       *
+       * @description
+       * Reference to User.WatchList
+       *
+       * @returns {Array} Returns a reference to User.WatchList
+       *
+       */
       WatchList: [],
+
+
+      /**
+       * @ngdoc function
+       * @name SymbolList.Positions
+       * @propertyOf stockTrackAngularJsApp.service:SymbolList
+       *
+       * @description
+       * Reference to User.Positions
+       *
+       * @returns {Array} Returns a reference to User.Positions
+       *
+       */
       Positions: [],
+
+
+      /**
+       * @ngdoc function
+       * @name SymbolList.Preferences
+       * @propertyOf stockTrackAngularJsApp.service:SymbolList
+       *
+       * @description
+       * Reference to User.Preferences
+       *
+       * @returns {Object} Returns a reference to User.Preferences
+       *
+       */
       Preferences: {},
 
+
+      /**
+       * @ngdoc function
+       * @name SymbolList.removeSymbol
+       * @methodOf stockTrackAngularJsApp.service:SymbolList
+       *
+       * @description
+       * Removes the Symbol from the SymbolList.Symbols array if it is not also in User.Positions
+       *
+       * @param {Object} item Position to be removed from the SymbolList.Symbols array
+       *
+       * @returns {Array} Returns the SymbolList.Symbols
+       */
       removeSymbol: function(item) {
-        // You want to keep the Symbol if it is in the positions.
-        var isInPositions = this.Positions.filter(function(position) {
+        // Check to see if the Symbol is in User.Positions.
+        var isInPositions = this.Positions.some(function(position) {
+          // Check to see if the symbols match
           return item.symbol.toLowerCase() === position.symbol.toLowerCase();
         });
-
-        if(isInPositions.length === 0) {
-          var index = this.Symbols.indexOf(item);
-          this.Symbols.splice(index, 1);
+        // Keep the Symbol if it is in User.Positions.
+        if(!isInPositions) {
+          //
+          this.Symbols.splice(this.Symbols.indexOf(item), 1);
         }
-
+        // Return the SymbolList.Symbols
         return this.Symbols;
       },
 
@@ -69,7 +136,7 @@ angular.module('stockTrackAngularJsApp')
 
         });
 
-        console.log('Refreshing Symbols: ' + $filter('date')(new Date(), 'medium'));
+        $log.debug('Refreshing Symbols: ' + $filter('date')(new Date(), 'medium'));
       },
 
       init: function(watchList, positions, preferences) {

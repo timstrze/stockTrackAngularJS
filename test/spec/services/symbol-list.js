@@ -1,18 +1,25 @@
 'use strict';
 
-describe('Service: symbolList', function () {
+describe('Service: SymbolList', function () {
 
   // load the service's module
   beforeEach(module('stockTrackAngularJsApp'));
 
   // instantiate service
-  var symbolList;
-  beforeEach(inject(function (_symbolList_) {
-    symbolList = _symbolList_;
+  var SymbolList, testSymbol;
+
+  beforeEach(inject(function (_SymbolList_) {
+    SymbolList = _SymbolList_;
+    testSymbol = window.testData.Symbols[0];
   }));
 
-  it('should do something', function () {
-    expect(!!symbolList).toBe(true);
+
+  describe('SymbolList.removeSymbol', function () {
+
+    it('links the Symbols in the User.WatchList to the Symbols in the SymbolList', function () {
+      SymbolList.removeSymbol(testSymbol);
+
+    });
   });
 
 });

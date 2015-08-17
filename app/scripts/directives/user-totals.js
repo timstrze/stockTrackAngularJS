@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc directive
- * @name stockTrackAngularJsApp.directive:userTotals
+ * @name stockTrackAngularJsApp.directive:user-totals
  * @description
  * # userTotals
  */

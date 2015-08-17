@@ -25,11 +25,7 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
+        controller: 'MainController'
       })
       .otherwise({
         redirectTo: '/'
@@ -39,12 +35,12 @@ angular
     $httpProvider.interceptors.push('LoadingInterceptor');
 
   })
-  .config(function ($mdThemingProvider) {
-    // Configure a dark theme with primary foreground yellow
-    $mdThemingProvider.theme('docs-dark', 'default')
-      .primaryPalette('yellow')
-      .dark();
-  })
+//  .config(function ($mdThemingProvider) {
+//    // Configure a dark theme with primary foreground yellow
+//    $mdThemingProvider.theme('docs-dark', 'default')
+//      .primaryPalette('yellow')
+//      .dark();
+//  })
   .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
     localStorageServiceProvider.setPrefix('staja');
   }]);

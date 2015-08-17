@@ -2,17 +2,17 @@
 
 /**
  * @ngdoc controller
- * @name main.controller:MainCtrl
+ * @name main.controller:MainController
  * @module main
  * @kind function
  *
  * @description
- * # MainCtrl
+ * # MainController
  * Controller of the stockTrackAngularJsApp
  */
 
 angular.module('stockTrackAngularJsApp')
-  .controller('MainCtrl', function ($scope, $mdSidenav, User) {
+  .controller('MainController', function ($scope, $mdSidenav, Constants, User) {
 
     // Default Properties
     $scope.showWatchlist = true;
@@ -21,9 +21,9 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name MainCtrl.toggleUserPreferences
+     * @name MainController.toggleUserPreferences
      * @module main
-     * @methodOf main.controller:MainCtrl
+     * @methodOf main.controller:MainController
      * @kind function
      *
      * @description
@@ -35,12 +35,11 @@ angular.module('stockTrackAngularJsApp')
     };
 
 
-
     /**
      * @ngdoc function
-     * @name MainCtrl.watchlistToggle
+     * @name MainController.watchlistToggle
      * @module main
-     * @methodOf main.controller:MainCtrl
+     * @methodOf main.controller:MainController
      * @kind function
      *
      * @description
@@ -55,9 +54,9 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name MainCtrl.positionsToggle
+     * @name MainController.positionsToggle
      * @module main
-     * @methodOf main.controller:MainCtrl
+     * @methodOf main.controller:MainController
      * @kind function
      *
      * @description
@@ -72,28 +71,32 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name MainCtrl.getUser
+     * @name MainController.getUser
      * @module main
-     * @methodOf main.controller:MainCtrl
+     * @methodOf main.controller:MainController
      * @kind function
      *
      * @description
      * Initiates the application by getting the User.
      *
      */
-    $scope.getUser = function() {
+    $scope.getUser = function () {
       // Gets the user
       User.http.get({}, function (results) {
         // Creates the User Object and sets the scope variable
         $scope.User = new User(results);
         // Initiates the Symbol list for the watchlist and positions
         $scope.User.initSymbolList().$promise.then(function () {
-          // Set the Symbols in the position list
-          $scope.User.updatePositionSymbols();
+          //* Link the Symbols in the position list to the Symbols in the SymbolList.
+          $scope.User.linkPositionSymbols();
           // Set the Symbols in the watch list
-          $scope.User.updateWatchlistSymbols();
+          $scope.User.linkWatchlistSymbols();
           // Set the first symbol in the watchlist as the selected symbol
           $scope.User.selectedSymbol = $scope.User.WatchList[0].Symbol;
+          //
+          var selectedTab = Constants.historicalTabs[$scope.User.Preferences.selectedHistoricalIndex || 2];
+          //
+          $scope.User.selectedSymbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
         });
       });
     };
@@ -109,8 +112,6 @@ angular.module('stockTrackAngularJsApp')
     $scope.$on('loader_hide', function () {
       $scope.isLoading = false;
     });
-
-
 
 
     // Init the app

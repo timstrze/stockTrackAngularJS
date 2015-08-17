@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc directive
- * @name stockTrackAngularJsApp.directive:watchListDetails
+ * @name stockTrackAngularJsApp.directive:watch-list-details
  * @element div
  * @function
  *
@@ -30,7 +30,7 @@ angular.module('stockTrackAngularJsApp')
         /**
          * @ngdoc function
          * @name removeFromWatchlist
-         * @methodOf stockTrackAngularJsApp.directive:watchListDetails
+         * @methodOf stockTrackAngularJsApp.directive:watch-list-details
          *
          * @description
          * Confirms if the user wants to remove a Symbol from the watchlist
@@ -67,7 +67,7 @@ angular.module('stockTrackAngularJsApp')
         /**
          * @ngdoc function
          * @name toggleWatchlist
-         * @methodOf stockTrackAngularJsApp.directive:watchListDetails
+         * @methodOf stockTrackAngularJsApp.directive:watch-list-details
          *
          * @description
          * Toggle the watch list

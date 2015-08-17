@@ -1,6 +1,6 @@
 'use strict';
 
-describe('MainCtrl', function() {
+describe('MainController', function() {
   beforeEach(module('stockTrackAngularJsApp'));
 
   var $controller, $scope, controller, $mdSidenav, User;
@@ -17,7 +17,7 @@ describe('MainCtrl', function() {
       $on: function() {}
     };
 
-    controller = $controller('MainCtrl', { $scope: $scope, $mdSidenav: $mdSidenav });
+    controller = $controller('MainController', { $scope: $scope, $mdSidenav: $mdSidenav });
 
     spyOn($scope, '$on');
     spyOn(User.http, 'get');
@@ -25,7 +25,7 @@ describe('MainCtrl', function() {
 
   }));
 
-  describe('MainCtrl $scope.watchlistToggle', function() {
+  describe('MainController $scope.watchlistToggle', function() {
 
     it('sets the showWatchlist to true and showPositions to false', function() {
 
@@ -35,7 +35,7 @@ describe('MainCtrl', function() {
     });
   });
 
-  describe('MainCtrl $scope.positionsToggle', function() {
+  describe('MainController $scope.positionsToggle', function() {
 
     it('sets the showWatchlist to false and showPositions to true', function() {
 
@@ -45,7 +45,7 @@ describe('MainCtrl', function() {
     });
   });
 
-  describe('MainCtrl $scope.getUser', function() {
+  describe('MainController $scope.getUser', function() {
 
     it('get the user and initiates the symbol list', function() {
 
@@ -55,7 +55,7 @@ describe('MainCtrl', function() {
     });
   });
 
-//  describe('MainCtrl $scope.toggleUserPreferences', function() {
+//  describe('MainController $scope.toggleUserPreferences', function() {
 //
 //    it('sets the showWatchlist to false and showPositions to true', function() {
 //

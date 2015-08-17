@@ -2,15 +2,15 @@
 
 /**
  * @ngdoc service
- * @name stockTrackAngularJsApp.User
+ * @name stockTrackAngularJsApp.service:User
  * @description
+ * # User
  * User service that contains all the properties and methods for a user
+ *
  */
 angular.module('stockTrackAngularJsApp')
-  .factory('User', function (Symbol, Constants, localStorageService, $resource, SymbolList) {
+  .factory('User', function ($resource, Constants, Symbol, SymbolList) {
 
-//    var symbolsInStore = localStorageService.get('Symbols');
-//    var preferencesInStore = localStorageService.get('Preferences');
 
     var User = function (properties) {
       var _this = this;
@@ -21,14 +21,16 @@ angular.module('stockTrackAngularJsApp')
 
 
 
+
     /**
      * @ngdoc function
-     * @name User.http
+     * @name User.httpza
      * @methodOf stockTrackAngularJsApp.service:User
      *
      * @description
-     * Toggles the User Preferences Modal.
+     * Public access to the GET, PUT, and POST methods
      *
+     * @param {String} ID of program version
      */
     User.http = $resource('json/user.json/:id', {
       id: '@id'
@@ -46,10 +48,12 @@ angular.module('stockTrackAngularJsApp')
      * @methodOf stockTrackAngularJsApp.service:User
      *
      * @description
-     * Toggles the User Preferences Modal.
+     * Create the initial Symbol List from the User's watch list and position list.
      *
+     * @return {Promise} Returns the promise from getting all the Symbol data
      */
     User.prototype.initSymbolList = function () {
+      // Create the initial Symbol List from the User's watch list and position list
       return SymbolList.init(this.WatchList, this.Positions, this.Preferences);
     };
 
@@ -57,18 +61,23 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name User.updatePositionSymbols
+     * @name User.linkPositionSymbols
      * @methodOf stockTrackAngularJsApp.service:User
      *
      * @description
-     * Toggles the User Preferences Modal.
+     * Link the Symbols in the User.Positions to the Symbols in the SymbolList.
      *
      */
-    User.prototype.updatePositionSymbols = function () {
+    User.prototype.linkPositionSymbols = function () {
+      // Reference the Symbols in the SymbolList
       var symbols = SymbolList.Symbols;
+      // Loop through the User.Positions
       angular.forEach(this.Positions, function(position) {
+        // Loops through the SymbolList
         angular.forEach(symbols, function(smbl) {
+          // Check if Symbols match
           if(smbl.symbol.toLowerCase() === position.symbol.toLowerCase()) {
+            // Link the Symbol in the User.Position list to the SymbolList
             position.Symbol = smbl;
           }
         });
@@ -79,51 +88,27 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name User.updateWatchlistSymbols
+     * @name User.linkWatchlistSymbols
      * @methodOf stockTrackAngularJsApp.service:User
      *
      * @description
-     * Toggles the User Preferences Modal.
+     * Link the Symbols in the User.WatchList to the Symbols in the SymbolList.
      *
      */
-    User.prototype.updateWatchlistSymbols = function () {
+    User.prototype.linkWatchlistSymbols = function () {
+      // Reference the Symbols in the SymbolList
       var symbols = SymbolList.Symbols;
+      // Loop through the User.WatchList
       angular.forEach(this.WatchList, function(watchList) {
+        // Loops through the SymbolList
         angular.forEach(symbols, function(smbl) {
+          // Check if Symbols match
           if(smbl.symbol.toLowerCase() === watchList.symbol.toLowerCase()) {
+            // Link the Symbol in the User.WatchList to the SymbolList
             watchList.Symbol = smbl;
           }
         });
       });
-
-//        localStorageService.set('WatchList', _this.WatchList);
-
-//        _this.selectedSymbol = _this.WatchList[0];
-
-
-//            if (_this.preferences.lastSelectedSymbol) {
-//
-//              angular.forEach(tmpWatchList, function (wlSymbol) {
-//                if (wlSymbol.Symbol === _this.Preferences.lastSelectedSymbol.Symbol) {
-//                  _this.selectedSymbol = wlSymbol;
-//                }
-//              });
-//
-//              if (!_this.selectedSymbol) {
-//                _this.selectedSymbol = _this.watchList[0];
-//              }
-//
-//            } else {
-//              _this.selectedSymbol = _this.watchList[0];
-//              _this.preferences.lastSelectedSymbol = _this.selectedSymbol;
-//              localStorageService.set('preferences', _this.preferences);
-//            }
-//            //
-//            var selectedTab = Constants.historicalTabs[_this.preferences.selectedHistoricalIndex || 2];
-//            //
-//            _this.selectedSymbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
-
-
     };
 
     return User;

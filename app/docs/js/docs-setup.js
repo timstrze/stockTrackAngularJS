@@ -5,12 +5,12 @@ NG_DOCS={
   "pages": [
     {
       "section": "api",
-      "id": "main.controller:MainCtrl",
-      "shortName": "MainCtrl",
+      "id": "main.controller:MainController",
+      "shortName": "MainController",
       "type": "controller",
       "moduleName": "main",
-      "shortDescription": "MainCtrl",
-      "keywords": "api application bar controller function getuser initiates list main mainctrl modal positions positionstoggle preferences side stocktrackangularjsapp toggles toggleuserpreferences user watch watchlisttoggle"
+      "shortDescription": "MainController",
+      "keywords": "api application bar controller function getuser initiates list main maincontroller modal positions positionstoggle preferences side stocktrackangularjsapp toggles toggleuserpreferences user watch watchlisttoggle"
     },
     {
       "section": "api",
@@ -32,8 +32,8 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "stockTrackAngularJsApp.directive:buyButton",
-      "shortName": "buyButton",
+      "id": "stockTrackAngularJsApp.directive:buy-button",
+      "shortName": "buy-button",
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "buyButton",
@@ -41,8 +41,8 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "stockTrackAngularJsApp.directive:colorNumber",
-      "shortName": "colorNumber",
+      "id": "stockTrackAngularJsApp.directive:color-number",
+      "shortName": "color-number",
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "Resize textarea automatically to the size of its text content.",
@@ -50,17 +50,8 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "stockTrackAngularJsApp.directive:graph",
-      "shortName": "graph",
-      "type": "directive",
-      "moduleName": "stockTrackAngularJsApp",
-      "shortDescription": "graph",
-      "keywords": "api directive graph stocktrackangularjsapp"
-    },
-    {
-      "section": "api",
-      "id": "stockTrackAngularJsApp.directive:lineChart",
-      "shortName": "lineChart",
+      "id": "stockTrackAngularJsApp.directive:line-chart",
+      "shortName": "line-chart",
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "lineChart",
@@ -77,8 +68,8 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "stockTrackAngularJsApp.directive:sellButton",
-      "shortName": "sellButton",
+      "id": "stockTrackAngularJsApp.directive:sell-button",
+      "shortName": "sell-button",
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "sellButton",
@@ -86,8 +77,8 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "stockTrackAngularJsApp.directive:sparkLine",
-      "shortName": "sparkLine",
+      "id": "stockTrackAngularJsApp.directive:spark-line",
+      "shortName": "spark-line",
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "sparkLine",
@@ -95,17 +86,8 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "stockTrackAngularJsApp.directive:symbolTitle",
-      "shortName": "symbolTitle",
-      "type": "directive",
-      "moduleName": "stockTrackAngularJsApp",
-      "shortDescription": "symbolTitle",
-      "keywords": "api directive stocktrackangularjsapp symboltitle"
-    },
-    {
-      "section": "api",
-      "id": "stockTrackAngularJsApp.directive:userPreferences",
-      "shortName": "userPreferences",
+      "id": "stockTrackAngularJsApp.directive:user-preferences",
+      "shortName": "user-preferences",
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "userPreferences",
@@ -113,8 +95,8 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "stockTrackAngularJsApp.directive:userTotals",
-      "shortName": "userTotals",
+      "id": "stockTrackAngularJsApp.directive:user-totals",
+      "shortName": "user-totals",
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "userTotals",
@@ -131,12 +113,12 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "stockTrackAngularJsApp.directive:watchListDetails",
-      "shortName": "watchListDetails",
+      "id": "stockTrackAngularJsApp.directive:watch-list-details",
+      "shortName": "watch-list-details",
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "Display the selected symbol&#39;s details and graphs.",
-      "keywords": "api click confirms details directive display div event function graphs list object remove removefromwatchlist selected stocktrackangularjsapp symbol toggle togglewatchlist user watch watchlist"
+      "keywords": "api button click confirms details directive display div event function graphs list object remove removefromwatchlist selected stocktrackangularjsapp symbol toggle togglewatchlist user watch watchlist"
     },
     {
       "section": "api",
@@ -158,30 +140,30 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "stockTrackAngularJsApp.service:SymbolList",
+      "shortName": "SymbolList",
+      "type": "service",
+      "moduleName": "stockTrackAngularJsApp",
+      "shortDescription": "SymbolList",
+      "keywords": "api array cloned data function item list objects position positions preferences reference referenced removed removes removesymbol returns service stocktrackangularjsapp symbol symbollist symbols user watch watchlist"
+    },
+    {
+      "section": "api",
+      "id": "stockTrackAngularJsApp.service:User",
+      "shortName": "User",
+      "type": "service",
+      "moduleName": "stockTrackAngularJsApp",
+      "shortDescription": "User",
+      "keywords": "access api create data function httpza initial initsymbollist link linkpositionsymbols linkwatchlistsymbols list methods position positions post program promise properties public returns service stocktrackangularjsapp symbol symbollist symbols user version watch watchlist"
+    },
+    {
+      "section": "api",
       "id": "stockTrackAngularJsApp.Symbol",
       "shortName": "stockTrackAngularJsApp.Symbol",
       "type": "service",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "Symbol",
       "keywords": "api factory service stocktrackangularjsapp symbol"
-    },
-    {
-      "section": "api",
-      "id": "stockTrackAngularJsApp.SymbolList",
-      "shortName": "stockTrackAngularJsApp.SymbolList",
-      "type": "service",
-      "moduleName": "stockTrackAngularJsApp",
-      "shortDescription": "SymbolList",
-      "keywords": "api cloned list position service stocktrackangularjsapp symbollist symbols watch"
-    },
-    {
-      "section": "api",
-      "id": "stockTrackAngularJsApp.User",
-      "shortName": "stockTrackAngularJsApp.User",
-      "type": "service",
-      "moduleName": "stockTrackAngularJsApp",
-      "shortDescription": "User service that contains all the properties and methods for a user",
-      "keywords": "api methods properties service stocktrackangularjsapp user"
     }
   ],
   "apis": {

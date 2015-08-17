@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc directive
- * @name stockTrackAngularJsApp.directive:colorNumber
+ * @name stockTrackAngularJsApp.directive:color-number
  * @element div
  * @function
  *

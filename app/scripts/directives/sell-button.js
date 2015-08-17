@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc directive
- * @name stockTrackAngularJsApp.directive:sellButton
+ * @name stockTrackAngularJsApp.directive:sell-button
  * @description
  * # sellButton
  */
@@ -21,7 +21,7 @@ angular.module('stockTrackAngularJsApp')
         /**
          * @ngdoc function
          * @name openSellModal
-         * @methodOf stockTrackAngularJsApp.directive:sellButton
+         * @methodOf stockTrackAngularJsApp.directive:sell-button
          *
          * @description
          * Opens the sell modal
