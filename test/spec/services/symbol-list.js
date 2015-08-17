@@ -6,18 +6,26 @@ describe('Service: SymbolList', function () {
   beforeEach(module('stockTrackAngularJsApp'));
 
   // instantiate service
-  var SymbolList, testSymbol;
+  var SymbolList, repeatSymbol, newSymbol;
 
   beforeEach(inject(function (_SymbolList_) {
     SymbolList = _SymbolList_;
-    testSymbol = window.testData.Symbols[0];
+    repeatSymbol = window.testData.Symbols[0];
+    newSymbol = window.testData.newSymbol;
   }));
 
 
-  describe('SymbolList.removeSymbol', function () {
+  describe('SymbolList.addSymbol', function () {
 
-    it('links the Symbols in the User.WatchList to the Symbols in the SymbolList', function () {
-      SymbolList.removeSymbol(testSymbol);
+    SymbolList.Symbols = window.testData.Symbols;
+
+    it('should not add a Symbol that is already in the SymbolList.Symbols array', function () {
+      SymbolList.addSymbol(repeatSymbol);
+
+    });
+
+    it('adds a Symbol to the SymbolList.Symbols array', function () {
+      SymbolList.addSymbol(newSymbol);
 
     });
   });

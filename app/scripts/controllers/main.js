@@ -2,8 +2,7 @@
 
 /**
  * @ngdoc controller
- * @name main.controller:MainController
- * @module main
+ * @name stockTrackAngularJsApp.controller:MainController
  * @kind function
  *
  * @description
@@ -19,61 +18,13 @@ angular.module('stockTrackAngularJsApp')
     $scope.showPositions = false;
 
 
-    /**
-     * @ngdoc function
-     * @name MainController.toggleUserPreferences
-     * @module main
-     * @methodOf main.controller:MainController
-     * @kind function
-     *
-     * @description
-     * Toggles the User Preferences Modal.
-     *
-     */
-    $scope.toggleUserPreferences = function () {
-      $mdSidenav('user-preferences').toggle();
-    };
-
-
-    /**
-     * @ngdoc function
-     * @name MainController.watchlistToggle
-     * @module main
-     * @methodOf main.controller:MainController
-     * @kind function
-     *
-     * @description
-     * Toggles the Watch List side bar.
-     *
-     */
-    $scope.watchlistToggle = function () {
-      $scope.showWatchlist = true;
-      $scope.showPositions = false;
-    };
-
-
-    /**
-     * @ngdoc function
-     * @name MainController.positionsToggle
-     * @module main
-     * @methodOf main.controller:MainController
-     * @kind function
-     *
-     * @description
-     * Toggles the Positions side bar.
-     *
-     */
-    $scope.positionsToggle = function () {
-      $scope.showWatchlist = false;
-      $scope.showPositions = true;
-    };
 
 
     /**
      * @ngdoc function
      * @name MainController.getUser
      * @module main
-     * @methodOf main.controller:MainController
+     * @methodOf stockTrackAngularJsApp.controller:MainController
      * @kind function
      *
      * @description
@@ -100,6 +51,64 @@ angular.module('stockTrackAngularJsApp')
         });
       });
     };
+
+
+
+
+    /**
+     * @ngdoc function
+     * @name MainController.positionsToggle
+     * @module main
+     * @methodOf stockTrackAngularJsApp.controller:MainController
+     * @kind function
+     *
+     * @description
+     * Toggles the Positions side bar.
+     *
+     */
+    $scope.positionsToggle = function () {
+      $scope.showWatchlist = false;
+      $scope.showPositions = true;
+    };
+
+
+
+
+    /**
+     * @ngdoc function
+     * @name MainController.toggleUserPreferences
+     * @module main
+     * @methodOf stockTrackAngularJsApp.controller:MainController
+     * @kind function
+     *
+     * @description
+     * Toggles the User Preferences Modal.
+     *
+     */
+    $scope.toggleUserPreferences = function () {
+      $mdSidenav('user-preferences').toggle();
+    };
+
+
+
+
+    /**
+     * @ngdoc function
+     * @name MainController.watchlistToggle
+     * @module main
+     * @methodOf stockTrackAngularJsApp.controller:MainController
+     * @kind function
+     *
+     * @description
+     * Toggles the Watch List side bar.
+     *
+     */
+    $scope.watchlistToggle = function () {
+      $scope.showWatchlist = true;
+      $scope.showPositions = false;
+    };
+
+
 
 
     // Watching the loading flag for true

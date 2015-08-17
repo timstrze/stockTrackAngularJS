@@ -5,13 +5,31 @@
 </h1>
 <div><h2 id="description">Description</h2>
 <div class="description"><div class="stocktrackangularjsapp-service-page stocktrackangularjsapp-service-symbollist-page"><h3 id="description_symbollist">SymbolList</h3>
-<p>Gets all Symbols from the watch list and position list. All Symbols should be cloned from this list.</p>
+<p>Gets all Symbols from the User.WatchList and User.Positions. All Symbols should be cloned from this list.</p>
 </div></div>
 <div class="member method"><h2 id="methods">Methods</h2>
-<ul class="methods"><li><h3 id="methods_removesymbol">removeSymbol(item)</h3>
-<div class="removesymbol"><div class="symbollist-removesymbol-page"><p>Removes the Symbol from the SymbolList.Symbols array if it is not also in User.Positions</p>
-</div><h5 id="methods_removesymbol_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>item</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="symbollist-removesymbol-page"><p>Position to be removed from the SymbolList.Symbols array</p>
+<ul class="methods"><li><h3 id="methods_addsymbol">addSymbol(item)</h3>
+<div class="addsymbol"><div class="symbollist-addsymbol-page"><p>Adds a Symbol to the SymbolList.Symbols array if it is not already added.</p>
+</div><h5 id="methods_addsymbol_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>item</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="symbollist-addsymbol-page"><p>Symbol to be added to the SymbolList.Symbols array</p>
+</div></td></tr></tbody></table><h5 id="methods_addsymbol_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="symbollist-addsymbol-page"><p>Returns the new Symbol</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_init">init(watchList, positions, preferences)</h3>
+<div class="init"><div class="symbollist-init-page"><p>Creates the SymbolList from the watchlist and positions passed in from a User.</p>
+</div><h5 id="methods_init_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>watchList</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="symbollist-init-page"><p>WatchList from the User</p>
+</div></td></tr><tr><td>positions</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="symbollist-init-page"><p>Positions from the User</p>
+</div></td></tr><tr><td>preferences</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="symbollist-init-page"><p>Preferences from the User</p>
 </div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_refreshsymbols">refreshSymbols()</h3>
+<div class="refreshsymbols"><div class="symbollist-refreshsymbols-page"><p>Refreshes the SymbolList properties so the angular bindings update.</p>
+</div></div>
+</li>
+<li><h3 id="methods_removesymbol">removeSymbol(item)</h3>
+<div class="removesymbol"><div class="symbollist-removesymbol-page"><p>Removes the Symbol from the SymbolList.Symbols array if it is not also in User.Positions</p>
+</div><h5 id="methods_removesymbol_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>item</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="symbollist-removesymbol-page"><p>Symbol to be removed from the SymbolList.Symbols array</p>
+</div></td></tr></tbody></table><h5 id="methods_removesymbol_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="symbollist-removesymbol-page"><p>Returns the SymbolList.Symbols</p>
+</div></td></tr></table></div>
 </li>
 </ul>
 </div>

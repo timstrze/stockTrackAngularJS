@@ -5,15 +5,6 @@ NG_DOCS={
   "pages": [
     {
       "section": "api",
-      "id": "main.controller:MainController",
-      "shortName": "MainController",
-      "type": "controller",
-      "moduleName": "main",
-      "shortDescription": "MainController",
-      "keywords": "api application bar controller function getuser initiates list main maincontroller modal positions positionstoggle preferences side stocktrackangularjsapp toggles toggleuserpreferences user watch watchlisttoggle"
-    },
-    {
-      "section": "api",
       "id": "stockTrackAngularJsApp",
       "shortName": "stockTrackAngularJsApp",
       "type": "overview",
@@ -29,6 +20,15 @@ NG_DOCS={
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "Constants",
       "keywords": "api constants factory service stocktrackangularjsapp"
+    },
+    {
+      "section": "api",
+      "id": "stockTrackAngularJsApp.controller:MainController",
+      "shortName": "MainController",
+      "type": "controller",
+      "moduleName": "stockTrackAngularJsApp",
+      "shortDescription": "MainController",
+      "keywords": "api application bar controller function getuser initiates list main maincontroller modal positions positionstoggle preferences side stocktrackangularjsapp toggles toggleuserpreferences user watch watchlisttoggle"
     },
     {
       "section": "api",
@@ -145,7 +145,7 @@ NG_DOCS={
       "type": "service",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "SymbolList",
-      "keywords": "api array cloned data function item list objects position positions preferences reference referenced removed removes removesymbol returns service stocktrackangularjsapp symbol symbollist symbols user watch watchlist"
+      "keywords": "adds addsymbol angular api array bindings cloned creates data function init item list objects passed positions preferences properties reference referenced refreshes refreshsymbols removed removes removesymbol returns service stocktrackangularjsapp symbol symbollist symbols update user watchlist"
     },
     {
       "section": "api",
@@ -154,7 +154,7 @@ NG_DOCS={
       "type": "service",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "User",
-      "keywords": "access api create data function httpza initial initsymbollist link linkpositionsymbols linkwatchlistsymbols list methods position positions post program promise properties public returns service stocktrackangularjsapp symbol symbollist symbols user version watch watchlist"
+      "keywords": "access api create data function http initial initsymbollist link linkpositionsymbols linkwatchlistsymbols list methods position positions post program promise properties public returns service stocktrackangularjsapp symbol symbollist symbols user version watch watchlist"
     },
     {
       "section": "api",

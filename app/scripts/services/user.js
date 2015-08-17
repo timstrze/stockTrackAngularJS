@@ -24,7 +24,7 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name User.httpza
+     * @name User.http
      * @methodOf stockTrackAngularJsApp.service:User
      *
      * @description
