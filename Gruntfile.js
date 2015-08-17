@@ -360,6 +360,19 @@ module.exports = function (grunt) {
       }
     },
 
+
+    // Documentation Settings
+    ngdocs: {
+      all: ['app/scripts/**/*.js'],
+      options: {
+        dest: 'app/docs',
+        scripts: ['angular.js', 'app/scripts/app.js', 'app/scripts/directives/color-number.js'],
+        //styles: ['../dist/styles/styles.css'],
+        title: 'Stock Tracker Docs',
+        html5Mode: false
+      }
+    },
+
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
@@ -413,6 +426,12 @@ module.exports = function (grunt) {
     'connect:test',
     'karma'
   ]);
+
+
+  grunt.registerTask('document', [
+    'ngdocs'
+  ]);
+
 
   grunt.registerTask('build', [
     'clean:dist',

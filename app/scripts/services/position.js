@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc service
- * @name stockTrackAngularJsApp.position
+ * @name stockTrackAngularJsApp.Position
  * @description
  * # position
  * Factory in the stockTrackAngularJsApp.

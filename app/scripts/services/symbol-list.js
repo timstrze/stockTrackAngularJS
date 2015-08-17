@@ -50,6 +50,13 @@ angular.module('stockTrackAngularJsApp')
           if(data.query.results) {
 
             angular.forEach(data.query.results.quote, function (quote, index) {
+
+              if(_this.Symbols[index].askHistory.length > 50) {
+                _this.Symbols[index].askHistory.shift();
+              }
+
+              _this.Symbols[index].askHistory.push(quote.Ask);
+
               Object.keys(quote).forEach(function (property) {
                 _this.Symbols[index][property] = quote[property];
               });
@@ -78,7 +85,11 @@ angular.module('stockTrackAngularJsApp')
           if(data.query.results) {
 
             angular.forEach(data.query.results.quote, function (quote) {
+              //
               var symbol = new Symbol(quote);
+              //
+              symbol.askHistory.push(quote.Ask);
+              //
               tmpSymbolList.push(symbol);
             });
 

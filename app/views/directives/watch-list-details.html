@@ -19,13 +19,9 @@
         </h2>
         <span flex></span>
 
-        <md-button class="md-secondary" aria-label="Buy" ng-click="openBuyModal($event)">
-          Buy
-        </md-button>
+        <buy-button user="user" symbol="symbol"></buy-button>
 
-        <md-button class="md-secondary" aria-label="Sell" ng-click="openSellModal($event)">
-          Sell
-        </md-button>
+        <sell-button user="user" symbol="symbol"></sell-button>
 
         <md-button class="md-secondary" aria-label="News" ng-click="removeFromWatchlist(symbol, $event)">
           Remove

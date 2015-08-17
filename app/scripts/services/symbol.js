@@ -15,29 +15,23 @@ angular.module('stockTrackAngularJsApp')
       Object.keys(properties).forEach(function (property) {
         _this[property] = properties[property];
       });
+      //
+      this.askHistory = [];
     };
 
 
-    //Symbol.prototype.historicalData = {};
-
-
     Symbol.prototype.getHistoricalData = function (startDate, endDate) {
+      //
       var _this = this;
-
+      //
       this.http.details({
         symbol: this.Symbol,
         startDate: startDate,
         endDate: endDate
       }, function (results) {
+        //
         _this.historicalData = results.query.results.quote;
       });
-    };
-
-
-    Symbol.prototype.remove = function (container, selectedTab) {
-      //container.splice(container.indexOf(this), 1);
-      //container[0].selected = true;
-      //container[0].getDetails(selectedTab.startDate, selectedTab.endDate);
     };
 
 
@@ -60,6 +54,8 @@ angular.module('stockTrackAngularJsApp')
         }
       }
     });
+
+
 
     Symbol.prototype.http = $resource('http://query.yahooapis.com/v1/public/yql', {
     }, {
