@@ -35,7 +35,8 @@ module.exports = function(config) {
       'app/scripts/**/*.js',
       'test/test-data/symbols.js',
       'test/spec/controllers/main.js',
-      'test/spec/services/user.js'
+      'test/spec/services/user.js',
+      'test/spec/services/symbol-list.js'
 //      'test/spec/**/*.js'
     ],
 
