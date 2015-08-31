@@ -33,10 +33,10 @@ module.exports = function(config) {
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
-      'test/test-data/symbols.js',
+      'test/test-data/**/*.js',
+
       'test/spec/controllers/main.js',
-      'test/spec/services/user.js',
-      'test/spec/services/symbol-list.js'
+      'test/spec/services/**/*.js'
 //      'test/spec/**/*.js'
     ],
 

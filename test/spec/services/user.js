@@ -8,76 +8,13 @@ describe('Service: User', function () {
   // instantiate service
   var User, SymbolList;
 
+  var testData = angular.copy(window.testData);
+
   beforeEach(inject(function (_User_, _SymbolList_) {
     User = _User_;
-    User = new User({
-      Positions: [
-        {
-          "symbol":"AXP",
-          "buys": [
-            {
-              "ask":"79.41",
-              "quantity":10,
-              "created":"2015-08-07 2:07:45 PM"
-            },
-            {
-              "ask":"79.61",
-              "quantity":9,
-              "created":"2015-08-07 7:05:45 PM"
-            }
-          ]
-        },
-        {
-          "symbol":"RCL",
-          "buys": [
-            {
-              "ask": "90.41",
-              "quantity": 92,
-              "created": "2015-08-06 2:05:45 PM"
-            }
-          ]
-        },
-        {
-          "symbol":"WFM",
-          "buys": [
-            {
-              "ask": "35.80",
-              "quantity": 52,
-              "created": "2015-08-03 2:05:45 PM"
-            }
-          ]
-        },
-        {
-          "symbol":"DIS",
-          "buys": [
-            {
-              "ask": "109.80",
-              "quantity": 52,
-              "created": "2015-08-01 2:05:45 PM"
-            }
-          ]
-        }
-      ],
-      WatchList: [
-        {
-          "symbol": "AAPL"
-        },
-        {
-          "symbol": "AXP"
-        },
-        {
-          "symbol": "WFM"
-        },
-        {
-          "symbol": "DIS"
-        },
-        {
-          "symbol": "rcl"
-        }
-      ]
-    });
+    User = new User(testData.User);
     SymbolList = _SymbolList_;
-    SymbolList.Symbols = window.testData.Symbols;
+    SymbolList.Symbols = testData.Symbols;
   }));
 
 

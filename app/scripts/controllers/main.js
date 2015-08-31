@@ -37,7 +37,7 @@ angular.module('stockTrackAngularJsApp')
         // Creates the User Object and sets the scope variable
         $scope.User = new User(results);
         // Initiates the Symbol list for the watchlist and positions
-        $scope.User.initSymbolList().$promise.then(function () {
+        $scope.User.initSymbolList().then(function () {
           //* Link the Symbols in the position list to the Symbols in the SymbolList.
           $scope.User.linkPositionSymbols();
           // Set the Symbols in the watch list

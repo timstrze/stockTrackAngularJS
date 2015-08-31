@@ -84,12 +84,12 @@ angular.module('stockTrackAngularJsApp')
        * @returns {Object} Returns the new Symbol
        */
       addSymbol: function(item) {
-        // Save a reference to the Symbol index
-        var index = this.Symbols.indexOf(item);
+        // Save a reference to the Symbol
+        var dupSymbol = this.Symbols.filter(function(symbol) {return symbol.Symbol.toLowerCase() === item.Symbol.toLowerCase();});
         // Make sure the symbol isn't already in the list
-        if(index > -1) {
+        if(dupSymbol.length > 0) {
           // Return the Symbol
-          return this.Symbols[index];
+          return dupSymbol[0];
         }else{
           // https://jslinterrors.com/do-not-use-a-as-a-constructor
           var SSymbol = Symbol;
@@ -121,48 +121,24 @@ angular.module('stockTrackAngularJsApp')
       init: function(watchList, positions, preferences) {
         // Store a reference to this
         var _this = this;
+        // Add a reference to User.WatchList
+        this.WatchList = watchList;
+        // Add a reference to User.Positions
+        this.Positions = positions;
+        // Add a reference to User.Preferences
+        this.Preferences = preferences;
         // Create an array of only the Symbol symbols ['wfm', 'aapl', 'dis']
-        var wl = watchList.map(function(item) {return item.symbol;});
+        var wl = watchList.map(function(item) {return item.symbol.toLowerCase();});
         // Create an array of only the Symbol symbols ['wfm', 'aapl', 'dis']
-        var ps = positions.map(function(item) {return item.symbol;});
-        // Concat the two list together
+        var ps = positions.map(function(item) {return item.symbol.toLowerCase();});
+        // Concat the two lists together
         var sList = wl.concat(ps.filter(function (item) {
           // Remove any duplicates
           return wl.indexOf(item) < 0;
         }));
         // Get the Symbol details
-        return Symbol.http.all({list: sList}, function (data) {
-          // Create a temp array
-          var tmpSymbolList = [];
-          // Make sure there are results
-          if(data.query.results) {
-            // Loop over the results
-            angular.forEach(data.query.results.quote, function (quote) {
-              // https://jslinterrors.com/do-not-use-a-as-a-constructor
-              var SSymbol = Symbol;
-              // Create a new Symbol
-              var symbol = new SSymbol(quote);
-              // Add the Ask to the Ask History array
-              symbol.askHistory.push(quote.Ask);
-              // Add the Symbol to the temp array
-              tmpSymbolList.push(symbol);
-            });
-            // Set the SymbolList.Symbols from the temp array
-            _this.Symbols = tmpSymbolList;
-            // Add a reference to User.WatchList
-            _this.WatchList = watchList;
-            // Add a reference to User.Positions
-            _this.Positions = positions;
-            // Add a reference to User.Preferences
-            _this.Preferences = preferences;
-            // Check if the User wants to auto-refresh Symbols
-            if(preferences.refreshState) {
-              // Start refreshing the SymbolList and store the reference
-              _this.interval = $interval( function(){ _this.refreshSymbols(); }, preferences.refreshRate);
-            }
-          }
-          // Return the SymbolList.Symbols
-          return _this.Symbols;
+        return Symbol.http.all({list: sList}).$promise.then(function (data) {
+          return _this.setInitialSymbols(data);
         });
       },
 
@@ -181,7 +157,7 @@ angular.module('stockTrackAngularJsApp')
         // Store a reference to this
         var _this = this;
         // Get all the Symbols by name ['wfm', 'aapl', 'dis']
-        Symbol.http.all({list: this.Symbols.map(function(item) {return item.symbol;})}, function (data) {
+        Symbol.http.all({list: this.Symbols.map(function(item) {return item.symbol.toLowerCase();})}).$promise.then(function (data) {
           // Check to see results came back
           if(data.query.results) {
             // Loop over the results
@@ -231,6 +207,50 @@ angular.module('stockTrackAngularJsApp')
           // Remove the Symbol from the list
           this.Symbols.splice(this.Symbols.indexOf(item), 1);
         }
+        // Return the SymbolList.Symbols
+        return this.Symbols;
+      },
+
+
+
+
+      /**
+       * @ngdoc function
+       * @name SymbolList.setInitialSymbols
+       * @methodOf stockTrackAngularJsApp.service:SymbolList
+       *
+       * @description
+       * Creates the SymbolList from the watchlist and positions passed in from a User.
+       *
+       * @param {Object} data Results from the call to get Symbol Data
+       *
+       * @returns {Array} Returns SymbolList.Symbols fully fleshed out
+       *
+       */
+      setInitialSymbols: function(data) {
+        // Create a temp array
+        var tmpSymbolList = [];
+        // Make sure there are results
+        if(data && data.query && data.query.results) {
+          // Loop over the results
+          angular.forEach(data.query.results.quote, function (quote) {
+            // https://jslinterrors.com/do-not-use-a-as-a-constructor
+            var SSymbol = Symbol;
+            // Create a new Symbol
+            var symbol = new SSymbol(quote);
+            // Add the Ask to the Ask History array
+            symbol.askHistory.push(quote.Ask);
+            // Add the Symbol to the temp array
+            tmpSymbolList.push(symbol);
+          });
+          // Check if the User wants to auto-refresh Symbols
+          if(this.Preferences.refreshState) {
+            // Start refreshing the SymbolList and store the reference
+            this.interval = $interval( function(){ this.refreshSymbols(); }, this.Preferences.refreshRate);
+          }
+        }
+        // Set the SymbolList.Symbols from the temp array
+        this.Symbols = tmpSymbolList;
         // Return the SymbolList.Symbols
         return this.Symbols;
       }

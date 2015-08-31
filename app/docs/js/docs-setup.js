@@ -14,15 +14,6 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "stockTrackAngularJsApp.Constants",
-      "shortName": "stockTrackAngularJsApp.Constants",
-      "type": "service",
-      "moduleName": "stockTrackAngularJsApp",
-      "shortDescription": "Constants",
-      "keywords": "api constants factory service stocktrackangularjsapp"
-    },
-    {
-      "section": "api",
       "id": "stockTrackAngularJsApp.controller:MainController",
       "shortName": "MainController",
       "type": "controller",
@@ -122,15 +113,6 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "stockTrackAngularJsApp.LoadingInterceptor",
-      "shortName": "stockTrackAngularJsApp.LoadingInterceptor",
-      "type": "service",
-      "moduleName": "stockTrackAngularJsApp",
-      "shortDescription": "LoadingInterceptor",
-      "keywords": "api factory loadinginterceptor service stocktrackangularjsapp"
-    },
-    {
-      "section": "api",
       "id": "stockTrackAngularJsApp.Position",
       "shortName": "stockTrackAngularJsApp.Position",
       "type": "service",
@@ -140,12 +122,39 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "stockTrackAngularJsApp.service:Constants",
+      "shortName": "Constants",
+      "type": "service",
+      "moduleName": "stockTrackAngularJsApp",
+      "shortDescription": "Constants",
+      "keywords": "api app array aug constants data day default example fivedaysfromtoday formatted fri function getdate gmt-0500 gmt-0600 graphs historical historicaltabs javascript jul mar methods mon objects onemonthfromtoday oneyearfromtoday properties returns service sixmonthsfromtoday stocktrackangularjsapp string sun tabs takes threemonthsfromtoday today tue yyyy-mm-dd"
+    },
+    {
+      "section": "api",
+      "id": "stockTrackAngularJsApp.service:LoadingInterceptor",
+      "shortName": "LoadingInterceptor",
+      "type": "service",
+      "moduleName": "stockTrackAngularJsApp",
+      "shortDescription": "LoadingInterceptor",
+      "keywords": "adds api app broadcast config error factory function loading loadinginterceptor loadings message number object promise removes request response responseerror return service stocktrackangularjsapp"
+    },
+    {
+      "section": "api",
+      "id": "stockTrackAngularJsApp.service:Symbol",
+      "shortName": "Symbol",
+      "type": "service",
+      "moduleName": "stockTrackAngularJsApp",
+      "shortDescription": "Symbol",
+      "keywords": "access api data enddate factory formatted function gethistoricaldata graphs historical http methods object post private program properties prototype public service startdate starting stocktrackangularjsapp symbol symbols version"
+    },
+    {
+      "section": "api",
       "id": "stockTrackAngularJsApp.service:SymbolList",
       "shortName": "SymbolList",
       "type": "service",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "SymbolList",
-      "keywords": "adds addsymbol angular api array bindings cloned creates data function init item list objects passed positions preferences properties reference referenced refreshes refreshsymbols removed removes removesymbol returns service stocktrackangularjsapp symbol symbollist symbols update user watchlist"
+      "keywords": "adds addsymbol angular api array bindings call cloned creates data fleshed fully function init item list objects passed positions preferences properties reference referenced refreshes refreshsymbols removed removes removesymbol returns service setinitialsymbols stocktrackangularjsapp symbol symbollist symbols update user watchlist"
     },
     {
       "section": "api",
@@ -155,15 +164,6 @@ NG_DOCS={
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "User",
       "keywords": "access api create data function http initial initsymbollist link linkpositionsymbols linkwatchlistsymbols list methods position positions post program promise properties public returns service stocktrackangularjsapp symbol symbollist symbols user version watch watchlist"
-    },
-    {
-      "section": "api",
-      "id": "stockTrackAngularJsApp.Symbol",
-      "shortName": "stockTrackAngularJsApp.Symbol",
-      "type": "service",
-      "moduleName": "stockTrackAngularJsApp",
-      "shortDescription": "Symbol",
-      "keywords": "api factory service stocktrackangularjsapp symbol"
     }
   ],
   "apis": {

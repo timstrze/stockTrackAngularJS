@@ -6,13 +6,17 @@ describe('Service: SymbolList', function () {
   beforeEach(module('stockTrackAngularJsApp'));
 
   // instantiate service
-  var SymbolList, repeatSymbol, newSymbol;
+  var Symbol, SymbolList, repeatSymbol, newSymbol;
 
-  beforeEach(inject(function (_SymbolList_) {
+  var testData = angular.copy(window.testData);
+
+  beforeEach(inject(function (_SymbolList_, _Symbol_) {
+    Symbol = _Symbol_;
     SymbolList = _SymbolList_;
-    repeatSymbol = window.testData.Symbols[0];
-    newSymbol = window.testData.newSymbol;
-    SymbolList.Symbols = window.testData.Symbols;
+    repeatSymbol = testData.Symbols[0];
+    newSymbol = testData.newSymbol;
+    SymbolList.Symbols = testData.Symbols;
+
   }));
 
 
@@ -30,7 +34,7 @@ describe('Service: SymbolList', function () {
 
     });
 
-    it('adds a Symbol to the SymbolList.Symbols array', function () {
+    it('should add a Symbol to the SymbolList.Symbols array', function () {
 
       var symbolListCopy = angular.copy(SymbolList.Symbols);
 
@@ -44,12 +48,100 @@ describe('Service: SymbolList', function () {
   });
 
 
+  describe('SymbolList.init', function() {
 
-  describe('SymbolList.init', function () {
+    it('should create the SymbolList from the watchlist and positions passed in from a User.', inject(function ($rootScope, $q) {
+      spyOn(SymbolList, 'setInitialSymbols');
 
-    it('should create the SymbolList from the watchlist and positions passed in from a User.', function () {
+      spyOn(Symbol.http, 'all').and.returnValue({
+        $promise: $q.when(testData.refreshSymbols)
+      });
 
-//      SymbolList.init();
+      SymbolList.init(testData.User.WatchList, testData.User.Positions, testData.User.Preferences);
+
+      expect(Symbol.http.all).toHaveBeenCalled();
+      expect(Symbol.http.all.calls.argsFor(0)[0]).toEqual({'list': ['aapl', 'axp', 'wfm', 'dis', 'rcl']});
+
+      expect(SymbolList.WatchList.length > 0).toBe(true);
+      expect(SymbolList.Positions.length > 0).toBe(true);
+      expect(SymbolList.Preferences).not.toBeNull();
+
+      $rootScope.$apply();
+
+      expect(SymbolList.setInitialSymbols).toHaveBeenCalled();
+
+    }));
+  });
+
+
+  describe('SymbolList.refreshSymbols', function () {
+
+    it('should refresh the SymbolList properties so the angular bindings update.', inject(function ($rootScope, $q) {
+
+      spyOn(Symbol.http, 'all').and.returnValue({
+        $promise: $q.when(testData.refreshSymbols)
+      });
+
+      SymbolList.refreshSymbols();
+
+      expect(Symbol.http.all).toHaveBeenCalled();
+      expect(Symbol.http.all.calls.argsFor(0)[0]).toEqual({'list': ['aapl', 'axp', 'wfm', 'dis', 'rcl', 'tsla']});
+
+      var allEqual = true;
+
+      angular.forEach(SymbolList.Symbols, function(symbol, index) {
+        if(symbol.Symbol.Ask !== testData.refreshSymbols[index]) {
+          allEqual = false;
+        }
+      });
+
+      expect(SymbolList.Symbols.length > 0).toBe(true);
+      expect(allEqual).toBe(true);
+
+    }));
+  });
+
+
+
+  describe('SymbolList.removeSymbol', function () {
+
+    it('should remove the Symbol from the SymbolList.Symbols array', function () {
+
+      var symbolListCopy = angular.copy(SymbolList.Symbols);
+
+      SymbolList.removeSymbol(testData.Symbols[0]); //aapl
+
+      expect(SymbolList.Symbols.length === symbolListCopy.length - 1).toBe(true);
+
+    });
+
+    it('should not remove the Symbol from the SymbolList.Symbols array if it is in User.Positions', function () {
+
+      var symbolListCopy = angular.copy(SymbolList.Symbols);
+
+      SymbolList.Positions = testData.Positions;
+
+      SymbolList.removeSymbol(testData.Symbols[1]); //axp
+
+      expect(SymbolList.Symbols.length === symbolListCopy.length).toBe(true);
+
+    });
+  });
+
+
+
+
+  describe('SymbolList.setInitialSymbols', function () {
+
+    it('should create the SymbolList from the watchlist and positions passed in from a User', function () {
+
+      SymbolList.Preferences.refreshState = true;
+      SymbolList.Symbols = [];
+
+      SymbolList.setInitialSymbols(testData.refreshSymbols);
+
+      expect(SymbolList.interval).not.toBeUndefined();
+      expect(SymbolList.Symbols.length > 0).toBe(true);
 
     });
   });

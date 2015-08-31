@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: position', function () {
+describe('Service: Position', function () {
 
   // load the service's module
   beforeEach(module('stockTrackAngularJsApp'));
 
   // instantiate service
-  var position;
-  beforeEach(inject(function (_position_) {
-    position = _position_;
+  var Position;
+  beforeEach(inject(function (_Position_) {
+    Position = _Position_;
   }));
 
   it('should do something', function () {
-    expect(!!position).toBe(true);
+    expect(!!Position).toBe(true);
   });
 
 });
