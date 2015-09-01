@@ -139,7 +139,7 @@ angular.module('stockTrackAngularJsApp')
      * @description
      * Array of default historical data for tabs
      *
-     * @returns {Array} Returns an array of Objects containing data for graphs
+     * @returns {Array} Returns and
      *
      */
     Constants.historicalTabs = [

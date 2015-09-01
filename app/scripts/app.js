@@ -24,7 +24,7 @@ angular
   .config(function ($routeProvider, $httpProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
+        templateUrl: 'views/routes/main.html',
         controller: 'MainController'
       })
       .otherwise({
@@ -35,12 +35,6 @@ angular
     $httpProvider.interceptors.push('LoadingInterceptor');
 
   })
-//  .config(function ($mdThemingProvider) {
-//    // Configure a dark theme with primary foreground yellow
-//    $mdThemingProvider.theme('docs-dark', 'default')
-//      .primaryPalette('yellow')
-//      .dark();
-//  })
   .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
     localStorageServiceProvider.setPrefix('staja');
   }]);
