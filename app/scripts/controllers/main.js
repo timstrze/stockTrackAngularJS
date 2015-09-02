@@ -22,13 +22,31 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
+     * @name MainController.init
+     * @module main
+     * @methodOf stockTrackAngularJsApp.controller:MainController
+     * @kind function
+     *
+     * @description
+     * Initiates the application
+     *
+     */
+    $scope.init = function () {
+      // Gets the user
+      $scope.getUser();
+    };
+
+
+
+    /**
+     * @ngdoc function
      * @name MainController.getUser
      * @module main
      * @methodOf stockTrackAngularJsApp.controller:MainController
      * @kind function
      *
      * @description
-     * Initiates the application by getting the User.
+     * Gets the User.
      *
      */
     $scope.getUser = function () {
@@ -45,7 +63,7 @@ angular.module('stockTrackAngularJsApp')
           // Set the first symbol in the watchlist as the selected symbol
           $scope.User.selectedSymbol = $scope.User.WatchList[0].Symbol;
           //
-          var selectedTab = Constants.historicalTabs[$scope.User.Preferences.selectedHistoricalIndex || 2];
+          var selectedTab = Constants.historicalTabs()[$scope.User.Preferences.selectedHistoricalIndex || 2];
           //
           $scope.User.selectedSymbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
         });
@@ -111,19 +129,47 @@ angular.module('stockTrackAngularJsApp')
 
 
 
-    // Watching the loading flag for true
+    /**
+     * @ngdoc function
+     * @name MainController.loader_show
+     * @module main
+     * @eventOf stockTrackAngularJsApp.controller:MainController
+     * @kind event
+     *
+     * @description
+     * Watching the loading flag for true.
+     *
+     */
     $scope.$on('loader_show', function () {
       $scope.isLoading = true;
     });
 
 
-    // Watching the loading flag for false
+
+
+    /**
+     * @ngdoc function
+     * @name MainController.loader_hide
+     * @module main
+     * @eventOf stockTrackAngularJsApp.controller:MainController
+     * @kind event
+     *
+     * @description
+     * Watching the loading flag for false.
+     *
+     */
     $scope.$on('loader_hide', function () {
       $scope.isLoading = false;
     });
 
 
-    // Init the app
-    $scope.getUser();
+
+
+    /**
+     * @description
+     * Initiates the application.
+     *
+     */
+    $scope.init();
 
   });

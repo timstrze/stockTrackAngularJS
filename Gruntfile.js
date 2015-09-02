@@ -373,6 +373,21 @@ module.exports = function (grunt) {
       }
     },
 
+
+    //Compile Templates
+    ngtemplates: {
+      app: {
+        cwd: 'app/views',
+        src: ['**/*.html', '!index.html', '!404.html'],
+        dest: '.tmp/templates.js',
+        options: {
+          module: 'stockTrackAngularJsApp',
+          prefix: 'views/',
+          usemin: 'scripts/app.js'
+        }
+      }
+    },
+
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
@@ -420,6 +435,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'ngtemplates',
     'wiredep',
     'concurrent:test',
     'autoprefixer',

@@ -19,6 +19,8 @@ angular.module('stockTrackAngularJsApp')
         //
         var _scope = $scope;
 
+        $scope.testMe = "timmmm";
+
         /**
          * @ngdoc function
          * @name openBuyModal

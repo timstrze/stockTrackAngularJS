@@ -153,7 +153,7 @@
 
     <md-tabs md-selected="preferences.selectedHistoricalIndex" md-border-bottom md-stretch-tabs="always"
              style="min-height: inherit !important;">
-      <md-tab ng-repeat="tab in Constants.historicalTabs"
+      <md-tab ng-repeat="tab in Constants.historicalTabs()"
               ng-disabled="tab.disabled"
               label="{{tab.title}}"
               md-on-select="symbol.getHistoricalData(tab.startDate, tab.endDate)">

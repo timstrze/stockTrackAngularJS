@@ -68,7 +68,7 @@ angular.module('stockTrackAngularJsApp')
 
 //          $scope.preferences.lastSelectedSymbol = $scope.selectedSymbol;
 
-//          var selectedTab = Constants.historicalTabs[$scope.preferences.selectedHistoricalIndex];
+//          var selectedTab = Constants.historicalTabs()[$scope.preferences.selectedHistoricalIndex];
 //
 //          symbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
 

@@ -35,7 +35,10 @@ module.exports = function(config) {
       'app/scripts/**/*.js',
       'test/test-data/**/*.js',
 
+      '.tmp/templates.js',
+
       'test/spec/controllers/main.js',
+      'test/spec/directives/buy-button.js',
       'test/spec/services/**/*.js'
 //      'test/spec/**/*.js'
     ],

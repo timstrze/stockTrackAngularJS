@@ -19,7 +19,7 @@ NG_DOCS={
       "type": "controller",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "MainController",
-      "keywords": "api application bar controller function getuser initiates list main maincontroller modal positions positionstoggle preferences side stocktrackangularjsapp toggles toggleuserpreferences user watch watchlisttoggle"
+      "keywords": "api application bar controller function getuser init initiates list main maincontroller modal positions positionstoggle preferences side stocktrackangularjsapp toggles toggleuserpreferences user watch watchlisttoggle"
     },
     {
       "section": "api",
@@ -127,7 +127,7 @@ NG_DOCS={
       "type": "service",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "Constants",
-      "keywords": "api app array aug constants data day default example fivedaysfromtoday formatted fri function getdate gmt-0500 gmt-0600 graphs historical historicaltabs javascript jul mar methods mon objects onemonthfromtoday oneyearfromtoday properties returns service sixmonthsfromtoday stocktrackangularjsapp string sun tabs takes threemonthsfromtoday today tue yyyy-mm-dd"
+      "keywords": "api app array aug constants data day default example fivedaysfromtoday formatted fri function getdate gmt-0500 gmt-0600 historical historicaltabs javascript jul mar methods mon onemonthfromtoday oneyearfromtoday properties returns service sixmonthsfromtoday stocktrackangularjsapp string sun tabs takes threemonthsfromtoday today tue yyyy-mm-dd"
     },
     {
       "section": "api",

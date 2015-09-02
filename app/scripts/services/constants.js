@@ -142,38 +142,40 @@ angular.module('stockTrackAngularJsApp')
      * @returns {Array} Returns and
      *
      */
-    Constants.historicalTabs = [
-      {
-        title: '5 Day',
-        slug: '5-day',
-        endDate: Constants.getDate(Constants.today),
-        startDate: Constants.getDate(Constants.fiveDaysFromtoday)
-      },
-      {
-        title: '1 Month',
-        slug: '1-month',
-        endDate: Constants.getDate(Constants.today),
-        startDate: Constants.getDate(Constants.oneMonthFromtoday)
-      },
-      {
-        title: '3 Month',
-        slug: '3-month',
-        endDate: Constants.getDate(Constants.today),
-        startDate: Constants.getDate(Constants.threeMonthsFromtoday)
-      },
-      {
-        title: '6 Month',
-        slug: '6-month',
-        endDate: Constants.getDate(Constants.today),
-        startDate: Constants.getDate(Constants.sixMonthsFromtoday)
-      },
-      {
-        title: '1 Year',
-        slug: '1-year',
-        endDate: Constants.getDate(Constants.today),
-        startDate: Constants.getDate(Constants.oneYearFromtoday)
-      }
-    ];
+    Constants.historicalTabs = function() {
+      return [
+        {
+          title: '5 Day',
+          slug: '5-day',
+          endDate: Constants.getDate(Constants.today),
+          startDate: Constants.getDate(Constants.fiveDaysFromtoday)
+        },
+        {
+          title: '1 Month',
+          slug: '1-month',
+          endDate: Constants.getDate(Constants.today),
+          startDate: Constants.getDate(Constants.oneMonthFromtoday)
+        },
+        {
+          title: '3 Month',
+          slug: '3-month',
+          endDate: Constants.getDate(Constants.today),
+          startDate: Constants.getDate(Constants.threeMonthsFromtoday)
+        },
+        {
+          title: '6 Month',
+          slug: '6-month',
+          endDate: Constants.getDate(Constants.today),
+          startDate: Constants.getDate(Constants.sixMonthsFromtoday)
+        },
+        {
+          title: '1 Year',
+          slug: '1-year',
+          endDate: Constants.getDate(Constants.today),
+          startDate: Constants.getDate(Constants.oneYearFromtoday)
+        }
+      ];
+    };
 
 
     return Constants;
