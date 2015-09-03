@@ -5,6 +5,19 @@ describe('MainController', function() {
 
   var $controller, $scope, controller, $mdSidenav, User;
 
+  var spyWatch = jasmine.createSpy();
+
+  // Load the myApp module, which contains the directive
+  beforeEach(module('stockTrackAngularJsApp'));
+
+  beforeEach(module(function ($provide) {
+    $provide.value('$mdSidenav', function (v) {
+      return {
+        toggle: spyWatch
+      }
+    });
+  }));
+
   beforeEach(inject(function(_$controller_, _User_, _$mdSidenav_){
     // The injector unwraps the underscores (_) from around the parameter names when matching
     $controller = _$controller_;
@@ -21,8 +34,6 @@ describe('MainController', function() {
 
     spyOn($scope, '$on');
     spyOn(User.http, 'get');
-    spyOn($mdSidenav('user-preferences'), 'toggle');
-
   }));
 
   describe('MainController $scope.watchlistToggle', function() {
@@ -55,13 +66,13 @@ describe('MainController', function() {
     });
   });
 
-//  describe('MainController $scope.toggleUserPreferences', function() {
-//
-//    it('sets the showWatchlist to false and showPositions to true', function() {
-//
-//      $scope.toggleUserPreferences();
-//      expect($mdSidenav('user-preferences').toggle).toHaveBeenCalled();
-//
-//    });
-//  });
+  describe('MainController $scope.toggleUserPreferences', function() {
+
+    it('sets the showWatchlist to false and showPositions to true', function() {
+
+      $scope.toggleUserPreferences();
+      expect(spyWatch).toHaveBeenCalled();
+
+    });
+  });
 });

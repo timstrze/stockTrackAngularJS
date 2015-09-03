@@ -3,9 +3,16 @@
 /**
  * @ngdoc directive
  * @name stockTrackAngularJsApp.directive:buy-button
+ *
+ * @element div
+ * @function
+ *
  * @description
  * # buyButton
+ * Directive to open the buy modal.
  *
+ * @param {Object} user User Object
+ * @param {Object} symbol Symbol Object that the User is going to buy
  */
 angular.module('stockTrackAngularJsApp')
   .directive('buyButton', function ($window, $filter, $mdDialog) {
@@ -26,7 +33,8 @@ angular.module('stockTrackAngularJsApp')
          * @methodOf stockTrackAngularJsApp.directive:buy-button
          *
          * @description
-         * Buys the selected symbol and quantity
+         * Buys the selected symbol and quantity. Checks to see if the User has enough cash to make the trade.
+         * Updates the User's available cash.
          *
          */
         $scope.buy = function () {
@@ -83,7 +91,7 @@ angular.module('stockTrackAngularJsApp')
          * @methodOf stockTrackAngularJsApp.directive:buy-button
          *
          * @description
-         * Opens the buy modal
+         * Opens the buy modal. Sets the default quantity to 1.
          *
          */
         $scope.openBuyModal = function (event) {

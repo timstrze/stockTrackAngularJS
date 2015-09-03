@@ -28,7 +28,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "buyButton",
-      "keywords": "api buy buybutton buys directive function modal openbuymodal opens quantity selected stocktrackangularjsapp symbol"
+      "keywords": "api buy buybutton buys cash checks default directive function going modal object open openbuymodal opens quantity selected sets stocktrackangularjsapp symbol trade updates user"
     },
     {
       "section": "api",
@@ -36,8 +36,8 @@ NG_DOCS={
       "shortName": "color-number",
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
-      "shortDescription": "Resize textarea automatically to the size of its text content.",
-      "keywords": "api automatically content directive div resize size stocktrackangularjsapp text textarea"
+      "shortDescription": "Display the number with a positive or negative class.",
+      "keywords": "api class directive display div negative number positive stocktrackangularjsapp test"
     },
     {
       "section": "api",
@@ -55,7 +55,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "positions",
-      "keywords": "api directive positions stocktrackangularjsapp"
+      "keywords": "api buy calculates close directive display function happen method pass pnl positions previous refreshsymbols stocktrackangularjsapp symbollist symbols today totalpositions user"
     },
     {
       "section": "api",
@@ -64,7 +64,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "sellButton",
-      "keywords": "api directive function modal opens opensellmodal sell sellbutton stocktrackangularjsapp"
+      "keywords": "api buy directive function going modal object open opens opensellmodal sell sellbutton stocktrackangularjsapp symbol user"
     },
     {
       "section": "api",
@@ -82,7 +82,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "userPreferences",
-      "keywords": "api directive stocktrackangularjsapp userpreferences"
+      "keywords": "api change directive function interval list milliseconds object preferences rate refresh remove setinterval sets stocktrackangularjsapp stored symbol symbollist symbolrefreshchange updates user userpreferences window"
     },
     {
       "section": "api",
@@ -91,7 +91,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "userTotals",
-      "keywords": "api directive stocktrackangularjsapp usertotals"
+      "keywords": "adds api calculate calculates calculatetotals daily directive function pnl positions stocktrackangularjsapp total user usertotals"
     },
     {
       "section": "api",

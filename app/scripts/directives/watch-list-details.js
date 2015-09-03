@@ -7,14 +7,14 @@
  * @function
  *
  * @description
- * Display the selected symbol's details and graphs.
+ * Display the selected Symbol's details and graphs.
  *
  * @param {Object} symbol Symbol Object
  * @param {Object} user User Object
  *
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('watchListDetails', function ($mdDialog, SymbolList, $mdSidenav, Constants) {
+  .directive('watchListDetails', function ($mdDialog, $mdSidenav, SymbolList, Constants) {
     return {
       restrict: 'E',
       scope: {
@@ -24,8 +24,17 @@ angular.module('stockTrackAngularJsApp')
       templateUrl: 'views/directives/watch-list-details.html',
       controller: function ($scope) {
 
-        // Make service method available to the ng-repeat
+        /**
+         * @ngdoc property
+         * @name historicalTabs
+         * @propertyOf stockTrackAngularJsApp.directive:watch-list-details
+         *
+         * @description
+         * Make service method available to the ng-repeat.
+         */
         $scope.historicalTabs = Constants.historicalTabs();
+
+
 
         /**
          * @ngdoc function
@@ -33,7 +42,7 @@ angular.module('stockTrackAngularJsApp')
          * @methodOf stockTrackAngularJsApp.directive:watch-list-details
          *
          * @description
-         * Confirms if the user wants to remove a Symbol from the watchlist
+         * Confirms if the user wants to remove a Symbol from the watchlist.
          *
          * @param {Object} symbol Symbol Object
          * @param {Event} event Button click event
@@ -50,8 +59,8 @@ angular.module('stockTrackAngularJsApp')
             .cancel('Keep')
             .targetEvent(event);
           // Display the confirm window
-          $mdDialog.show(confirm).then(function () {
-            // Remove the Symbol if it is not in Positions
+          $mdDialog.show(confirm).$promise.then(function () {
+            // Remove the Symbol from SymbolList if it is not in Positions
             SymbolList.removeSymbol(symbol);
             // Find the index of the Symbol in the watch list
             var index = $scope.user.WatchList.map(function (wlSymbol) {
@@ -64,13 +73,15 @@ angular.module('stockTrackAngularJsApp')
           });
         };
 
+
+
         /**
          * @ngdoc function
          * @name toggleWatchlist
          * @methodOf stockTrackAngularJsApp.directive:watch-list-details
          *
          * @description
-         * Toggle the watch list
+         * Toggles the watch list side navigation bar.
          *
          */
         $scope.toggleWatchlist = function () {

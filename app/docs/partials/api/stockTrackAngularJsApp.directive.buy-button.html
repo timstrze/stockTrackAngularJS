@@ -5,19 +5,25 @@
 </h1>
 <div><h2 id="description">Description</h2>
 <div class="description"><div class="stocktrackangularjsapp-directive-page stocktrackangularjsapp-directive-buy-button-page"><h3 id="description_buybutton">buyButton</h3>
+<p>Directive to open the buy modal.</p>
 </div></div>
 <h2 id="usage">Usage</h2>
-<div class="usage">as attribute<pre class="prettyprint linenums">&lt;ANY buy-button&gt;
+<div class="usage">as attribute<pre class="prettyprint linenums">&lt;ANY buy-button
+     user="{Object}"
+     symbol="{Object}"&gt;
    ...
 &lt;/ANY&gt;</pre>
-</div>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>user</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="stocktrackangularjsapp-directive-page stocktrackangularjsapp-directive-buy-button-page"><p>User Object</p>
+</div></td></tr><tr><td>symbol</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="stocktrackangularjsapp-directive-page stocktrackangularjsapp-directive-buy-button-page"><p>Symbol Object that the User is going to buy</p>
+</div></td></tr></tbody></table></div>
 <div class="member method"><h2 id="methods">Methods</h2>
 <ul class="methods"><li><h3 id="methods_buy">buy()</h3>
-<div class="buy"><div class="buy-page"><p>Buys the selected symbol and quantity</p>
+<div class="buy"><div class="buy-page"><p>Buys the selected symbol and quantity. Checks to see if the User has enough cash to make the trade.
+Updates the User&#39;s available cash.</p>
 </div></div>
 </li>
 <li><h3 id="methods_openbuymodal">openBuyModal()</h3>
-<div class="openbuymodal"><div class="openbuymodal-page"><p>Opens the buy modal</p>
+<div class="openbuymodal"><div class="openbuymodal-page"><p>Opens the buy modal. Sets the default quantity to 1.</p>
 </div></div>
 </li>
 </ul>

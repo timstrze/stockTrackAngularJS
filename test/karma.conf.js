@@ -38,10 +38,16 @@ module.exports = function(config) {
       '.tmp/templates.js',
 
       'test/spec/controllers/main.js',
+
       'test/spec/directives/buy-button.js',
       'test/spec/directives/sell-button.js',
       'test/spec/directives/color-number.js',
       'test/spec/directives/user-preferences.js',
+      'test/spec/directives/user-totals.js',
+      'test/spec/directives/positions.js',
+      'test/spec/directives/watch-list.js',
+      'test/spec/directives/watch-list-details.js',
+
       'test/spec/services/**/*.js'
 //      'test/spec/**/*.js'
     ],

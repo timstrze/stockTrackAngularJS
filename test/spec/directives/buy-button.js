@@ -7,7 +7,7 @@ describe('Directive: buy-button', function() {
   beforeEach(module('stockTrackAngularJsApp'));
 
   // Store references to $rootScope and $compile
-  beforeEach(inject(function(_$compile_, _$rootScope_, _$mdDialog_, _$window_){
+  beforeEach(inject(function($templateCache, _$compile_, _$rootScope_, _$mdDialog_, _$window_){
     // The injector unwraps the underscores (_) from around the parameter names when matching
     $window = _$window_;
     $compile = _$compile_;

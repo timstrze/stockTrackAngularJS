@@ -3,8 +3,16 @@
 /**
  * @ngdoc directive
  * @name stockTrackAngularJsApp.directive:sell-button
+ *
+ * @element div
+ * @function
+ *
  * @description
  * # sellButton
+ * Directive to open the buy modal.
+ *
+ * @param {Object} user User Object
+ * @param {Object} symbol Symbol Object that the User is going to sell
  */
 angular.module('stockTrackAngularJsApp')
   .directive('sellButton', function ($log) {

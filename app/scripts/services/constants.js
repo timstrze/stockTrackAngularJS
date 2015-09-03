@@ -134,7 +134,7 @@ angular.module('stockTrackAngularJsApp')
     /**
      * @ngdoc function
      * @name Constants.historicalTabs
-     * @propertyOf stockTrackAngularJsApp.service:Constants
+     * @methodOf stockTrackAngularJsApp.service:Constants
      *
      * @description
      * Array of default historical data for tabs

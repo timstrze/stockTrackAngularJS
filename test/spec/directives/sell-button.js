@@ -29,7 +29,7 @@ describe('Directive: sell-button', function() {
     expect(element.html()).toContain('class="sell-button"');
   });
 
-  it('buy should buy the selected symbol and add to the Positions list', function() {
+  it('sell should log the action', function() {
     // Compile a piece of HTML containing the directive
     var element = $compile('<sell-button></sell-button>')($rootScope);
 

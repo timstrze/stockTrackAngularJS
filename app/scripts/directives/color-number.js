@@ -3,12 +3,14 @@
 /**
  * @ngdoc directive
  * @name stockTrackAngularJsApp.directive:color-number
+ *
  * @element div
  * @function
  *
  * @description
  * Display the number with a positive or negative class.
  *
+ * @param {Number} number Number to test if positive or negative
  */
 angular.module('stockTrackAngularJsApp')
   .directive('colorNumber', function () {
