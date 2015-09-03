@@ -366,8 +366,8 @@ module.exports = function (grunt) {
       all: ['app/scripts/**/*.js'],
       options: {
         dest: 'app/docs',
-        scripts: ['angular.js', 'app/scripts/app.js', 'app/scripts/directives/color-number.js'],
-        //styles: ['../dist/styles/styles.css'],
+        scripts: ['angular.js'],
+        //styles: [],
         title: 'Stock Tracker Docs',
         html5Mode: false
       }
@@ -434,7 +434,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:server',
     'ngtemplates',
     'wiredep',
     'concurrent:test',

@@ -7,7 +7,7 @@
  * @function
  *
  * @description
- * Resize textarea automatically to the size of its text content.
+ * Display the number with a positive or negative class.
  *
  */
 angular.module('stockTrackAngularJsApp')

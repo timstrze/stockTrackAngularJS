@@ -39,6 +39,9 @@ module.exports = function(config) {
 
       'test/spec/controllers/main.js',
       'test/spec/directives/buy-button.js',
+      'test/spec/directives/sell-button.js',
+      'test/spec/directives/color-number.js',
+      'test/spec/directives/user-preferences.js',
       'test/spec/services/**/*.js'
 //      'test/spec/**/*.js'
     ],

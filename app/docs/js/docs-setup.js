@@ -173,8 +173,6 @@ NG_DOCS={
   "editExample": true,
   "startPage": "/api",
   "scripts": [
-    "angular.min.js",
-    "app.js",
-    "color-number.js"
+    "angular.min.js"
   ]
 };

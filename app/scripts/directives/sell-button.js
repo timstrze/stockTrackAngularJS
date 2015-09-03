@@ -7,7 +7,7 @@
  * # sellButton
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('sellButton', function () {
+  .directive('sellButton', function ($log) {
     return {
       scope: {
         symbol: '=',
@@ -15,7 +15,7 @@ angular.module('stockTrackAngularJsApp')
       },
       templateUrl: 'views/directives/sell-button.html',
       restrict: 'E',
-      controller: function($scope, $log) {
+      controller: function($scope) {
 
 
         /**

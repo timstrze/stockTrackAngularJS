@@ -1,20 +1,43 @@
 'use strict';
 
-describe('Directive: sellButton', function () {
+describe('Directive: sell-button', function() {
+  var $compile, $rootScope, $log, $window, testData;
 
-  // load the directive's module
+  // Load the myApp module, which contains the directive
   beforeEach(module('stockTrackAngularJsApp'));
 
-  var element,
-    scope;
+  // Store references to $rootScope and $compile
+  beforeEach(inject(function(_$compile_, _$rootScope_, _$log_, _$window_){
+    // The injector unwraps the underscores (_) from around the parameter names when matching
+    $window = _$window_;
+    $compile = _$compile_;
+    $rootScope = _$rootScope_;
+    $log = _$log_;
 
-  beforeEach(inject(function ($rootScope) {
-    scope = $rootScope.$new();
+    testData = angular.copy(window.testData);
+
+    spyOn($log, 'debug');
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<sell-button></sell-button>');
-    element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the sellButton directive');
-  }));
+  it('should contain the class name of sell-button and contain functions', function() {
+    // Compile a piece of HTML containing the directive
+    var element = $compile('<sell-button></sell-button>')($rootScope);
+    // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
+    $rootScope.$digest();
+    // Check that the compiled element contains the template html content
+    expect(element.isolateScope().openSellModal).toEqual(jasmine.any(Function));
+    expect(element.html()).toContain('class="sell-button"');
+  });
+
+  it('buy should buy the selected symbol and add to the Positions list', function() {
+    // Compile a piece of HTML containing the directive
+    var element = $compile('<sell-button></sell-button>')($rootScope);
+
+    // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
+    $rootScope.$digest();
+
+    element.isolateScope().openSellModal();
+    expect($log.debug).toHaveBeenCalled();
+  });
+
 });

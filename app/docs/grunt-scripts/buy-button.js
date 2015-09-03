@@ -6,6 +6,14 @@
  * @description
  * # buyButton
  *
+ * @example
+ <example module="stockTrackAngularJsApp">
+ <file name="index.html">
+ <md-content>
+ <buy-button></buy-button>
+ </md-content>
+ </file>
+ </example>
  */
 angular.module('stockTrackAngularJsApp')
   .directive('buyButton', function ($window, $filter, $mdDialog) {

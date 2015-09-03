@@ -1,20 +1,27 @@
 'use strict';
 
-describe('Directive: colorNumber', function () {
+describe('Directive: color-number', function() {
+  var $compile, $rootScope, testData;
 
-  // load the directive's module
+  // Load the myApp module, which contains the directive
   beforeEach(module('stockTrackAngularJsApp'));
 
-  var element,
-    scope;
+  // Store references to $rootScope and $compile
+  beforeEach(inject(function($templateCache, _$compile_, _$rootScope_){
+    // The injector unwraps the underscores (_) from around the parameter names when matching
+    $compile = _$compile_;
+    $rootScope = _$rootScope_;
 
-  beforeEach(inject(function ($rootScope) {
-    scope = $rootScope.$new();
+    testData = angular.copy(window.testData);
+
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<color-number></color-number>');
-    element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the colorNumber directive');
-  }));
+  it('should contain the class name of color-number', function() {
+    // Compile a piece of HTML containing the directive
+    var element = $compile('<color-number></color-number>')($rootScope);
+    // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
+    $rootScope.$digest();
+    // Check that the compiled element contains the template content
+    expect(element.html()).toContain('class="color-number"');
+  });
 });

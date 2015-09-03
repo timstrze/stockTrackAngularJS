@@ -24,8 +24,8 @@ angular.module('stockTrackAngularJsApp')
       templateUrl: 'views/directives/watch-list-details.html',
       controller: function ($scope) {
 
-        // Make service available to the template
-        $scope.Constants = Constants;
+        // Make service method available to the ng-repeat
+        $scope.historicalTabs = Constants.historicalTabs();
 
         /**
          * @ngdoc function
