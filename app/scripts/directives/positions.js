@@ -48,9 +48,9 @@ angular.module('stockTrackAngularJsApp')
               if(position.Symbol) {
                 // Add the total PNL
                 totalPNL = totalPNL + (position.Symbol.Ask * buy.quantity) - (buy.ask * buy.quantity);
-                //Get today's date
+                // Get today's date
                 var todaysDate = new Date();
-                //Check to see if the buy happened today and use setHours to take the time out of the comparison
+                // Check to see if the buy happened today and use setHours to take the time out of the comparison
                 if(new Date(buy.created).setHours(0,0,0,0) === todaysDate.setHours(0,0,0,0)) {
                   // If the buy did happen today use the Symbols ask value
                   dailyPNL = (position.Symbol.Ask * totalQuantity) - (buy.ask * totalQuantity);

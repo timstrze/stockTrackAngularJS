@@ -82,7 +82,7 @@ angular.module('stockTrackAngularJsApp')
          * @methodOf stockTrackAngularJsApp.directive:watch-list
          *
          * @description
-         * Confirms if the user wants to remove a Symbol from the watchlist.
+         * Pass through to the SymbolList.refreshSymbols method.
          *
          */
         $scope.refreshSymbols = function() {
@@ -138,9 +138,9 @@ angular.module('stockTrackAngularJsApp')
           //
           $scope.selectedSymbol = symbol;
           //
-          var selectedTab = Constants.historicalTabs()[$scope.preferences.selectedHistoricalIndex];
+          $scope.selectedTab = Constants.historicalTabs()[$scope.preferences.selectedHistoricalIndex];
           //
-          symbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
+          symbol.getHistoricalData($scope.selectedTab.startDate, $scope.selectedTab.endDate);
         };
 
       }
