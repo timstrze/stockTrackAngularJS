@@ -11,10 +11,10 @@ describe('MainController', function() {
   beforeEach(module('stockTrackAngularJsApp'));
 
   beforeEach(module(function ($provide) {
-    $provide.value('$mdSidenav', function (v) {
+    $provide.value('$mdSidenav', function () {
       return {
         toggle: spyWatch
-      }
+      };
     });
   }));
 

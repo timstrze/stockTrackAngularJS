@@ -35,7 +35,7 @@ angular.module('stockTrackAngularJsApp')
          * Create a container for the graph
          *
          */
-        $scope.graph;
+        $scope.graph = {};
 
 
 
@@ -48,7 +48,7 @@ angular.module('stockTrackAngularJsApp')
          * Create a container for the line
          *
          */
-        $scope.line;
+        $scope.line = {};
 
 
         /**

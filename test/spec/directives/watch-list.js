@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Directive: watch-list', function() {
-  var $compile, $rootScope, SymbolList, Symbol, $window, testData;
+  var $compile, $rootScope, SymbolList, Symbol, SSymbol, $window, testData;
 
   var spyWatch = jasmine.createSpy();
 
@@ -9,10 +9,10 @@ describe('Directive: watch-list', function() {
   beforeEach(module('stockTrackAngularJsApp'));
 
   beforeEach(module(function ($provide) {
-    $provide.value('$mdSidenav', function (v) {
+    $provide.value('$mdSidenav', function () {
       return {
         close: spyWatch
-      }
+      };
     });
   }));
 
@@ -24,6 +24,7 @@ describe('Directive: watch-list', function() {
     $rootScope = _$rootScope_;
     SymbolList = _SymbolList_;
     Symbol = _Symbol_;
+    SSymbol = _Symbol_;
     spyOn(SymbolList, 'refreshSymbols');
 
     //Symbol, Constants, localStorageService, $mdSidenav, SymbolList
@@ -76,7 +77,7 @@ describe('Directive: watch-list', function() {
     expect(Symbol.http.search).toHaveBeenCalled();
   }));
 
-  it('search should not call the SymbolList.refreshSymbols method if search string is less than 0', inject(function($q) {
+  it('search should not call the SymbolList.refreshSymbols method if search string is less than 0', function() {
     // Create a spy
     spyOn(Symbol.http, 'search');
     // Compile a piece of HTML containing the directive
@@ -89,7 +90,7 @@ describe('Directive: watch-list', function() {
     $rootScope.$apply();
     // Tests
     expect(Symbol.http.search).not.toHaveBeenCalled();
-  }));
+  });
 
   it('refreshSymbols should call the SymbolList.refreshSymbols method', function() {
     // Compile a piece of HTML containing the directive
@@ -118,7 +119,7 @@ describe('Directive: watch-list', function() {
     // Make a copy of the Symbol List to compare later
     var copySymbolList = angular.copy(SymbolList);
     // Create a new Symbol
-    var newSymbol = new Symbol(testData.Symbols[0]);
+    var newSymbol = new SSymbol(testData.Symbols[0]);
     // Call the Function
     element.isolateScope().chooseSymbol(newSymbol);
     // Tests
@@ -137,7 +138,7 @@ describe('Directive: watch-list', function() {
     element.isolateScope().watchList = testData.User.WatchList;
     element.isolateScope().preferences = testData.User.Preferences;
     // Create a new Symbol
-    var newSymbol = new Symbol(testData.Symbols[1]);
+    var newSymbol = new SSymbol(testData.Symbols[1]);
     // Create a spy
     spyOn(newSymbol, 'getHistoricalData');
     // Call the Function
