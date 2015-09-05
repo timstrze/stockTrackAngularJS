@@ -3,9 +3,8 @@
 /**
  * @ngdoc directive
  * @name stockTrackAngularJsApp.directive:positions
- *
- * @element div
- * @function
+ * @element positions
+ * @restrict E
  *
  * @description
  * # positions

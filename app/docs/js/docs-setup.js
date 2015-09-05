@@ -28,7 +28,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "buyButton",
-      "keywords": "api buy buybutton buys cash checks default directive function going modal object open openbuymodal opens quantity selected sets stocktrackangularjsapp symbol trade updates user"
+      "keywords": "api buy buy-button buybutton buys cash checks default directive function going modal object open openbuymodal opens quantity selected sets shares stocktrackangularjsapp symbol trade updates user"
     },
     {
       "section": "api",
@@ -37,7 +37,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "Display the number with a positive or negative class.",
-      "keywords": "api class directive display div negative number positive stocktrackangularjsapp test"
+      "keywords": "api class color-number directive display negative number positive stocktrackangularjsapp test"
     },
     {
       "section": "api",
@@ -46,7 +46,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "lineChart",
-      "keywords": "api directive linechart stocktrackangularjsapp"
+      "keywords": "api array based chart create creates d3 data directive friendly function historical historicaldata line-chart linechart parsedate parses render stocktrackangularjsapp symbol"
     },
     {
       "section": "api",
@@ -64,7 +64,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "sellButton",
-      "keywords": "api buy directive function going modal object open opens opensellmodal sell sellbutton stocktrackangularjsapp symbol user"
+      "keywords": "api buy directive function going modal object open opens opensellmodal sell sell-button sellbutton stocktrackangularjsapp symbol user"
     },
     {
       "section": "api",
@@ -73,7 +73,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "sparkLine",
-      "keywords": "api directive sparkline stocktrackangularjsapp"
+      "keywords": "api array askhistory based build container create creates default directive element example function graph height history parent render spark spark-line sparkline stocktrackangularjsapp symbol width"
     },
     {
       "section": "api",
@@ -82,7 +82,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "userPreferences",
-      "keywords": "api change directive function interval list milliseconds object preferences rate refresh remove setinterval sets stocktrackangularjsapp stored symbol symbollist symbolrefreshchange updates user userpreferences window"
+      "keywords": "api change directive function interval list milliseconds object preferences rate refresh remove setinterval sets stocktrackangularjsapp stored symbol symbollist symbolrefreshchange updates user user-preferences userpreferences window"
     },
     {
       "section": "api",
@@ -91,7 +91,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "userTotals",
-      "keywords": "adds api calculate calculates calculatetotals daily directive function pnl positions stocktrackangularjsapp total user usertotals"
+      "keywords": "adds api calculate calculates calculatetotals daily directive function object pnl positions stocktrackangularjsapp total user user-totals usertotals"
     },
     {
       "section": "api",
@@ -100,7 +100,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
       "shortDescription": "watchList",
-      "keywords": "api directive stocktrackangularjsapp watchlist"
+      "keywords": "adds api box called chooses choosesymbol closewatchlist confirms data directive displaying function graph historical list method newsymbol object pass performs preferences refreshsymbols remove resets search searches searchval selected selectedsymbol selectsymbol sets stocktrackangularjsapp string symbol symbollist text type-ahead user watch-list watchlist"
     },
     {
       "section": "api",
@@ -108,8 +108,8 @@ NG_DOCS={
       "shortName": "watch-list-details",
       "type": "directive",
       "moduleName": "stockTrackAngularJsApp",
-      "shortDescription": "Display the selected symbol&#39;s details and graphs.",
-      "keywords": "api button click confirms details directive display div event function graphs list object remove removefromwatchlist selected stocktrackangularjsapp symbol toggle togglewatchlist user watch watchlist"
+      "shortDescription": "Display the selected Symbol&#39;s details and graphs.",
+      "keywords": "api bar button click confirms details directive display event function graphs historicaltabs list method navigation ng-repeat object property remove removefromwatchlist selected service side stocktrackangularjsapp symbol toggles togglewatchlist user watch watch-list-details watchlist"
     },
     {
       "section": "api",

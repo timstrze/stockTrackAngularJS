@@ -3,9 +3,8 @@
 /**
  * @ngdoc directive
  * @name stockTrackAngularJsApp.directive:sell-button
- *
- * @element div
- * @function
+ * @element sell-button
+ * @restrict E
  *
  * @description
  * # sellButton

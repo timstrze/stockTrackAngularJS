@@ -3,9 +3,8 @@
 /**
  * @ngdoc directive
  * @name stockTrackAngularJsApp.directive:color-number
- *
- * @element div
- * @function
+ * @element color-number
+ * @restrict E
  *
  * @description
  * Display the number with a positive or negative class.

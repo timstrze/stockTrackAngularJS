@@ -3,9 +3,8 @@
 /**
  * @ngdoc directive
  * @name stockTrackAngularJsApp.directive:buy-button
- *
- * @element div
- * @function
+ * @element buy-button
+ * @restrict E
  *
  * @description
  * # buyButton
@@ -36,10 +35,12 @@ angular.module('stockTrackAngularJsApp')
          * Buys the selected symbol and quantity. Checks to see if the User has enough cash to make the trade.
          * Updates the User's available cash.
          *
+         * @param {Number} quantity How many shares to buy
+         *
          */
-        $scope.buy = function () {
+        $scope.buy = function (quantity) {
           // Check to see if the User has enough cash to make the trade
-          if (($scope.user.availableCash - ($scope.quantity * $scope.symbol.Ask) < 0)) {
+          if (($scope.user.availableCash - (quantity * $scope.symbol.Ask) < 0)) {
             // Alert the User
             $window.alert('Sorry, not enough available cash for this transaction.');
             // Return false to end the function
@@ -59,7 +60,7 @@ angular.module('stockTrackAngularJsApp')
                 // Push the buy into the Position
                 position.buys.push({
                   ask: $scope.symbol.Ask,
-                  quantity: $scope.quantity,
+                  quantity: quantity,
                   created: $filter('date')(new Date(), 'medium')
                 });
               }
@@ -72,13 +73,13 @@ angular.module('stockTrackAngularJsApp')
               symbol: $scope.symbol.Symbol,
               buys: [{
                 ask: $scope.symbol.Ask,
-                quantity: $scope.quantity,
+                quantity: quantity,
                 created: $filter('date')(new Date(), 'medium')
               }]
             });
           }
           // Update the User's available cash
-          $scope.user.availableCash = $scope.user.availableCash - ($scope.quantity * $scope.symbol.Ask);
+          $scope.user.availableCash = $scope.user.availableCash - (quantity * $scope.symbol.Ask);
           // Close the modal window
           $mdDialog.cancel();
         };

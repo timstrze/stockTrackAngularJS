@@ -167,8 +167,11 @@ angular.module('stockTrackAngularJsApp')
                 // Remove the first item in the array
                 _this.Symbols[index].askHistory.shift();
               }
-              // Add the ask to the ask history array
-              _this.Symbols[index].askHistory.push(quote.Ask);
+              // Check to make sure the Ask value is not null
+              if(quote.Ask) {
+                // Add the ask to the ask history array
+                _this.Symbols[index].askHistory.push(quote.Ask);
+              }
               // Loop over the properties of the Symbol
               Object.keys(quote).forEach(function (property) {
                 // Overwrite Symbol properties with the new values

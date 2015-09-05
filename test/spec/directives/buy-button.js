@@ -52,12 +52,11 @@ describe('Directive: buy-button', function() {
 
     var originalPosition = angular.copy(testData.Positions);
 
-    element.isolateScope().quantity = 5;
     element.isolateScope().user = testData.User;
     element.isolateScope().user.Positions = testData.Positions;
     element.isolateScope().symbol = testData.Symbols[0];
 
-    element.isolateScope().buy();
+    element.isolateScope().buy(5);
     expect(element.isolateScope().user.availableCash).toBe(14412.5);
     expect(element.isolateScope().user.Positions.length).toBe(originalPosition.length + 1);
     expect($mdDialog.cancel).toHaveBeenCalled();
@@ -72,12 +71,11 @@ describe('Directive: buy-button', function() {
 
     var originalPositions = angular.copy(testData.Positions);
 
-    element.isolateScope().quantity = 5;
     element.isolateScope().user = testData.User;
     element.isolateScope().user.Positions = testData.Positions;
     element.isolateScope().symbol = testData.Symbols[1];
 
-    element.isolateScope().buy();
+    element.isolateScope().buy(5);
     expect(element.isolateScope().user.availableCash).toBe(14594.25);
     expect(element.isolateScope().user.Positions.length).toBe(originalPositions.length);
     expect(element.isolateScope().user.Positions[0].buys.length).toBe(originalPositions[0].buys.length + 1);
@@ -91,12 +89,11 @@ describe('Directive: buy-button', function() {
     // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
     $rootScope.$digest();
 
-    element.isolateScope().quantity = 500;
     element.isolateScope().user = testData.User;
     element.isolateScope().user.Positions = testData.Positions;
     element.isolateScope().symbol = testData.Symbols[0];
 
-    element.isolateScope().buy();
+    element.isolateScope().buy(500);
     expect($window.alert).toHaveBeenCalled();
   });
 

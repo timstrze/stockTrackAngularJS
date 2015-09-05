@@ -3,9 +3,8 @@
 /**
  * @ngdoc directive
  * @name stockTrackAngularJsApp.directive:watch-list
- *
- * @element div
- * @function
+ * @element watch-list
+ * @restrict E
  *
  * @description
  * # watchList
@@ -50,26 +49,27 @@ angular.module('stockTrackAngularJsApp')
          * @methodOf stockTrackAngularJsApp.directive:watch-list
          *
          * @description
-         * Confirms if the user wants to remove a Symbol from the watchlist.
+         * Performs the search for the Symbol Type-Ahead.
          *
          * @param {String} searchVal Search string
          *
          */
         $scope.search = function (searchVal) {
-          //
+          // Make sure the string has at least one character
           if (searchVal && searchVal.length > 0) {
-            //
+            // Perform the search
             return Symbol.http.search({searchVal: searchVal}).$promise.then(function (data) {
-              //
+              // Create a shorter name
               var quote = data.query.results.quote;
-              //
+              // Set the value property for the type-ahead
               quote.value = quote.Name;
+              // Set the display property for the type-ahead
               quote.display = quote.Name;
-              //
+              // Return our search with the new type-ahead properties or an empty array
               return (data.query.results.quote.Ask) ? [quote] : [];
             });
           } else {
-            //
+            // Return an empty array
             return [];
           }
         };
@@ -97,26 +97,27 @@ angular.module('stockTrackAngularJsApp')
          * @methodOf stockTrackAngularJsApp.directive:watch-list
          *
          * @description
-         * Confirms if the user wants to remove a Symbol from the watchlist.
+         * Called once a User searches for a Symbol and chooses it in the type-ahead. Resets the type-ahead text box.
+         * Adds new symbol to the symbol list. Sets the selected Symbol.
          *
-         * @param {Object} item Symbol Object
+         * @param {Object} newSymbol Symbol Object
          *
          */
-        $scope.chooseSymbol = function (item) {
-          //
-          if (item) {
-            //
+        $scope.chooseSymbol = function (newSymbol) {
+          // Make sure a Symbol was selected in the type-ahead
+          if (newSymbol) {
+            // Reset the type-ahead text box
             $scope.searchText = '';
-            // Check for duplicate entries
-            if($scope.watchList.some(function(wlItem) {return wlItem.symbol.toLowerCase() === item.symbol.toLowerCase();})) {
+            // Check to see if the type-ahead Symbol is in the User WatchList
+            if($scope.watchList.some(function(wlSymbol) {return wlSymbol.symbol.toLowerCase() === newSymbol.symbol.toLowerCase();})) {
               return false;
             }
             // Add new symbol to the symbol list
             $scope.watchList.unshift({
-              symbol: item.symbol,
-              Symbol: SymbolList.addSymbol(item)
+              symbol: newSymbol.symbol,
+              Symbol: SymbolList.addSymbol(newSymbol)
             });
-            //
+            // Set the selected Symbol
             $scope.selectSymbol($scope.watchList[0].Symbol);
           }
         };
@@ -129,17 +130,17 @@ angular.module('stockTrackAngularJsApp')
          * @methodOf stockTrackAngularJsApp.directive:watch-list
          *
          * @description
-         * Confirms if the user wants to remove a Symbol from the watchlist.
+         * Sets the selected Symbol and get the historical graph data for the selected Symbol.
          *
          * @param {Object} symbol Symbol Object
          *
          */
         $scope.selectSymbol = function (symbol) {
-          //
+          // Set the selected Symbol
           $scope.selectedSymbol = symbol;
-          //
+          // Set the selected tab from the User Preferences
           $scope.selectedTab = Constants.historicalTabs()[$scope.preferences.selectedHistoricalIndex];
-          //
+          // Get the historical graph data for the selected Symbol
           symbol.getHistoricalData($scope.selectedTab.startDate, $scope.selectedTab.endDate);
         };
 

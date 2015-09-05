@@ -5,10 +5,47 @@
 </h1>
 <div><h2 id="description">Description</h2>
 <div class="description"><div class="stocktrackangularjsapp-directive-page stocktrackangularjsapp-directive-spark-line-page"><h3 id="description_sparkline">sparkLine</h3>
+<p>Directive to build a spark line based off an ask history array</p>
 </div></div>
 <h2 id="usage">Usage</h2>
-<div class="usage">as attribute<pre class="prettyprint linenums">&lt;ANY spark-line&gt;
-   ...
-&lt;/ANY&gt;</pre>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;spark-line
+       ask-history="{Array}"&gt;
+&lt;/spark-line&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>askHistory</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="stocktrackangularjsapp-directive-page stocktrackangularjsapp-directive-spark-line-page"><p>Symbol ask history array: example [45.4, 45, 47]</p>
+</div></td></tr></tbody></table></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_render">render()</h3>
+<div class="render"><div class="render-page"><p>Creates the spark line based off a Symbol&#39;s Ask History</p>
+</div></div>
+</li>
+</ul>
+</div>
+<div class="member property"><h2 id="properties">Properties</h2>
+<ul class="properties"><li><h3 id="properties_graph">graph</h3>
+<div class="graph"><div class="graph-page"><p>Create a container for the graph</p>
+</div></div>
+</li>
+<li><h3 id="properties_height">height</h3>
+<div class="height"><div class="height-page"><p>Default height value</p>
+</div></div>
+</li>
+<li><h3 id="properties_line">line</h3>
+<div class="line"><div class="line-page"><p>Create a container for the line</p>
+</div></div>
+</li>
+<li><h3 id="properties_width">width</h3>
+<div class="width"><div class="width-page"><p>The parent element&#39;s width</p>
+</div></div>
+</li>
+</ul>
+</div>
+<div class="member event"><h2 id="events">Events</h2>
+<ul class="events"><li><h3 id="events_$watch">$watch</h3>
+<div class="$watch"><div class="-watch-page"><p>Watches the Symbol askHistory Array and calls the animate Function.</p>
+</div><div class="inline"></div>
+<div class="inline"></div>
+</div>
+</li>
+</ul>
 </div>
 </div>

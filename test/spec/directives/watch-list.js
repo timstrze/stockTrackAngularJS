@@ -55,7 +55,7 @@ describe('Directive: watch-list', function() {
     expect(spyWatch).toHaveBeenCalled();
   });
 
-  it('search should call the SymbolList.refreshSymbols method', inject(function($q) {
+  it('search should call the SymbolList.refreshSymbols method if search string is greater than 0', inject(function($q) {
     // Create a spy
     spyOn(Symbol.http, 'search').and.returnValue({
       // Return a successful promise
@@ -76,6 +76,21 @@ describe('Directive: watch-list', function() {
     expect(Symbol.http.search).toHaveBeenCalled();
   }));
 
+  it('search should not call the SymbolList.refreshSymbols method if search string is less than 0', inject(function($q) {
+    // Create a spy
+    spyOn(Symbol.http, 'search');
+    // Compile a piece of HTML containing the directive
+    var element = $compile('<watch-list></watch-list>')($rootScope);
+    // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
+    $rootScope.$digest();
+    // Call the Function
+    element.isolateScope().search('');
+    // Make sure Promises go out
+    $rootScope.$apply();
+    // Tests
+    expect(Symbol.http.search).not.toHaveBeenCalled();
+  }));
+
   it('refreshSymbols should call the SymbolList.refreshSymbols method', function() {
     // Compile a piece of HTML containing the directive
     var element = $compile('<watch-list></watch-list>')($rootScope);
@@ -87,44 +102,52 @@ describe('Directive: watch-list', function() {
     expect(SymbolList.refreshSymbols).toHaveBeenCalled();
   });
 
-  it('chooseSymbol should call the SymbolList.refreshSymbols method', function() {
+  it('chooseSymbol should reset the type-ahead text box and add new symbol to the symbol list and call selectSymbol', function() {
     // Compile a piece of HTML containing the directive
     var element = $compile('<watch-list></watch-list>')($rootScope);
     // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
     $rootScope.$digest();
-    // Call the Function
+    // Remove the first item from the watchlist
     testData.User.WatchList.splice(0, 1);
+    // Create spy
     spyOn(element.isolateScope(), 'selectSymbol');
-
+    // Set the Watchlist data
     element.isolateScope().watchList = testData.User.WatchList;
-    var test = new Symbol(testData.Symbols[0]);
-
-    element.isolateScope().chooseSymbol(test);
-
-    //SymbolList
-    //$scope.selectSymbol
-    //$scope.watchList
+    // Make sure that AAPL is not first in the list since we are testing with it
+    expect(element.isolateScope().watchList[0].Symbol).not.toBe('AAPL');
+    // Make a copy of the Symbol List to compare later
+    var copySymbolList = angular.copy(SymbolList);
+    // Create a new Symbol
+    var newSymbol = new Symbol(testData.Symbols[0]);
+    // Call the Function
+    element.isolateScope().chooseSymbol(newSymbol);
     // Tests
+    expect(element.isolateScope().searchText).toBe('');
+    expect(newSymbol.Symbol).toBe('AAPL');
+    expect(SymbolList.Symbols.length).toBe(copySymbolList.Symbols.length + 1);
     expect(element.isolateScope().selectSymbol).toHaveBeenCalled();
   });
 
-  it('selectSymbol should call the SymbolList.refreshSymbols method', function() {
+  it('selectSymbol should set the selected Symbol and get the historical graph data for the selected Symbol', function() {
     // Compile a piece of HTML containing the directive
     var element = $compile('<watch-list></watch-list>')($rootScope);
     // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
     $rootScope.$digest();
-    // Call the Function
+    // Set the default variables for scope
     element.isolateScope().watchList = testData.User.WatchList;
     element.isolateScope().preferences = testData.User.Preferences;
-    var test = new Symbol(testData.Symbols[1]);
+    // Create a new Symbol
+    var newSymbol = new Symbol(testData.Symbols[1]);
     // Create a spy
-    spyOn(test, 'getHistoricalData');
-    element.isolateScope().selectSymbol(test);
-
-    //$scope.selectedSymbol = symbol;
-    //$scope.selectedTab
+    spyOn(newSymbol, 'getHistoricalData');
+    // Call the Function
+    element.isolateScope().selectSymbol(newSymbol);
     // Tests
-    expect(test.getHistoricalData).toHaveBeenCalled();
+    expect(angular.equals(element.isolateScope().selectedSymbol, newSymbol)).toBe(true);
+    // Make sure the default tab is being selected
+    expect(element.isolateScope().selectedTab.slug).toBe('3-month');
+    expect(element.isolateScope().selectedTab.title).toBe('3 Month');
+    expect(newSymbol.getHistoricalData).toHaveBeenCalled();
   });
 
 });

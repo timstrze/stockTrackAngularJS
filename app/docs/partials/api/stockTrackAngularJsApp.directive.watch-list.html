@@ -5,10 +5,43 @@
 </h1>
 <div><h2 id="description">Description</h2>
 <div class="description"><div class="stocktrackangularjsapp-directive-page stocktrackangularjsapp-directive-watch-list-page"><h3 id="description_watchlist">watchList</h3>
+<p>Directive for displaying the User WatchList</p>
 </div></div>
 <h2 id="usage">Usage</h2>
-<div class="usage">as attribute<pre class="prettyprint linenums">&lt;ANY watch-list&gt;
-   ...
-&lt;/ANY&gt;</pre>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;watch-list
+       watch-list="{Object}"
+       preferences="{Object}"
+       selected-symbol="{Object}"&gt;
+&lt;/watch-list&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>watchList</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="stocktrackangularjsapp-directive-page stocktrackangularjsapp-directive-watch-list-page"><p>User WatchList</p>
+</div></td></tr><tr><td>preferences</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="stocktrackangularjsapp-directive-page stocktrackangularjsapp-directive-watch-list-page"><p>User Preferences</p>
+</div></td></tr><tr><td>selectedSymbol</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="stocktrackangularjsapp-directive-page stocktrackangularjsapp-directive-watch-list-page"><p>User selected Symbol</p>
+</div></td></tr></tbody></table></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_choosesymbol">chooseSymbol(newSymbol)</h3>
+<div class="choosesymbol"><div class="choosesymbol-page"><p>Called once a User searches for a Symbol and chooses it in the type-ahead. Resets the type-ahead text box.
+Adds new symbol to the symbol list. Sets the selected Symbol.</p>
+</div><h5 id="methods_choosesymbol_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>newSymbol</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="choosesymbol-page"><p>Symbol Object</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_closewatchlist">closeWatchlist()</h3>
+<div class="closewatchlist"><div class="closewatchlist-page"><p>Confirms if the user wants to remove a Symbol from the watchlist.</p>
+</div></div>
+</li>
+<li><h3 id="methods_refreshsymbols">refreshSymbols()</h3>
+<div class="refreshsymbols"><div class="refreshsymbols-page"><p>Pass through to the SymbolList.refreshSymbols method.</p>
+</div></div>
+</li>
+<li><h3 id="methods_search">search(searchVal)</h3>
+<div class="search"><div class="search-page"><p>Performs the search for the Symbol Type-Ahead.</p>
+</div><h5 id="methods_search_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>searchVal</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="search-page"><p>Search string</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_selectsymbol">selectSymbol(symbol)</h3>
+<div class="selectsymbol"><div class="selectsymbol-page"><p>Sets the selected Symbol and get the historical graph data for the selected Symbol.</p>
+</div><h5 id="methods_selectsymbol_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>symbol</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="selectsymbol-page"><p>Symbol Object</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
 </div>
 </div>

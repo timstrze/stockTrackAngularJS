@@ -3,9 +3,9 @@
 /**
  * @ngdoc directive
  * @name stockTrackAngularJsApp.directive:watch-list-details
- * @element div
- * @function
- *
+ * @element watch-list-details
+ * @restrict E
+x *
  * @description
  * Display the selected Symbol's details and graphs.
  *

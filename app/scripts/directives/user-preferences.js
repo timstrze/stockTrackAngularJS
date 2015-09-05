@@ -3,9 +3,8 @@
 /**
  * @ngdoc directive
  * @name stockTrackAngularJsApp.directive:user-preferences
- *
- * @element div
- * @function
+ * @element user-preferences
+ * @restrict E
  *
  * @description
  * # userPreferences

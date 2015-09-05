@@ -3,13 +3,14 @@
 /**
  * @ngdoc directive
  * @name stockTrackAngularJsApp.directive:user-totals
- *
- * @element div
- * @function
+ * @element user-totals
+ * @restrict E
  *
  * @description
  * # userTotals
  * Directive to calculate the daily and total PNL and the User's total value
+ *
+ * @param {Object} user User Object
  */
 angular.module('stockTrackAngularJsApp')
   .directive('userTotals', function () {

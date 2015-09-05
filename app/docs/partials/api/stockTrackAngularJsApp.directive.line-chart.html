@@ -5,10 +5,38 @@
 </h1>
 <div><h2 id="description">Description</h2>
 <div class="description"><div class="stocktrackangularjsapp-directive-page stocktrackangularjsapp-directive-line-chart-page"><h3 id="description_linechart">lineChart</h3>
+<p>Directive to create a line chart based off a Symbol&#39;s historical data.</p>
 </div></div>
 <h2 id="usage">Usage</h2>
-<div class="usage">as attribute<pre class="prettyprint linenums">&lt;ANY line-chart&gt;
-   ...
-&lt;/ANY&gt;</pre>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;line-chart
+       historical-data="{Array}"&gt;
+&lt;/line-chart&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>historicalData</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="stocktrackangularjsapp-directive-page stocktrackangularjsapp-directive-line-chart-page"><p>An array of historical data</p>
+</div></td></tr></tbody></table></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_parsedate">parseDate()</h3>
+<div class="parsedate"><div class="parsedate-page"><p>Parses a date that is friendly to d3</p>
+</div></div>
+</li>
+<li><h3 id="methods_render">render()</h3>
+<div class="render"><div class="render-page"><p>Creates the line chart</p>
+</div></div>
+</li>
+</ul>
+</div>
+<div class="member event"><h2 id="events">Events</h2>
+<ul class="events"><li><h3 id="events_$on">$on</h3>
+<div class="$on"><div class="-on-page"><p>Watches the window and renders the line chart</p>
+</div><div class="inline"></div>
+<div class="inline"></div>
+</div>
+</li>
+<li><h3 id="events_$watch">$watch</h3>
+<div class="$watch"><div class="-watch-page"><p>Watches the Symbol historicalData Array and calls the render Function.</p>
+</div><div class="inline"></div>
+<div class="inline"></div>
+</div>
+</li>
+</ul>
 </div>
 </div>
