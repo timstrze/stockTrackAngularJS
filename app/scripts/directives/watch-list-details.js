@@ -14,7 +14,7 @@ x *
  *
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('watchListDetails', function ($mdDialog, $mdSidenav, SymbolList, Constants) {
+  .directive('watchListDetails', function ($mdDialog, $window, SymbolList, Constants) {
     return {
       restrict: 'E',
       scope: {
@@ -37,57 +37,43 @@ angular.module('stockTrackAngularJsApp')
 
 
         /**
-         * @ngdoc function
-         * @name removeFromWatchlist
-         * @methodOf stockTrackAngularJsApp.directive:watch-list-details
+         * @ngdoc property
+         * @name historicalTabs
+         * @propertyOf stockTrackAngularJsApp.directive:watch-list-details
          *
          * @description
-         * Confirms if the user wants to remove a Symbol from the watchlist.
-         *
-         * @param {Object} symbol Symbol Object
-         * @param {Event} event Button click event
-         *
+         * Make service method available to the ng-repeat.
          */
-        $scope.removeFromWatchlist = function (symbol, event) {
-          // Build confirm object
-          var confirm = $mdDialog.confirm()
-            .parent(angular.element(document.body))
-            .title('Remove from watch list')
-            .content('Would you like to remove ' + symbol.Symbol + ' from your watch list?')
-            .ariaLabel('Remove from watchlist?')
-            .ok('Remove')
-            .cancel('Keep')
-            .targetEvent(event);
-          // Display the confirm window
-          $mdDialog.show(confirm).$promise.then(function () {
-            // Remove the Symbol from SymbolList if it is not in Positions
-            SymbolList.removeSymbol(symbol);
-            // Find the index of the Symbol in the watch list
-            var index = $scope.user.WatchList.map(function (wlSymbol) {
-              return wlSymbol.Symbol;
-            }).indexOf(symbol);
-            // Remove the Symbol from the watch list
-            $scope.user.WatchList.splice(index, 1);
-            // Set the selected symbol from the first watch list item
-            $scope.user.selectedSymbol = $scope.user.WatchList[0].Symbol;
-          });
+        $scope.openNewsWindow = function(url) {
+          $window.open(url, '_blank')
         };
 
 
 
         /**
          * @ngdoc function
-         * @name toggleWatchlist
-         * @methodOf stockTrackAngularJsApp.directive:watch-list-details
+         * @name $watch
+         * @eventyOf stockTrackAngularJsApp.directive:watch-list-details
          *
          * @description
-         * Toggles the watch list side navigation bar.
+         * Watches the Symbol historicalData Array and calls the render Function.
          *
          */
-        $scope.toggleWatchlist = function () {
-          // Toggle the watch list
-          $mdSidenav('watch-list').toggle();
-        };
+        $scope.$watch('symbol', function () {
+          // Make sure there is historical data
+          if ($scope.symbol && $scope.user && $scope.user.Positions && $scope.user.Positions.length) {
+            $scope.positions = {};
+
+            // Loop over the Positions
+            angular.forEach($scope.user.Positions, function (position) {
+              // Check to see if Symbols match
+              if (position.Symbol.Symbol.toLowerCase() === $scope.symbol.Symbol.toLowerCase()) {
+                $scope.positions = position;
+              }
+            });
+
+          }
+        }, true);
 
       }
     };

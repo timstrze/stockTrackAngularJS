@@ -48,6 +48,52 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
+     * @name Constants.positionEffects
+     * @propertyOf stockTrackAngularJsApp.service:Constants
+     *
+     * @description
+     * Returns an array of order types
+     *
+     * @returns {Array} Returns an array of order types
+     *
+     */
+    Constants.positionEffects = ['To Open', 'To Close'];
+
+
+
+
+    /**
+     * @ngdoc function
+     * @name Constants.TIF
+     * @propertyOf stockTrackAngularJsApp.service:Constants
+     *
+     * @description
+     * Returns an array of order types
+     *
+     * @returns {Array} Returns an array of order types
+     *
+     */
+    Constants.timesinForceforOrders = ['EXT', 'GTC', 'GTC_EXT', 'Day', 'AM', 'PM'];
+
+
+
+    /**
+     * @ngdoc function
+     * @name Constants.orderTypes
+     * @propertyOf stockTrackAngularJsApp.service:Constants
+     *
+     * @description
+     * Returns an array of order types
+     *
+     * @returns {Array} Returns an array of order types
+     *
+     */
+    Constants.orderTypes = ['Limit', 'Market', 'Stop', 'StopLimit', 'TrailStop'];
+
+
+
+    /**
+     * @ngdoc function
      * @name Constants.fiveDaysFromtoday
      * @propertyOf stockTrackAngularJsApp.service:Constants
      *

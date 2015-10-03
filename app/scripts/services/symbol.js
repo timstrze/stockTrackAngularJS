@@ -57,6 +57,29 @@ angular.module('stockTrackAngularJsApp')
 
 
 
+    /**
+     * @ngdoc function
+     * @name Symbol.getSymbolNews
+     * @methodOf stockTrackAngularJsApp.service:Symbol
+     *
+     * @description
+     * Gets the historical data that the graphs need.
+     *
+     */
+    Symbol.prototype.getSymbolNews = function () {
+      // Store a reference to this
+      var _this = this;
+      // Get the historical data by symbol, start date, and end date
+      this.http.news({q: this.Symbol}).$promise.then(function (results) {
+        if(results && results.responseData && results.responseData.results) {
+          _this.$news = results.responseData.results;
+        }
+      });
+    };
+
+
+
+
 
     /**
      * @ngdoc function
@@ -70,11 +93,11 @@ angular.module('stockTrackAngularJsApp')
      * @param {String} ID of program version
      *
      */
-    Symbol.http = $resource('http://query.yahooapis.com/v1/public/yql', {
+    Symbol.http = $resource('https://query.yahooapis.com/v1/public/yql', {
     }, {
       search: {
         method: 'GET',
-        url: 'http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol in (":searchVal")',
+        url: 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol in (":searchVal")',
         params: {
           format: 'json',
           env: 'store://datatables.org/alltableswithkeys'
@@ -82,14 +105,13 @@ angular.module('stockTrackAngularJsApp')
       },
       all: {
         method: 'GET',
-        url: 'http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol in (":list")',
+        url: 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol in (":list")',
         params: {
           format: 'json',
           env: 'store://datatables.org/alltableswithkeys'
         }
       }
     });
-
 
 
 
@@ -107,15 +129,25 @@ angular.module('stockTrackAngularJsApp')
      * @param {String} ID of program version
      *
      */
-    Symbol.prototype.http = $resource('http://query.yahooapis.com/v1/public/yql', {
+    Symbol.prototype.http = $resource('https://query.yahooapis.com/v1/public/yql', {
     }, {
       details: {
         method: 'GET',
-        url: 'http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.historicaldata where symbol = ":symbol" and startDate = ":startDate" and endDate = ":endDate"',
+        url: 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.historicaldata where symbol = ":symbol" and startDate = ":startDate" and endDate = ":endDate"',
         params: {
           format: 'json',
           env: 'store://datatables.org/alltableswithkeys'
         }
+      },
+      news: {
+        method: 'JSONP',
+        isArray: false,
+        params: {
+          callback: 'JSON_CALLBACK',
+          rsz: 8,
+          v: '1.0'
+        },
+        url: 'https://ajax.googleapis.com/ajax/services/search/news'
       }
     });
 

@@ -11,7 +11,7 @@
  */
 
 angular.module('stockTrackAngularJsApp')
-  .controller('MainController', function ($scope, $mdSidenav, Constants, User) {
+  .controller('MainController', function ($scope, $mdSidenav, $mdMedia, Constants, User) {
 
     // Default Properties
     $scope.showWatchlist = true;
@@ -66,6 +66,7 @@ angular.module('stockTrackAngularJsApp')
           var selectedTab = Constants.historicalTabs()[$scope.User.Preferences.selectedHistoricalIndex || 2];
           //
           $scope.User.selectedSymbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
+          $scope.User.selectedSymbol.getSymbolNews();
         });
       });
     };
@@ -87,6 +88,10 @@ angular.module('stockTrackAngularJsApp')
     $scope.positionsToggle = function () {
       $scope.showWatchlist = false;
       $scope.showPositions = true;
+      // Only toggle the modal if small size
+      if($mdMedia('sm') || $mdMedia('md')) {
+        $mdSidenav('positions').toggle();
+      }
     };
 
 
@@ -124,6 +129,10 @@ angular.module('stockTrackAngularJsApp')
     $scope.watchlistToggle = function () {
       $scope.showWatchlist = true;
       $scope.showPositions = false;
+      // Only toggle the modal if small size
+      if($mdMedia('sm') || $mdMedia('md')) {
+        $mdSidenav('watch-list').toggle();
+      }
     };
 
 

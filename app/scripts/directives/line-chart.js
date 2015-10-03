@@ -19,11 +19,22 @@ angular.module('stockTrackAngularJsApp')
   .directive('lineChart', function ($window) {
     return {
       scope: {
-        historicalData: '='
+        symbol: '=',
+        positions: '='
       },
       restrict: 'E',
+      template: '<div class="line-chart"></div>',
       link: function postLink($scope, element) {
+        $scope.svg = d3.select(element[0]
+          .querySelector('.line-chart'))
+          .append('svg');
 
+        $scope.area = $scope.svg.append("path");
+        $scope.chartLine = $scope.svg.append('path');
+        $scope.chartPositions = $scope.svg.append('path');
+
+        $scope.xAxis = $scope.svg.append('g');
+        $scope.yAxis = $scope.svg.append('g');
 
         /**
          * @ngdoc function
@@ -46,13 +57,30 @@ angular.module('stockTrackAngularJsApp')
          * Creates the line chart
          *
          */
-        $scope.render = function () {
+        $scope.render = function (historicalData) {
+
+          var positions;
+
+          // Loop over the Positions
+          angular.forEach($scope.positions, function (position) {
+            // Check to see if Symbols match
+            if (position.Symbol.Symbol.toLowerCase() === $scope.symbol.Symbol.toLowerCase()) {
+              positions = position;
+            }
+          });
+
+          // Format the historical data for d3
+          historicalData.forEach(function (d) {
+            d.date = $scope.parseDate(d.Date);
+            d.close = +d.Close;
+          });
+
           // Add extra margin
-          var margin = {top: 20, right: 20, bottom: 30, left: 50};
+          var margin = {top: 20, right: 20, bottom: 30, left: 30};
           // Get the width of the parent element
-          var width = element.parent()[0].offsetWidth - margin.left - margin.right;
+          var width = element.parent()[0].offsetWidth;
           // Get the height of the parent element
-          var height = element.parent()[0].offsetHeight - margin.top - margin.bottom;
+          var height = element.parent()[0].offsetHeight;
 
           var x = d3.time.scale()
             .range([0, width]);
@@ -75,47 +103,119 @@ angular.module('stockTrackAngularJsApp')
             .y(function (d) {
               return y(d.close);
             });
-          // Remove the previous graph
-          // TODO: don't remove element
-          d3.select(element[0]).selectAll('*').remove();
 
-          var svg = d3.select(element[0]).append('svg')
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom)
+          var area = d3.svg.area()
+            .x(function(d) { return x(d.date); })
+            .y0(height)
+            .y1(function(d) { return y(d.close); });
+
+
+          $scope.svg
+            .attr('width', width)
+            .attr('height', height)
             .append('g')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-          // Format the historical data for d3
-          $scope.historicalData.forEach(function (d) {
-            d.date = $scope.parseDate(d.Date);
-            d.close = +d.Close;
-          });
 
-          x.domain(d3.extent($scope.historicalData, function (d) {
+
+          x.domain(d3.extent(historicalData, function (d) {
             return d.date;
           }));
-          y.domain(d3.extent($scope.historicalData, function (d) {
+          y.domain(d3.extent(historicalData, function (d) {
             return d.close;
           }));
 
-          svg.append('g')
-            .attr('class', 'x axis')
-            .attr('transform', 'translate(0,' + height + ')')
-            .call(xAxis);
+          //var xScale = d3.scale.linear()
+          //  .domain([0, d3.max(historicalData, function(d) { return d.date; })])
+          //  .range([0, width]);
+          //
+          //$scope.xAxis
+          //  .call(d3.svg.axis()
+          //    .scale(xScale)
+          //    .orient("bottom"));
 
-          svg.append('g')
-            .attr('class', 'y axis')
-            .call(yAxis)
-            .append('text')
-            .attr('transform', 'rotate(-90)')
-            .attr('y', 6)
-            .attr('dy', '.71em')
-            .style('text-anchor', 'end')
-            .text('Price ($)');
+          //var yScale = d3.scale.linear()
+          //  .domain([0, d3.max(historicalData, function(d) { return d.close; })])
+          //  .range([0, height]);
+          //
+          //$scope.yAxis = d3.svg.axis()
+          //  .attr('class', 'y axis')
+          //  .call(yAxis)
+          //  .append('text')
 
-          svg.append('path')
-            .datum($scope.historicalData)
+          //$scope.xAxis
+          //  .attr('class', 'x axis')
+          //  .attr('transform', 'translate(0,' + height + ')')
+          //  .call(xAxis);
+          //
+          //$scope.yAxis
+          //  .attr('class', 'y axis')
+          //  .call(yAxis)
+          //  .attr('transform', 'translate(30, 0)')
+          //  .append('text')
+          //  .attr('transform', 'rotate(-90)')
+          //  .attr('y', 6)
+          //  .attr('dy', '.71em')
+          //  .style('text-anchor', 'end')
+          //  .text('Price ($)');
+
+          $scope.area
+            .datum(historicalData)
+            .transition()
+            .duration(500)
+            .ease("linear")
+            .attr("class", "area")
+            .attr("d", area);
+
+          $scope.chartLine
+            .datum(historicalData)
+            .transition()
+            .duration(500)
+            .ease("linear")
             .attr('class', 'line')
             .attr('d', line);
+
+
+
+          if(positions) {
+
+            $scope.svg.selectAll("circle").remove();
+            $scope.svg.selectAll("circle")
+              .data(positions.buys)
+              .enter()
+              .append("circle")
+              .attr("cx", function(d, i) {
+                return x($scope.parseDate(d.created.split(' ')[0]));
+              })
+              .attr("cy", function (d) {
+                return y(d.ask);
+              })
+
+              .attr("r", function(d) {
+                return 40;
+              })
+              .attr("fill", "yellow")
+              .attr("stroke", "orange");
+
+            $scope.svg.selectAll("text").remove();
+            $scope.svg.selectAll("text")
+              .data(positions.buys)
+              .enter()
+              .append("text")
+              .attr("x", function(d, i) {
+                return x($scope.parseDate(d.created.split(' ')[0]));
+              })
+              .attr("y", function (d) {
+                return y(d.ask);
+              })
+              .text(function(d) {
+                return d.ask;
+              });
+
+          }else{
+            $scope.svg.selectAll("text").remove();
+            $scope.svg.selectAll("circle").remove()
+          }
+
 
         };
 
@@ -130,10 +230,10 @@ angular.module('stockTrackAngularJsApp')
          * Watches the Symbol historicalData Array and calls the render Function.
          *
          */
-        $scope.$watch('historicalData', function () {
+        $scope.$watch('symbol.historicalData', function () {
           // Make sure there is historical data
-          if ($scope.historicalData && $scope.historicalData.length > 0) {
-            $scope.render();
+          if ($scope.symbol && $scope.symbol.historicalData && $scope.symbol.historicalData.length > 0) {
+            $scope.render($scope.symbol.historicalData);
           }
         }, true);
 
@@ -150,8 +250,8 @@ angular.module('stockTrackAngularJsApp')
          */
         angular.element($window).on('resize', function () {
           // Make sure there is historical data
-          if ($scope.historicalData && $scope.historicalData.length > 0) {
-            $scope.render();
+          if ($scope.symbol && $scope.symbol.historicalData && $scope.symbol.historicalData.length > 0) {
+            $scope.render($scope.symbol.historicalData);
           }
         });
 

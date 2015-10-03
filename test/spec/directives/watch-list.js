@@ -37,7 +37,8 @@ describe('Directive: watch-list', function() {
     // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
     $rootScope.$digest();
     // Check that the compiled element contains the template html content
-    expect(element.isolateScope().closeWatchlist).toEqual(jasmine.any(Function));
+    expect(element.isolateScope().removeFromWatchlist).toEqual(jasmine.any(Function));
+    //expect(element.isolateScope().closeWatchlist).toEqual(jasmine.any(Function));
     expect(element.isolateScope().search).toEqual(jasmine.any(Function));
     expect(element.isolateScope().refreshSymbols).toEqual(jasmine.any(Function));
     expect(element.isolateScope().chooseSymbol).toEqual(jasmine.any(Function));
@@ -45,16 +46,41 @@ describe('Directive: watch-list', function() {
     expect(element.html()).toContain('class="watch-list"');
   });
 
-  it('closeWatchlist should log the action', function() {
+
+  it('removeFromWatchlist should confirm if the user wants to remove a Symbol from the watchlist', inject(function($q) {
+    // Create a spy for the confirm
+    spyOn($mdDialog, 'show').and.returnValue({
+      // Return a successful promise
+      $promise: $q.when({})
+    });
     // Compile a piece of HTML containing the directive
-    var element = $compile('<watch-list></watch-list>')($rootScope);
+    var element = $compile('<watch-list-details></watch-list-details>')($rootScope);
     // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
     $rootScope.$digest();
-    // Run the function
-    element.isolateScope().closeWatchlist();
+    // Set the default scope data
+    element.isolateScope().user = testData.User;
+    element.isolateScope().user.WatchList = testData.Symbols;
+    // Make a copy of the User WatchList
+    var wlCopy = angular.copy(element.isolateScope().user.WatchList);
+    // Call the Function
+    element.isolateScope().removeFromWatchlist(testData.Symbols[0], {});
+    $rootScope.$apply();
     // Tests
-    expect(spyWatch).toHaveBeenCalled();
-  });
+    expect(SymbolList.removeSymbol).toHaveBeenCalled();
+    expect(element.isolateScope().user.WatchList.length).toBe(wlCopy.length - 1);
+    expect(element.isolateScope().user.selectedSymbol).not.toBeUndefined();
+  }));
+
+  //it('closeWatchlist should log the action', function() {
+  //  // Compile a piece of HTML containing the directive
+  //  var element = $compile('<watch-list></watch-list>')($rootScope);
+  //  // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
+  //  $rootScope.$digest();
+  //  // Run the function
+  //  element.isolateScope().closeWatchlist();
+  //  // Tests
+  //  expect(spyWatch).toHaveBeenCalled();
+  //});
 
   it('search should call the SymbolList.refreshSymbols method if search string is greater than 0', inject(function($q) {
     // Create a spy

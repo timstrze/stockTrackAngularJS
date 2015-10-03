@@ -762,9 +762,9 @@ angular.module('stockTrackAngularJsApp')
             totalValue = totalValue + position.totalValue;
           });
 
-          $scope.dailyPNL = dailyPNL;
-          $scope.totalPNL = totalPNL;
-          $scope.totalValue = totalValue;
+          $scope.$dailyPNL = dailyPNL;
+          $scope.$totalPNL = totalPNL;
+          $scope.$totalValue = totalValue;
         };
 
         $scope.$watch('user.Positions', function() {

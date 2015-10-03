@@ -1,55 +1,53 @@
-<div ng-show="isLoading" layout="column" layout-margin
-     style="position: fixed; top: -14px; left: 0px; width: 100%; z-index: 9999;">
-  <md-progress-linear md-mode="indeterminate"></md-progress-linear>
-</div>
-<md-content>
-  <md-toolbar>
-    <div class="md-toolbar-tools">
-      <h2>
-        <span>StockTracker</span>
-      </h2>
-      <span flex></span>
-      <user-totals user="User"></user-totals>
-      <span flex></span>
-      <md-button class="md-secondary" aria-label="Watchlist" ng-click="watchlistToggle()">
-        Watchlist ({{User.WatchList.length}})
-      </md-button>
-      <md-button class="md-secondary" aria-label="Positions" ng-click="positionsToggle()">
-        Positions ({{User.Positions.length}})
-      </md-button>
+<div class="main-route">
+  <div ng-show="isLoading" layout="column" layout-margin
+       style="position: fixed; top: -14px; left: 0px; width: 100%; z-index: 9999;">
+    <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+  </div>
+  <md-content>
+    <md-toolbar class="md-accent">
+      <div class="md-toolbar-tools">
+        <h2>
+          StockTracker
+        </h2>
+        <span flex></span>
+        <user-totals hide-md hide-sm user="User"></user-totals>
+        <span flex></span>
+        <md-button class="md-secondary" aria-label="Watchlist" ng-click="watchlistToggle()">
+          Watchlist ({{User.WatchList.length}})
+        </md-button>
+        <md-button class="md-secondary" aria-label="Positions" ng-click="positionsToggle()">
+          Positions ({{User.Positions.length}})
+        </md-button>
 
-      <md-icon md-svg-icon="images/icons/more_vert.svg"></md-icon>
+        <md-icon md-svg-icon="images/icons/more_vert.svg"></md-icon>
 
-      <md-button class="md-secondary" aria-label="News" ng-click="toggleUserPreferences()">
-        {{User.lastName}}, {{User.firstName}}
-      </md-button>
-    </div>
-  </md-toolbar>
-  <br>
-</md-content>
+        <md-button class="md-secondary" aria-label="News" ng-click="toggleUserPreferences()">
+          {{User.lastName}}, {{User.firstName}}
+        </md-button>
+      </div>
+    </md-toolbar>
+  </md-content>
 
-<div layout="column">
-  <section layout="row" flex>
-    <!--Begin Left Navbar-->
-    <md-sidenav ng-show="showWatchlist && !showPositions" class="md-sidenav-left md-whiteframe-z2" md-component-id="watch-list"
-                md-is-locked-open="$mdMedia('gt-md')">
-      <watch-list watch-list="User.WatchList"
-                  preferences="User.Preferences"
-                  selected-symbol="User.selectedSymbol">
-      </watch-list>
-    </md-sidenav>
-    <md-sidenav ng-show="!showWatchlist && showPositions" class="md-sidenav-left md-whiteframe-z2" md-component-id="positions"
-                md-is-locked-open="$mdMedia('gt-md')">
-      <positions positions="User.Positions"></positions>
-    </md-sidenav>
-    <!--End Left Navbar-->
+  <div layout="column">
+    <section layout="row" flex>
+      <!--Begin Left Navbar-->
+      <md-sidenav ng-show="showWatchlist && !showPositions" class="md-sidenav-left md-whiteframe-z2" md-component-id="watch-list"
+                  md-is-locked-open="$mdMedia('gt-md')">
+        <watch-list user="User"></watch-list>
+      </md-sidenav>
+      <md-sidenav ng-show="!showWatchlist && showPositions" class="md-sidenav-left md-whiteframe-z2" md-component-id="positions"
+                  md-is-locked-open="$mdMedia('gt-md')">
+        <positions positions="User.Positions"></positions>
+      </md-sidenav>
+      <!--End Left Navbar-->
 
-    <watch-list-details user="User"
-                        symbol="User.selectedSymbol">
-    </watch-list-details>
+      <watch-list-details user="User"
+                          symbol="User.selectedSymbol">
+      </watch-list-details>
 
-    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="user-preferences">
-      <user-preferences user="User"></user-preferences>
-    </md-sidenav>
-  </section>
+      <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="user-preferences">
+        <user-preferences user="User"></user-preferences>
+      </md-sidenav>
+    </section>
+  </div>
 </div>
