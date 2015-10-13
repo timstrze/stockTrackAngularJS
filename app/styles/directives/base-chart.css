@@ -1,0 +1,23 @@
+.base-chart {
+}
+
+.base-chart .area{
+  fill: #F6F6F6;
+}
+
+.base-chart .line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.base-chart .axis path,
+.base-chart .axis line {
+  fill: none;
+  stroke: rgba(0,0,0,0.54);
+  shape-rendering: crispEdges;
+}
+
+.base-chart text {
+  fill: rgba(0,0,0,0.54);
+}

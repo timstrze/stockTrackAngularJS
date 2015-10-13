@@ -26,6 +26,21 @@ angular.module('stockTrackAngularJsApp')
       link: function postLink($scope, element) {
 
 
+
+        /**
+         * @ngdoc function
+         * @name height
+         * @propertyOf stockTrackAngularJsApp.directive:spark-line
+         *
+         * @description
+         * Default height value
+         *
+         */
+        $scope.height = 50;
+
+        $scope.width = element.parent().prop('offsetWidth');
+
+
         /**
          * @ngdoc function
          * @name graph
@@ -37,9 +52,19 @@ angular.module('stockTrackAngularJsApp')
          */
         $scope.svg = d3.select(element[0].querySelector('.spark-line'))
           .append('svg:svg')
-          .attr('width', '100%')
-          .attr('height', '40px')
-          .attr('style', 'padding-top:9px');
+          .attr('width', $scope.width)
+          .attr('height', $scope.height);
+
+        $scope.yAxis = $scope.svg.append('g');
+
+        //$scope.yAxis
+        //  .append('text')
+        //  .attr('transform', 'rotate(-90)')
+        //  .attr('y', 6)
+        //  .attr('dy', '.71em')
+        //  .style('text-anchor', 'end')
+        //  .text('Price ($)');
+
 
 
         /**
@@ -56,30 +81,6 @@ angular.module('stockTrackAngularJsApp')
 
         /**
          * @ngdoc function
-         * @name width
-         * @propertyOf stockTrackAngularJsApp.directive:spark-line
-         *
-         * @description
-         * The parent element's width
-         *
-         */
-        $scope.width = element.parent().prop('offsetWidth');
-
-
-        /**
-         * @ngdoc function
-         * @name height
-         * @propertyOf stockTrackAngularJsApp.directive:spark-line
-         *
-         * @description
-         * Default height value
-         *
-         */
-        $scope.height = 40;
-
-
-        /**
-         * @ngdoc function
          * @name render
          * @methodOf stockTrackAngularJsApp.directive:spark-line
          *
@@ -88,10 +89,23 @@ angular.module('stockTrackAngularJsApp')
          *
          */
         $scope.render = function (askHistory) {
+
+          var yScale = d3.scale.linear()
+            .domain([$scope.symbol.DaysLow, $scope.symbol.DaysHigh])
+            .range([$scope.height, 0]);
+
+          var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient('left')
+            .ticks(0);
+
+
           // X scale will fit values from 0-10 within pixels 0-100
           var x = d3.scale.linear().domain([0, askHistory.length]).range([0, $scope.width]);
           // Y scale will fit values from 0-10 within pixels 0-100
-          var y = d3.scale.linear().domain([d3.min(askHistory), d3.max(askHistory)]).range([0 , $scope.height-15]);
+          var y = d3.scale.linear().domain([$scope.symbol.DaysHigh, $scope.symbol.DaysLow]).range([0 , $scope.height]);
+
+          //var y = d3.scale.linear().domain([d3.min(askHistory), d3.max(askHistory)]).range([$scope.symbol.DaysLow, $scope.symbol.DaysHigh]);
           // create a line object that represents the SVN line we're creating
           var line = d3.svg.line()
             // assign the X function to plot our line as we wish
@@ -103,6 +117,16 @@ angular.module('stockTrackAngularJsApp')
               // return the Y coordinate where we want to plot this datapoint
               return y(d);
             });
+
+
+
+          $scope.yAxis
+            .attr('class', 'y axis')
+            .call(yAxis)
+            .attr('transform', 'translate(5,0)');
+
+
+
           // display the line by appending an svg:path element with the data line we created above
           $scope.sparkLine.attr('d', line(askHistory)).transition();
         };

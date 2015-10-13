@@ -4,8 +4,11 @@
     <md-progress-linear md-mode="indeterminate"></md-progress-linear>
   </div>
   <md-content>
-    <md-toolbar class="md-accent">
+    <md-toolbar class="md-primary primary-toolbar">
       <div class="md-toolbar-tools">
+        <md-button aria-label="StockTracker" class="md-fab">
+          <ng-md-icon md-menu-origin icon="attach_money" style="fill: #fff" size="20"></ng-md-icon>
+        </md-button>
         <h2>
           StockTracker
         </h2>
@@ -21,7 +24,7 @@
 
         <md-icon md-svg-icon="images/icons/more_vert.svg"></md-icon>
 
-        <md-button class="md-secondary" aria-label="News" ng-click="toggleUserPreferences()">
+        <md-button class="md-secondary" aria-label="User Preferences" ng-click="User.openUserPreferenceModal($event)">
           {{User.lastName}}, {{User.firstName}}
         </md-button>
       </div>
@@ -45,9 +48,6 @@
                           symbol="User.selectedSymbol">
       </watch-list-details>
 
-      <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="user-preferences">
-        <user-preferences user="User"></user-preferences>
-      </md-sidenav>
     </section>
   </div>
 </div>

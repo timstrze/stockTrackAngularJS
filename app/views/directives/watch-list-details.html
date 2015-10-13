@@ -1,579 +1,640 @@
 <div class="watch-list-details">
-  <md-content flex class="md-padding">
+  <md-content flex>
 
-    <md-content>
-      <!--Start Buy/Sell Toolbar-->
-      <md-toolbar class="md-primary">
-        <div class="md-toolbar-tools" ng-show="symbol.Symbol">
-          <h2>
-              <span style="text-transform: uppercase;">
-                {{symbol.Symbol}}: {{symbol.Name}}
-              </span>
-              <span
-                ng-class="{positive: symbol.Change.indexOf('+') > -1, negative: symbol.Change.indexOf('-') > -1}">
-                {{symbol.Ask}} {{symbol.Change}} ({{symbol.ChangeinPercent}})
-              </span>
-          </h2>
-          <span flex></span>
+    <!--Start Buy/Sell Toolbar-->
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools" ng-show="symbol.Symbol">
+        <h2>
+            <span style="text-transform: uppercase;">
+              {{symbol.Symbol}}: {{symbol.Name}}
+            </span>
+            <span
+              ng-class="{positive: symbol.Change.indexOf('+') > -1, negative: symbol.Change.indexOf('-') > -1}">
+              {{symbol.Ask}} {{symbol.Change}} ({{symbol.ChangeinPercent}})
+            </span>
+        </h2>
+        <span flex></span>
 
-          <md-button buy-button aria-label="Buy" ng-click="user.openBuyModal($event, symbol)">
-            <span>Buy</span>
+        <md-button class="md-raised" buy-button aria-label="Buy" ng-click="user.openBuyModal($event, symbol)">
+          <span>Buy</span>
+        </md-button>
+
+        <md-button class="md-raised" aria-label="Sell" ng-click="user.openSellModal($event, symbol)">
+          <span>Sell</span>
+        </md-button>
+
+        <md-menu>
+          <md-button aria-label="Open graph menu" class="md-fab" ng-click="$mdOpenMenu($event)">
+            <ng-md-icon md-menu-origin icon="equalizer" style="fill: #fff" size="20"></ng-md-icon>
           </md-button>
-
-          <md-button aria-label="Sell" ng-click="user.openSellModal($event, symbol)">
-            <span>Sell</span>
-          </md-button>
-
-        </div>
-      </md-toolbar>
-
-      <!--Start Historical Data Tab Switcher-->
-      <md-tabs md-selected="user.Preferences.selectedHistoricalIndex" md-border-bottom md-stretch-tabs="always"
-               style="min-height: inherit !important;">
-        <md-tab ng-repeat="tab in historicalTabs"
-                ng-disabled="tab.disabled"
-                label="{{tab.title}}"
-                md-on-select="symbol.getHistoricalData(tab.startDate, tab.endDate)">
-        </md-tab>
-      </md-tabs>
-
-      <!--Start Historical Data Line Chart-->
-      <div style="height:500px;">
-        <line-chart positions="user.Positions" symbol="symbol"></line-chart>
+          <md-menu-content width="2">
+            <md-menu-item>
+              <md-button aria-label="Line Chart" ng-click="selectedChart = 'line-chart'">
+                <span md-menu-align-target>Line Chart</span>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="OHLC Chart" ng-click="selectedChart = 'ohlc-chart'">
+                <span md-menu-align-target>OHLC Chart</span>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="Candlestick Chart" ng-click="selectedChart = 'candlestick-chart'">
+                <span md-menu-align-target>Candlestick Chart</span>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="Kagi Chart" ng-click="selectedChart = 'kagi-chart'">
+                <span md-menu-align-target>Kagi Chart</span>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="Comparison Chart" ng-click="selectedChart = 'comparison-chart'">
+                <span md-menu-align-target>Comparison Chart</span>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
       </div>
+    </md-toolbar>
 
-      <!--Start Symbol Details Tab Switcher-->
-      <div class="tabbed-details">
-        <md-content class="md-padding">
-          <md-tabs md-dynamic-height="false" md-center-tabs="false" md-border-bottom>
-            <md-tab label="details">
-              <div layout="row">
-                <div flex="50">
-                  <md-list>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Ask:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.Ask}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Average Daily Volume:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.AverageDailyVolume}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Bid:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.Bid}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Book Value:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.BookValue}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Change:</p>
-                        </div>
-                        <div flex="50"class="row-right">
-                          <p><color-number number="symbol.Change"></color-number></p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Change From Fifty day Moving Average:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p><color-number number="symbol.ChangeFromFiftydayMovingAverage"></color-number></p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Change From Two Hundred day Moving Average:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p><color-number number="symbol.ChangeFromTwoHundreddayMovingAverage"></color-number></p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Change From Year High:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p><color-number number="symbol.ChangeFromYearHigh"></color-number></p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Change From Year Low:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p><color-number number="symbol.ChangeFromYearLow"></color-number></p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Change in Percent:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p><color-number number="symbol.ChangeinPercent"></color-number></p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Days High:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.DaysHigh}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Days Low:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.DaysLow}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Days Range:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.DaysRange}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>EBITDA:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.EBITDA}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>EPS Estimate Current Year:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.EPSEstimateCurrentYear}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>EPS Estimate Next Quarter:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.EPSEstimateNextQuarter}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>EPS Estimate Next Year:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.EPSEstimateNextYear}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Earnings Share:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.EarningsShare}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Fifty day Moving Average:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.FiftydayMovingAverage}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Last Trade Date:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.LastTradeDate}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Last Trade Price Only:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.LastTradePriceOnly}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Last Trade Time:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.LastTradeTime}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                  </md-list>
-                </div>
-                <div flex="50">
-                  <md-list>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Last Trade With Time:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.LastTradeWithTime}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Market Capitalization:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.MarketCapitalization}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>One yr Target Price:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.OneyrTargetPrice}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Open:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.Open}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>PEG Ratio:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.PEGRatio}}</p>
-                        </div>
-                      </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Percent Change From Year High:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p><color-number number="symbol.PercebtChangeFromYearHigh"></color-number></p>
-                        </div>
-                      </div>
-                    </md-list-item>
+    <div layout="row">
+      <div flex="100">
+        <!--Start Historical Data Tab Switcher-->
+        <md-tabs md-selected="user.Preferences.selectedHistoricalIndex" md-border-bottom md-stretch-tabs="always"
+                 style="min-height: inherit !important;">
+          <md-tab ng-repeat="tab in historicalTabs"
+                  ng-disabled="tab.disabled"
+                  label="{{tab.title}}"
+                  md-on-select="symbol.getHistoricalData(tab.startDate, tab.endDate)">
+          </md-tab>
+        </md-tabs>
+      </div>
+    </div>
 
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Percent Change:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p><color-number number="symbol.PercentChange"></color-number></p>
-                        </div>
-                      </div>
-                    </md-list-item>
+    <!--Start Historical Data Line Chart-->
+    <div style="height:500px;">
+      <base-chart positions="user.Positions" selected-chart="selectedChart" symbol="symbol"></base-chart>
+    </div>
 
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>PercentChange From Fifty day Moving Average:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p><color-number number="symbol.PercentChangeFromFiftydayMovingAverage"></color-number></p>
-                        </div>
+    <!--Start Symbol Details Tab Switcher-->
+    <div class="tabbed-details">
+      <md-content>
+        <md-tabs md-dynamic-height="false" md-center-tabs="false" md-border-bottom md-selected="2">
+          <md-tab label="details">
+            <div layout="row">
+              <div flex="50">
+                <md-list>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Ask:</p>
                       </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Percent Change From Two Hundred day Moving Average:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p><color-number number="symbol.PercentChangeFromTwoHundreddayMovingAverage"></color-number></p>
-                        </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.Ask}}</p>
                       </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Percent Change From Year Low:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p><color-number number="symbol.PercentChangeFromYearLow"></color-number></p>
-                        </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Average Daily Volume:</p>
                       </div>
-                    </md-list-item>
-                    <md-divider ></md-divider>
-                    <md-list-item class="stacked-details">
-
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Previous Close:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.PreviousClose}}</p>
-                        </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.AverageDailyVolume}}</p>
                       </div>
-                    </md-list-item>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Price Book:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.PriceBook}}</p>
-                        </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Bid:</p>
                       </div>
-                    </md-list-item>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Price EPS Estimate Next Year:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.PriceEPSEstimateNextYear}}</p>
-                        </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.Bid}}</p>
                       </div>
-                    </md-list-item>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Price Sales:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.PriceSales}}</p>
-                        </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Book Value:</p>
                       </div>
-                    </md-list-item>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Short Ratio:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.ShortRatio}}</p>
-                        </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.BookValue}}</p>
                       </div>
-                    </md-list-item>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Stock Exchange:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.StockExchange}}</p>
-                        </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Change:</p>
                       </div>
-                    </md-list-item>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Two Hundred day Moving Average:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.YearRange}}</p>
-                        </div>
+                      <div flex="50" class="row-right">
+                        <p>
+                          <color-number number="symbol.Change"></color-number>
+                        </p>
                       </div>
-                    </md-list-item>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Volume:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.Volume}}</p>
-                        </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Change From Fifty day Moving Average:</p>
                       </div>
-                    </md-list-item>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Year High:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.YearHigh}}</p>
-                        </div>
+                      <div flex="50" class="row-right">
+                        <p>
+                          <color-number number="symbol.ChangeFromFiftydayMovingAverage"></color-number>
+                        </p>
                       </div>
-                    </md-list-item>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Year Low:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.YearLow}}</p>
-                        </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Change From Two Hundred day Moving Average:</p>
                       </div>
-                    </md-list-item>
-                    <md-list-item class="stacked-details">
-                      <div layout="row" class="stacked-details-row">
-                        <div flex="50">
-                          <p>Year Range:</p>
-                        </div>
-                        <div flex="50" class="row-right">
-                          <p>{{symbol.YearRange}}</p>
-                        </div>
+                      <div flex="50" class="row-right">
+                        <p>
+                          <color-number number="symbol.ChangeFromTwoHundreddayMovingAverage"></color-number>
+                        </p>
                       </div>
-                    </md-list-item>
-
-                  </md-list>
-
-                </div>
-              </div>
-            </md-tab>
-            <md-tab label="earnings">
-              <h1 class="md-display-2">Earnings from {{symbol.Symbol}}</h1>
-
-              <div layout="column" ng-repeat="position in positions.buys">
-                Buy: {{position.ask}} - {{position.created}}
-
-                dailyPNL: 15.579999999999927
-                symbol: "AXP"
-                totalPNL: -41.510000000000105
-                totalQuantity: 19
-                totalValue: 1469.08
-              </div>
-
-              <div ng-show="!positions.buys">
-                You don't have any positions with {{symbol.Symbol}}
-              </div>
-
-
-              <!--<md-content class="md-padding">-->
-                <!--<h1 class="md-display-2">Earnings from {{symbol.Symbol}}</h1>-->
-
-                <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat-->
-                  <!--neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas-->
-                  <!--lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam-->
-                  <!--placerat,-->
-                  <!--tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis-->
-                  <!--sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada-->
-                  <!--consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod-->
-                  <!--ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis,-->
-                  <!--iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur-->
-                  <!--faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus-->
-                  <!--mauris semper.</p>-->
-              <!--</md-content>-->
-            </md-tab>
-            <md-tab label="news">
-              <md-list ng-repeat="newsItem in symbol.$news">
-                <md-list-item class="md-3-line" ng-click="openNewsWindow(newsItem.unescapedUrl)">
-                  <img ng-src="{{newsItem.image.url}}" class="md-avatar" alt="{{newsItem.who}}" />
-                  <div class="md-list-item-text" layout="column">
-                    <h3 ng-bind-html="newsItem.title"></h3>
-                    <p ng-bind-html="newsItem.content"></p>
-                    <h4>Published By: {{newsItem.publisher}}</h4>
-                  </div>
-                </md-list-item>
-                <md-divider ></md-divider>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Change From Year High:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>
+                          <color-number number="symbol.ChangeFromYearHigh"></color-number>
+                        </p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Change From Year Low:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>
+                          <color-number number="symbol.ChangeFromYearLow"></color-number>
+                        </p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Change in Percent:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>
+                          <color-number number="symbol.ChangeinPercent"></color-number>
+                        </p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Days High:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.DaysHigh}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Days Low:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.DaysLow}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Days Range:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.DaysRange}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>EBITDA:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.EBITDA}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>EPS Estimate Current Year:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.EPSEstimateCurrentYear}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>EPS Estimate Next Quarter:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.EPSEstimateNextQuarter}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>EPS Estimate Next Year:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.EPSEstimateNextYear}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Earnings Share:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.EarningsShare}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Fifty day Moving Average:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.FiftydayMovingAverage}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Last Trade Date:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.LastTradeDate}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Last Trade Price Only:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.LastTradePriceOnly}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Last Trade Time:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.LastTradeTime}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
                 </md-list>
-            </md-tab>
-          </md-tabs>
-        </md-content>
-      </div>
+              </div>
+              <div flex="50">
+                <md-list>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Last Trade With Time:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.LastTradeWithTime}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Market Capitalization:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.MarketCapitalization}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>One yr Target Price:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.OneyrTargetPrice}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Open:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.Open}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>PEG Ratio:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.PEGRatio}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Percent Change From Year High:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>
+                          <color-number number="symbol.PercebtChangeFromYearHigh"></color-number>
+                        </p>
+                      </div>
+                    </div>
+                  </md-list-item>
 
-    </md-content>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Percent Change:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>
+                          <color-number number="symbol.PercentChange"></color-number>
+                        </p>
+                      </div>
+                    </div>
+                  </md-list-item>
+
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>PercentChange From Fifty day Moving Average:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>
+                          <color-number number="symbol.PercentChangeFromFiftydayMovingAverage"></color-number>
+                        </p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Percent Change From Two Hundred day Moving Average:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>
+                          <color-number number="symbol.PercentChangeFromTwoHundreddayMovingAverage"></color-number>
+                        </p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Percent Change From Year Low:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>
+                          <color-number number="symbol.PercentChangeFromYearLow"></color-number>
+                        </p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item class="stacked-details">
+
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Previous Close:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.PreviousClose}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Price Book:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.PriceBook}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Price EPS Estimate Next Year:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.PriceEPSEstimateNextYear}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Price Sales:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.PriceSales}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Short Ratio:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.ShortRatio}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Stock Exchange:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.StockExchange}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Two Hundred day Moving Average:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.YearRange}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Volume:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.Volume}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Year High:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.YearHigh}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Year Low:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.YearLow}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="stacked-details">
+                    <div layout="row" class="stacked-details-row">
+                      <div flex="50">
+                        <p>Year Range:</p>
+                      </div>
+                      <div flex="50" class="row-right">
+                        <p>{{symbol.YearRange}}</p>
+                      </div>
+                    </div>
+                  </md-list-item>
+
+                </md-list>
+
+              </div>
+            </div>
+          </md-tab>
+          <md-tab label="earnings">
+            <div layout="column" flex layout-fill ng-cloak>
+              <!--<md-toolbar md-scroll-shrink>-->
+                <!--<div class="md-toolbar-tools">{{symbol.Name}}</div>-->
+              <!--</md-toolbar>-->
+              <md-content ng-hide="!positions.buys">
+                <section>
+                  <md-subheader class="md-primary">
+                    Total Quantity: {{positions.totalQuantity}}
+                    Total PNL: {{positions.totalPNL}}
+                    Daily PNL: {{positions.dailyPNL}}
+                    Total Value: {{positions.totalValue}}
+                  </md-subheader>
+                  <md-list layout-padding>
+                    <md-list-item class="md-3-line" ng-repeat="position in positions.buys | orderBy:position.created:true">
+                      <img ng-src="{{message.face}}" class="md-avatar" alt="{{message.who}}">
+
+                      <div class="md-list-item-text">
+                        <h3>{{position.ask}} x {{position.quantity}} = {{position.value}}</h3>
+                        <h4>Total PNL: {{position.totalPNL}}</h4>
+
+                        <p>
+                          Daily PNL: {{position.dailyPNL}} <br/>
+                          Buy value: {{position.value}} <br/>
+                          Created {{position.created}}
+                        </p>
+                      </div>
+                    </md-list-item>
+                  </md-list>
+                </section>
+              </md-content>
+              <md-content ng-show="!positions.buys" class="md-padding">
+                <section>
+                  <h3>You do not have any positions with {{symbol.Symbol}}</h3>
+                </section>
+              </md-content>
+            </div>
+          </md-tab>
+          <md-tab label="news">
+            <md-list ng-repeat="newsItem in symbol.$news">
+              <md-list-item class="md-3-line" ng-click="openNewsWindow(newsItem.unescapedUrl)">
+                <img ng-src="{{newsItem.image.url}}" class="md-avatar" alt="{{newsItem.who}}"/>
+
+                <div class="md-list-item-text" layout="column">
+                  <h3 ng-bind-html="newsItem.title"></h3>
+
+                  <p ng-bind-html="newsItem.content"></p>
+                  <h4>Published By: {{newsItem.publisher}}</h4>
+                </div>
+              </md-list-item>
+              <md-divider></md-divider>
+            </md-list>
+          </md-tab>
+        </md-tabs>
+      </md-content>
+    </div>
 
   </md-content>
 </div>

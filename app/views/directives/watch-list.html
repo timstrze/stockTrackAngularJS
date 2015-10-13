@@ -6,7 +6,7 @@
         </h2>
         <span flex></span>
         <md-menu md-offset="0 0">
-          <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+          <md-button aria-label="Open demo menu" class="md-fab" ng-click="$mdOpenMenu($event)">
             <ng-md-icon md-menu-origin icon="sort" style="fill: #fff" size="20"></ng-md-icon>
           </md-button>
           <md-menu-content width="2">
@@ -50,20 +50,17 @@
                           </span>
                         </h3>
                         <h4>{{watchListItem.Symbol.Name}}</h4>
-
+                        <p>
+                          Day's Range: {{watchListItem.Symbol.DaysRange}}
+                        </p>
                         <spark-line ng-if="user.Preferences.refreshState && watchListItem.Symbol.askHistory.length > 3" symbol="watchListItem.Symbol"></spark-line>
                     </div>
 
                     <md-menu>
-                      <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-button aria-label="Open action menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                         <ng-md-icon md-menu-origin icon="menu" style="fill: #A9A9A9" size="20"></ng-md-icon>
                       </md-button>
                       <md-menu-content width="2">
-                        <md-menu-item>
-                          <md-button aria-label="Remove" ng-click="removeFromWatchlist(watchListItem.Symbol, $event)">
-                            <span md-menu-align-target>Remove</span>
-                          </md-button>
-                        </md-menu-item>
                         <md-menu-item>
                           <md-button aria-label="Buy"
                                      ng-click="user.openBuyModal($event, watchListItem.Symbol)">
@@ -74,6 +71,11 @@
                           <md-button aria-label="Sell"
                                      ng-click="user.openSellModal($event, watchListItem.Symbol)">
                             <span md-menu-align-target>Sell</span>
+                          </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                          <md-button aria-label="Remove" ng-click="removeFromWatchlist(watchListItem.Symbol, $event)">
+                            <span md-menu-align-target>Remove</span>
                           </md-button>
                         </md-menu-item>
                       </md-menu-content>

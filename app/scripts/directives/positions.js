@@ -53,10 +53,16 @@ angular.module('stockTrackAngularJsApp')
                 if(new Date(buy.created).setHours(0,0,0,0) === todaysDate.setHours(0,0,0,0)) {
                   // If the buy did happen today use the Symbols ask value
                   dailyPNL = (position.Symbol.Ask * totalQuantity) - (buy.ask * totalQuantity);
+                  buy.dailyPNL = (position.Symbol.Ask * buy.quantity) - (buy.ask * buy.quantity);
                 }else {
                   // If the buy did not happen today use the Symbols previous close value
                   dailyPNL = (position.Symbol.Ask * totalQuantity) - (position.Symbol.PreviousClose * totalQuantity);
+                  buy.dailyPNL = (position.Symbol.Ask * buy.quantity) - (position.Symbol.PreviousClose * buy.quantity);
                 }
+
+                //buy.totalQuantity = totalQuantity;
+                buy.totalPNL = (position.Symbol.Ask * buy.quantity) - (buy.ask * buy.quantity);
+                buy.value = (position.Symbol) ? (position.Symbol.Ask * buy.quantity) : 0;
               }
             });
             // Set the scope values

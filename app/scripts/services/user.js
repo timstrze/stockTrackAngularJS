@@ -138,8 +138,62 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name buy
-     * @methodOf stockTrackAngularJsApp.directive:buy-button
+     * @name User.openBuyModal
+     * @methodOf stockTrackAngularJsApp.services:User
+     *
+     * @description
+     * Opens the buy modal. Sets the default quantity to 1.
+     *
+     */
+    User.prototype.openUserPreferenceModal = function (event) {
+      // Create a reference to this
+      var _this = this;
+      // Open buy modal
+      $mdDialog.show({
+        controller: ['$scope', '$interval', function ($scope, $interval) {
+
+          $scope.user = _this;
+
+          /**
+           * @ngdoc function
+           * @name symbolRefreshChange
+           * @methodOf stockTrackAngularJsApp.service:User
+           *
+           * @description
+           * Updates the User Preferences of a refresh change. Remove the window.setInterval stored on the SymbolList.
+           * Sets the refresh interval for the Symbol List. Refresh rate is a {Number} in milliseconds.
+           *
+           */
+          $scope.symbolRefreshChange = function() {
+            // Remove the window.setInterval stored on the SymbolList
+            $interval.cancel(SymbolList.interval);
+            // Check to see if the refresh state is turned on
+            if($scope.user.Preferences.refreshState) {
+              // Set the refresh interval for the Symbols
+              SymbolList.interval = $interval(function(){
+                  // Call the refresh method
+                  SymbolList.refreshSymbols();
+                },
+                // Set the time of the refresh {Number} in milliseconds
+                $scope.user.Preferences.refreshRate);
+            }
+          };
+
+          // Closes the modal
+          $scope.cancel = function () {
+            $mdDialog.cancel();
+          };
+
+        }],
+        templateUrl: 'views/directives/modals/user-preferences.html',
+        targetEvent: event
+      });
+    };
+
+    /**
+     * @ngdoc function
+     * @name User.buy
+     * @methodOf stockTrackAngularJsApp.service:User
      *
      * @description
      * Buys the selected symbol and quantity. Checks to see if the User has enough cash to make the trade.

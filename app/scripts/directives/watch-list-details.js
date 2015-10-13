@@ -24,6 +24,7 @@ angular.module('stockTrackAngularJsApp')
       templateUrl: 'views/directives/watch-list-details.html',
       controller: function ($scope) {
 
+        $scope.selectedChart = 'line-chart';
         /**
          * @ngdoc property
          * @name historicalTabs

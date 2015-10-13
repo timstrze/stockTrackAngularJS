@@ -163,7 +163,7 @@ angular.module('stockTrackAngularJsApp')
             // Loop over the results
             angular.forEach(data.query.results.quote, function (quote, index) {
               // Only save the last fifty asks
-              if(_this.Symbols[index].askHistory.length > 50) {
+              if(_this.Symbols[index].askHistory.length > 1440) {
                 // Remove the first item in the array
                 _this.Symbols[index].askHistory.shift();
               }
