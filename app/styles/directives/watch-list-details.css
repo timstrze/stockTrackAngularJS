@@ -3,13 +3,13 @@ watch-list-details {
   padding-top: 0;
 }
 
-.watch-list-details h2 .positive {
-  color: #17E217;
-}
+/*.watch-list-details h2 .positive {*/
+  /*color: #17E217;*/
+/*}*/
 
-.watch-list-details h2 .negative {
-  color: #F74545;
-}
+/*.watch-list-details h2 .negative {*/
+  /*color: #F74545;*/
+/*}*/
 
 .watch-list-details md-content.autocomplete {
   min-height: 250px;

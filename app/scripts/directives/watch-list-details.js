@@ -24,7 +24,6 @@ angular.module('stockTrackAngularJsApp')
       templateUrl: 'views/directives/watch-list-details.html',
       controller: function ($scope) {
 
-        $scope.selectedChart = 'line-chart';
         /**
          * @ngdoc property
          * @name historicalTabs
@@ -47,6 +46,21 @@ angular.module('stockTrackAngularJsApp')
          */
         $scope.openNewsWindow = function(url) {
           $window.open(url, '_blank')
+        };
+
+
+
+
+        /**
+         * @ngdoc property
+         * @name selectChartType
+         * @propertyOf stockTrackAngularJsApp.directive:watch-list-details
+         *
+         * @description
+         * Make service method available to the ng-repeat.
+         */
+        $scope.selectChartType = function(type) {
+          $scope.selectedChart = type;
         };
 
 

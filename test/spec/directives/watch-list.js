@@ -55,7 +55,7 @@ describe('Directive: watch-list', function() {
     });
     // Compile a piece of HTML containing the directive
     var element = $compile('<watch-list-details></watch-list-details>')($rootScope);
-    // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
+    // Fire all the watches, so the scope expression {{1 + 1}} will be evaluated
     $rootScope.$digest();
     // Set the default scope data
     element.isolateScope().user = testData.User;

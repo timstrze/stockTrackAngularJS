@@ -6,7 +6,7 @@
         </h2>
         <span flex></span>
         <md-menu md-offset="0 0">
-          <md-button aria-label="Open demo menu" class="md-fab" ng-click="$mdOpenMenu($event)">
+          <md-button aria-label="Open demo menu" ng-click="$mdOpenMenu($event)">
             <ng-md-icon md-menu-origin icon="sort" style="fill: #fff" size="20"></ng-md-icon>
           </md-button>
           <md-menu-content width="2">
@@ -43,14 +43,20 @@
                 <md-list-item class="md-3-line" ng-repeat="watchListItem in user.WatchList" ng-click="selectSymbol(watchListItem.Symbol)"
                               ng-class="{selected: watchListItem.Symbol == user.selectedSymbol}">
                     <div class="md-list-item-text">
-                        <h3>
-                          <span style="text-transform: uppercase;">{{watchListItem.Symbol.Symbol}}:</span>
-                          <span ng-class="{positive: watchListItem.Symbol.Change.indexOf('+') > -1, negative: watchListItem.Symbol.Change.indexOf('-') > -1}">
-                            {{watchListItem.Symbol.Ask}} {{watchListItem.Symbol.Change}} ({{watchListItem.Symbol.ChangeinPercent}})
+
+                          <!--<span style="text-transform: uppercase;">{{watchListItem.Symbol.Symbol}}:</span>-->
+                          <span class="chip" ng-class="{positive: watchListItem.Symbol.Change.indexOf('+') > -1, negative: watchListItem.Symbol.Change.indexOf('-') > -1}">
+                            <span style="text-transform: uppercase;">
+                             {{watchListItem.Symbol.Symbol}}:
+                            </span>
+                            <span>
+                            {{watchListItem.Symbol.Ask | number:2}} {{watchListItem.Symbol.Change}} ({{watchListItem.Symbol.ChangeinPercent}})
+                            </span>
                           </span>
-                        </h3>
-                        <h4>{{watchListItem.Symbol.Name}}</h4>
-                        <p>
+
+
+                        <!--<h4>{{watchListItem.Symbol.Name}}</h4>-->
+                        <p style="float:left;">
                           Day's Range: {{watchListItem.Symbol.DaysRange}}
                         </p>
                         <spark-line ng-if="user.Preferences.refreshState && watchListItem.Symbol.askHistory.length > 3" symbol="watchListItem.Symbol"></spark-line>

@@ -4,16 +4,17 @@
     <!--Start Buy/Sell Toolbar-->
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools" ng-show="symbol.Symbol">
-        <h2>
-            <span style="text-transform: uppercase;">
-              {{symbol.Symbol}}: {{symbol.Name}}
-            </span>
-            <span
-              ng-class="{positive: symbol.Change.indexOf('+') > -1, negative: symbol.Change.indexOf('-') > -1}">
-              {{symbol.Ask}} {{symbol.Change}} ({{symbol.ChangeinPercent}})
-            </span>
-        </h2>
-        <span flex></span>
+        <span class="chip"
+          ng-class="{positive: symbol.Change.indexOf('+') > -1, negative: symbol.Change.indexOf('-') > -1}">
+           <span style="text-transform: uppercase;">
+             {{symbol.Symbol}}:
+           </span>
+          {{symbol.Ask}} {{symbol.Change}} ({{symbol.ChangeinPercent}})
+        </span>
+
+        <span flex style="text-align: center;">
+          <h2 hide-sm>{{symbol.Name}}</h2>
+        </span>
 
         <md-button class="md-raised" buy-button aria-label="Buy" ng-click="user.openBuyModal($event, symbol)">
           <span>Buy</span>
@@ -29,27 +30,27 @@
           </md-button>
           <md-menu-content width="2">
             <md-menu-item>
-              <md-button aria-label="Line Chart" ng-click="selectedChart = 'line-chart'">
+              <md-button aria-label="Line Chart" ng-click="selectChartType('line-chart')">
                 <span md-menu-align-target>Line Chart</span>
               </md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button aria-label="OHLC Chart" ng-click="selectedChart = 'ohlc-chart'">
+              <md-button aria-label="OHLC Chart" ng-click="selectChartType('ohlc-chart')">
                 <span md-menu-align-target>OHLC Chart</span>
               </md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button aria-label="Candlestick Chart" ng-click="selectedChart = 'candlestick-chart'">
+              <md-button aria-label="Candlestick Chart" ng-click="selectChartType('candlestick-chart')">
                 <span md-menu-align-target>Candlestick Chart</span>
               </md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button aria-label="Kagi Chart" ng-click="selectedChart = 'kagi-chart'">
+              <md-button aria-label="Kagi Chart" ng-click="selectChartType('kagi-chart')">
                 <span md-menu-align-target>Kagi Chart</span>
               </md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button aria-label="Comparison Chart" ng-click="selectedChart = 'comparison-chart'">
+              <md-button aria-label="Comparison Chart" ng-click="selectChartType('comparison-chart')">
                 <span md-menu-align-target>Comparison Chart</span>
               </md-button>
             </md-menu-item>

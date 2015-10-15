@@ -21,3 +21,19 @@
 .base-chart text {
   fill: rgba(0,0,0,0.54);
 }
+
+.base-chart .bar.up-day path {
+  stroke: green;
+}
+
+.base-chart .bar.down-day path {
+  stroke: red;
+}
+
+.base-chart .bar.up-day rect {
+  fill: green;
+}
+
+.base-chart .bar.down-day rect {
+  fill: red;
+}
