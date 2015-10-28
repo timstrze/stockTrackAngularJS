@@ -44,14 +44,14 @@ angular.module('stockTrackAngularJsApp')
         $scope.xAxis = $scope.svgContent.append('g').attr('name', 'xAxis');
         $scope.yAxis = $scope.svgContent.append('g').attr('name', 'yAxis');
 
-        $scope.yAxis
-          .append('text')
-          .attr('transform', 'rotate(-90)')
-          .attr('y', 6)
-          .attr('dy', '.71em')
-          .style('text-anchor', 'end')
-          .text('Price ($)')
-          .attr('name', 'price');
+        //$scope.yAxis
+        //  .append('text')
+        //  .attr('transform', 'rotate(-90)')
+        //  .attr('y', 6)
+        //  .attr('dy', '.71em')
+        //  .style('text-anchor', 'end')
+        //  .text('Price ($)')
+        //  .attr('name', 'price');
 
 
         $scope.parseDate = d3.time.format('%Y-%m-%d').parse;
@@ -62,10 +62,11 @@ angular.module('stockTrackAngularJsApp')
           $scope.symbol.historicalData.forEach(function (d) {
             d.date = $scope.parseDate(d.Date);
             d.close = +d.Close;
+            d.low = +d.Low;
           });
 
           // Add extra margin
-          var margin = {top: 20, right: 10, bottom: 30, left: 40};
+          var margin = {top: 20, right: 40, bottom: 30, left: 0};
           // Get the width of the parent element
           $scope.width = element.parent()[0].offsetWidth - margin.left - margin.right;
           // Get the height of the parent element
@@ -167,14 +168,14 @@ angular.module('stockTrackAngularJsApp')
 
           var yAxis = d3.svg.axis()
             .scale($scope.y)
-            .orient('left');
+            .orient('right');
 
           $scope.x.domain(d3.extent($scope.symbol.historicalData, function (d) {
             return d.date;
           }));
 
           $scope.y.domain(d3.extent($scope.symbol.historicalData, function (d) {
-            return d.close;
+            return d.low;
           }));
 
           $scope.xAxis
@@ -184,7 +185,26 @@ angular.module('stockTrackAngularJsApp')
 
           $scope.yAxis
             .attr('class', 'y axis')
+            .attr('transform', 'translate(' + ($scope.width) + ',0)')
             .call(yAxis);
+        };
+
+
+
+        $scope.render = function() {
+          $scope.resizeScene();
+          $scope.renderXYAxis();
+
+          if($scope.selectedChart === 'ohlc-chart') {
+            LineChart.cleanUp();
+            OHLCChart.render($scope, $scope.symbol.historicalData);
+          }else if($scope.selectedChart === 'candlestick-chart') {
+            LineChart.cleanUp();
+            OHLCChart.render($scope, $scope.symbol.historicalData, true);
+          }else {
+            OHLCChart.cleanUp();
+            LineChart.render($scope, $scope.symbol.historicalData);
+          }
         };
 
 
@@ -204,19 +224,7 @@ angular.module('stockTrackAngularJsApp')
         }, function () {
           // Make sure there is historical data
           if ($scope.symbol && $scope.symbol.historicalData && $scope.symbol.historicalData.length > 0) {
-            $scope.resizeScene();
-            $scope.renderXYAxis();
-
-            if($scope.selectedChart === 'ohlc-chart') {
-              LineChart.cleanUp();
-              OHLCChart.render($scope, $scope.symbol.historicalData);
-            }else if($scope.selectedChart === 'candlestick-chart') {
-              LineChart.cleanUp();
-              OHLCChart.render($scope, $scope.symbol.historicalData, true);
-            }else {
-              OHLCChart.cleanUp();
-              LineChart.render($scope, $scope.symbol.historicalData);
-            }
+            $scope.render();
           }
         }, true);
 
@@ -234,7 +242,7 @@ angular.module('stockTrackAngularJsApp')
         angular.element($window).on('resize', function () {
           // Make sure there is historical data
           if ($scope.symbol && $scope.symbol.historicalData && $scope.symbol.historicalData.length > 0) {
-            //$scope.render($scope.symbol.historicalData);
+            $scope.render();
           }
         });
       }

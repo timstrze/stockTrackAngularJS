@@ -105,6 +105,7 @@ angular.module('stockTrackAngularJsApp')
       },
       all: {
         method: 'GET',
+        //url: 'json/symbols.json',
         url: 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol in (":list")',
         params: {
           format: 'json',
@@ -133,6 +134,7 @@ angular.module('stockTrackAngularJsApp')
     }, {
       details: {
         method: 'GET',
+        //url: 'json/historical-data.json',
         url: 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.historicaldata where symbol = ":symbol" and startDate = ":startDate" and endDate = ":endDate"',
         params: {
           format: 'json',
@@ -140,6 +142,7 @@ angular.module('stockTrackAngularJsApp')
         }
       },
       news: {
+        //method: 'GET',
         method: 'JSONP',
         isArray: false,
         params: {
@@ -147,6 +150,7 @@ angular.module('stockTrackAngularJsApp')
           rsz: 8,
           v: '1.0'
         },
+        //url: 'json/news.json'
         url: 'https://ajax.googleapis.com/ajax/services/search/news'
       }
     });

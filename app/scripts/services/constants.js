@@ -48,6 +48,27 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
+     * @name Constants.getMarketOpen
+     * @propertyOf stockTrackAngularJsApp.service:Constants
+     *
+     * @description
+     * Returns an array of order types
+     *
+     */
+    Constants.getMarketOpen = function () {
+
+      var today = new Date().getHours();
+      if (today >= 7 && today <= 19) {
+
+      } else {
+
+      }
+
+    };
+
+
+    /**
+     * @ngdoc function
      * @name Constants.positionEffects
      * @propertyOf stockTrackAngularJsApp.service:Constants
      *

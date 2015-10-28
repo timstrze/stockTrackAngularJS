@@ -32,6 +32,7 @@ angular.module('stockTrackAngularJsApp')
      *
      */
     $scope.init = function () {
+      Constants.getMarketOpen();
       // Gets the user
       $scope.getUser();
     };

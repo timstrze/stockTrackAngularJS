@@ -79,7 +79,7 @@ angular.module('stockTrackAngularJsApp')
     var applyCandlestick = function ($scope, bars) {
 
       var rect,
-        rectangleWidth = 5;
+        rectangleWidth = 3;
 
       rect = bars.selectAll('rect').data(function (d) {
         return [d];
