@@ -21,11 +21,11 @@ angular.module('stockTrackAngularJsApp')
     LineChart.render = function ($scope, historicalData) {
 
       if(!LineChart.chartLine) {
-        LineChart.chartLine = $scope.svgContent.append('path').attr('name', 'chartLine')
+        LineChart.chartLine = $scope.chartLine;
       }
 
       if(!LineChart.area) {
-        LineChart.area = $scope.svgContent.append("path").attr('name', 'area');
+        LineChart.area = $scope.chartArea;
       }
 
 
