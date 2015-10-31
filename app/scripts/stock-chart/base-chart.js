@@ -43,11 +43,31 @@ angular.module('stockTrackAngularJsApp')
         $scope.chartLine = $scope.svgContent.append('path').attr('name', 'chartLine');
 
 
+        $scope.movingAvgLine = $scope.svgContent.append('svg:path').attr('class', 'avg');
+
+
         $scope.xAxis = $scope.svgContent.append('g').attr('name', 'xAxis');
         $scope.yAxis = $scope.svgContent.append('g').attr('name', 'yAxis');
 
 
         $scope.parseDate = d3.time.format('%Y-%m-%d').parse;
+
+       $scope.getBollingerBands = function(n, k, data) {
+          var bands = []; //{ ma: 0, low: 0, high: 0 }
+          for (var i = n - 1, len = data.length; i < len; i++) {
+            var slice = data.slice(i + 1 - n , i);
+            var mean = d3.mean(slice, function(d) { return d.close; });
+            var stdDev = Math.sqrt(d3.mean(slice.map(function(d) {
+              return Math.pow(d.close - mean, 2);
+            })));
+            bands.push({ date: data[i].date,
+              ma: mean,
+              low: mean - (k * stdDev),
+              high: mean + (k * stdDev) });
+          }
+          return bands;
+        };
+
 
         $scope.resizeScene = function () {
 
@@ -73,9 +93,17 @@ angular.module('stockTrackAngularJsApp')
             return d.date;
           }));
 
+          var n = 20; // n-period of moving average
+          var k = 2;  // k times n-period standard deviation above/below moving average
+
+
+          var bandsData = $scope.getBollingerBands(n, k, $scope.symbol.historicalData);
+
+
           $scope.y.domain(d3.extent($scope.symbol.historicalData, function (d) {
-            return d.low;
+            return d.close;
           }));
+
 
           $scope.svg
             .attr('width', $scope.width + $scope.margin.left + $scope.margin.right)
@@ -206,7 +234,7 @@ angular.module('stockTrackAngularJsApp')
           //    .tickFormat("")
           //)
 
-          $scope.svgContent.selectAll("line.horizontalGrid").remove()
+          $scope.svgContent.selectAll("line.horizontalGrid").remove();
           $scope.svgContent.selectAll("line.horizontalGrid").data($scope.y.ticks(4)).enter()
             .append("line")
             .attr(
@@ -239,6 +267,38 @@ angular.module('stockTrackAngularJsApp')
               "stroke-width" : "1px",
               "stroke-dasharray": "5, 5"
             });
+
+          var movingAvg = function(n) {
+            return function (points) {
+              points = points.map(function(each, index, array) {
+                var to = index + n - 1;
+                var subSeq, sum;
+                if (to < points.length) {
+                  subSeq = array.slice(index, to + 1);
+                  sum = subSeq.reduce(function(a,b) { return [a[0] + b[0], a[1] + b[1]]; });
+                  return sum.map(function(each) { return each / n; });
+                }
+                return undefined;
+              });
+              points = points.filter(function(each) { return typeof each !== 'undefined' });
+              // Transform the points into a basis line
+              var pathDesc = d3.svg.line().interpolate("basis")(points);
+              // Remove the extra "M"
+              return pathDesc.slice(1, pathDesc.length);
+            }
+          };
+
+
+          //var _movingSum;
+          var movingAverageLine = d3.svg.line()
+            .x(function(d,i) { return $scope.x(d.date); })
+            .y(function(d,i) { return $scope.y(d.close); })
+            .interpolate(movingAvg(3));
+
+          $scope.movingAvgLine
+            .attr("d", movingAverageLine($scope.symbol.historicalData));
+
+
         };
 
 

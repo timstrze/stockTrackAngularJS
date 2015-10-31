@@ -65,7 +65,7 @@
                         <p style="float:left;">
                           Day's Range: {{watchListItem.Symbol.DaysRange}}
                         </p>
-                        <spark-line ng-if="user.Preferences.refreshState && watchListItem.Symbol.askHistory.length > 3" symbol="watchListItem.Symbol"></spark-line>
+                        <spark-line ng-if="user.Preferences.refreshState && watchListItem.Symbol.askHistory.length > 0" symbol="watchListItem.Symbol"></spark-line>
                     </div>
 
                     <md-menu>

@@ -15,6 +15,15 @@
 
   "WatchList": [
     {
+      "symbol":"NFLX"
+    },
+    {
+      "symbol":"AMZN"
+    },
+    {
+      "symbol":"GOOG"
+    },
+    {
       "symbol":"AAPL"
     },
     {
@@ -81,7 +90,7 @@
 
   "Preferences": {
     "selectedHistoricalIndex": 2,
-    "refreshState": false,
+    "refreshState": true,
     "refreshRate": 10000
   }
 

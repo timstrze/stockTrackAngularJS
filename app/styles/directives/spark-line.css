@@ -6,3 +6,19 @@
     stroke-width: 1;
     fill: none;
 }
+
+.spark-line path.up-day {
+  stroke: green;
+}
+
+.spark-line path.down-da {
+  stroke: red;
+}
+
+.spark-line rect.up-day {
+  fill: green;
+}
+
+.spark-line rect.down-day {
+  fill: red;
+}

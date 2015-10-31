@@ -231,6 +231,8 @@ angular.module('stockTrackAngularJsApp')
        *
        */
       setInitialSymbols: function(data) {
+        // Create a reference to this
+        var _this = this;
         // Create a temp array
         var tmpSymbolList = [];
         // Make sure there are results
@@ -249,7 +251,7 @@ angular.module('stockTrackAngularJsApp')
           // Check if the User wants to auto-refresh Symbols
           if(this.Preferences.refreshState) {
             // Start refreshing the SymbolList and store the reference
-            this.interval = $interval( function(){ this.refreshSymbols(); }, this.Preferences.refreshRate);
+            this.interval = $interval(function(){ _this.refreshSymbols(); }, this.Preferences.refreshRate);
           }
         }
         // Set the SymbolList.Symbols from the temp array

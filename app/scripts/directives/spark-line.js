@@ -57,6 +57,17 @@ angular.module('stockTrackAngularJsApp')
 
         $scope.yAxis = $scope.svg.append('g');
 
+        $scope.yOpenLine = $scope.svg.append("line");
+        $scope.yAskLine = $scope.svg.append("line");
+
+        $scope.openCircle = $scope.svg.append("circle");
+        $scope.askCircle = $scope.svg.append("circle");
+
+
+        $scope.candleStick = $scope.svg.append("rect");
+
+
+
         //$scope.yAxis
         //  .append('text')
         //  .attr('transform', 'rotate(-90)')
@@ -77,6 +88,10 @@ angular.module('stockTrackAngularJsApp')
          *
          */
         $scope.sparkLine = $scope.svg.append('svg:path');
+
+        var isUpDay = function(d) {
+          return d.Ask > d.Open;
+        };
 
 
         /**
@@ -101,9 +116,9 @@ angular.module('stockTrackAngularJsApp')
 
 
           // X scale will fit values from 0-10 within pixels 0-100
-          var x = d3.scale.linear().domain([0, askHistory.length]).range([0, $scope.width]);
+          $scope.x = d3.scale.linear().domain([0, askHistory.length]).range([0, $scope.width]);
           // Y scale will fit values from 0-10 within pixels 0-100
-          var y = d3.scale.linear().domain([$scope.symbol.DaysHigh, $scope.symbol.DaysLow]).range([0 , $scope.height]);
+          $scope.y = d3.scale.linear().domain([$scope.symbol.DaysHigh, $scope.symbol.DaysLow]).range([0 , $scope.height]);
 
           //var y = d3.scale.linear().domain([d3.min(askHistory), d3.max(askHistory)]).range([$scope.symbol.DaysLow, $scope.symbol.DaysHigh]);
           // create a line object that represents the SVN line we're creating
@@ -111,24 +126,92 @@ angular.module('stockTrackAngularJsApp')
             // assign the X function to plot our line as we wish
             .x(function (d, i) {
               // return the X coordinate where we want to plot this datapoint
-              return x(i);
+              return $scope.x(i);
             })
             .y(function (d) {
               // return the Y coordinate where we want to plot this datapoint
-              return y(d);
+              return $scope.y(d);
             });
 
 
 
-          $scope.yAxis
-            .attr('class', 'y axis')
-            .call(yAxis)
-            .attr('transform', 'translate(5,0)');
+          //$scope.yAxis
+          //  .attr('class', 'y axis')
+          //  .call(yAxis)
+          //  .attr('transform', 'translate(5,0)');
 
 
 
           // display the line by appending an svg:path element with the data line we created above
           $scope.sparkLine.attr('d', line(askHistory)).transition();
+
+
+
+          $scope.yOpenLine
+            .attr("x1", 3)
+            .attr("y1", 3)
+            .attr("x2", 3)
+            .attr("y2", $scope.height)
+            .attr("stroke-width", 1)
+            .attr("stroke", "black");
+
+          $scope.yAskLine
+            .attr("x1", $scope.width - 3)
+            .attr("y1", 3)
+            .attr("x2", $scope.width - 3)
+            .attr("y2", $scope.height)
+            .attr("stroke-width", 1)
+            .attr("stroke", "black");
+
+          $scope.askCircle
+            .attr("cx", 3)
+            .attr("cy", function (d) {
+              return $scope.y($scope.symbol.Open);
+            })
+
+            .attr("r", function(d) {
+              return 3;
+            })
+            .attr("fill", "#3F51B5")
+            .attr("stroke", "#fff");
+
+          $scope.openCircle
+            .attr("cx", 3)
+            .attr("cy", function (d) {
+              return $scope.y($scope.symbol.Ask);
+            })
+
+            .attr("r", function(d) {
+              return 3;
+            })
+            .attr("fill", "yellow")
+            .attr("stroke", "#fff");
+
+          var rectangleWidth = 3;
+
+          $scope.candleStick
+            .attr('x', function (d) {
+              return $scope.width - 3  - rectangleWidth;
+            })
+            .attr('y', function (d) {
+              return isUpDay($scope.symbol) ? $scope.y($scope.symbol.Ask) : $scope.y($scope.symbol.Open);
+            })
+            .attr('width', rectangleWidth * 2)
+            .attr('height', function (d) {
+              return isUpDay($scope.symbol)
+                ? $scope.y($scope.symbol.Open) - $scope.y($scope.symbol.Ask)
+                : $scope.y($scope.symbol.Ask) - $scope.y($scope.symbol.Open);
+            })
+            .classed({
+              'up-day': function() {
+                return isUpDay($scope.symbol)
+              },
+              'down-day': function() {
+                return !isUpDay($scope.symbol)
+              }
+            })
+
+
         };
 
 

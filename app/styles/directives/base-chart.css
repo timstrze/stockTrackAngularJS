@@ -37,3 +37,8 @@
 .base-chart .bar.down-day rect {
   fill: red;
 }
+
+.base-chart path.avg {
+  stroke: #FF9900;
+  fill: none;
+}
