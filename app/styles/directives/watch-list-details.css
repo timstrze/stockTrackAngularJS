@@ -107,3 +107,16 @@ watch-list-details {
 .watch-list-details .tabbed-details md-content h1:first-child {
   margin-top: 0;
 }
+
+.watch-list-details md-input-container {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.watch-list-details .chart-buttons button {
+  margin: 0 0;
+  min-width: 44px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(0,0,0,0.12);
+}

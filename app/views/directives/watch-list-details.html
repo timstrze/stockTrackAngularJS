@@ -23,53 +23,65 @@
         <md-button aria-label="Sell" ng-click="user.openSellModal($event, symbol)">
           <span>Sell</span>
         </md-button>
-
-        <md-menu>
-          <md-button aria-label="Open graph menu" class="md-fab" ng-click="$mdOpenMenu($event)">
-            <ng-md-icon md-menu-origin icon="equalizer" style="fill: #fff" size="20"></ng-md-icon>
-          </md-button>
-          <md-menu-content width="2">
-            <md-menu-item>
-              <md-button aria-label="Line Chart" ng-click="selectChartType('line-chart')">
-                <span md-menu-align-target>Line Chart</span>
-              </md-button>
-            </md-menu-item>
-            <md-menu-item>
-              <md-button aria-label="OHLC Chart" ng-click="selectChartType('ohlc-chart')">
-                <span md-menu-align-target>OHLC Chart</span>
-              </md-button>
-            </md-menu-item>
-            <md-menu-item>
-              <md-button aria-label="Candlestick Chart" ng-click="selectChartType('candlestick-chart')">
-                <span md-menu-align-target>Candlestick Chart</span>
-              </md-button>
-            </md-menu-item>
-            <md-menu-item>
-              <md-button aria-label="Kagi Chart" ng-click="selectChartType('kagi-chart')">
-                <span md-menu-align-target>Kagi Chart</span>
-              </md-button>
-            </md-menu-item>
-            <md-menu-item>
-              <md-button aria-label="Comparison Chart" ng-click="selectChartType('comparison-chart')">
-                <span md-menu-align-target>Comparison Chart</span>
-              </md-button>
-            </md-menu-item>
-          </md-menu-content>
-        </md-menu>
       </div>
     </md-toolbar>
 
     <div layout="row">
-      <div flex="100">
+      <div flex="100" class="chart-buttons">
         <!--Start Historical Data Tab Switcher-->
-        <md-tabs md-selected="user.Preferences.selectedHistoricalIndex" md-border-bottom md-stretch-tabs="always"
-                 style="min-height: inherit !important;">
-          <md-tab ng-repeat="tab in historicalTabs"
-                  ng-disabled="tab.disabled"
-                  label="{{tab.title}}"
-                  md-on-select="symbol.getHistoricalData(tab.startDate, tab.endDate)">
-          </md-tab>
-        </md-tabs>
+        <!--<md-tabs md-selected="user.Preferences.selectedHistoricalIndex" md-border-bottom-->
+                 <!--style="min-height: inherit !important;">-->
+          <!--<md-tab ng-repeat="tab in historicalTabs"-->
+                  <!--ng-disabled="tab.disabled"-->
+                  <!--label="{{tab.title}}"-->
+                  <!--md-on-select="symbol.getHistoricalData(tab.startDate, tab.endDate)">-->
+          <!--</md-tab>-->
+        <!--</md-tabs>-->
+
+        <md-input-container>
+          <md-select ng-model="selectedHistoricalDateRange" placeholder="Select a Date"
+                     ng-change="symbol.getHistoricalData(opt.startDate, opt.endDate)">
+            <md-option ng-value="opt.slug" ng-repeat="opt in historicalDateRange">{{ opt.title }}</md-option>
+          </md-select>
+        </md-input-container>
+
+
+        <md-input-container>
+          <md-select ng-model="selectedChart" placeholder="Select a chart">
+            <md-option ng-value="opt.slug" ng-repeat="opt in Constants.chartTypes">{{ opt.title }}</md-option>
+          </md-select>
+        </md-input-container>
+
+
+        <md-input-container>
+          <md-select multiple ng-model="selectedExtras" placeholder="Select extras">
+            <md-option ng-value="opt.slug" ng-repeat="opt in Constants.chartExtras">{{ opt.title }}</md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-button aria-label="Add Line">
+          <ng-md-icon icon="create" style="fill: black" size="18"></ng-md-icon>
+        </md-button>
+
+        <md-button aria-label="Add Text">
+          <ng-md-icon icon="text_format" style="fill: black" size="18"></ng-md-icon>
+        </md-button>
+
+        <md-button aria-label="Add Circle">
+          <ng-md-icon icon="add_circle" style="fill: black" size="18"></ng-md-icon>
+        </md-button>
+
+        <md-button aria-label="Undo">
+          <ng-md-icon icon="undo" style="fill: black" size="18"></ng-md-icon>
+        </md-button>
+
+        <md-button aria-label="Clear">
+          <ng-md-icon icon="clear" style="fill: black" size="18"></ng-md-icon>
+        </md-button>
+
+        <md-button aria-label="Save">
+          <ng-md-icon icon="save" style="fill: black" size="18"></ng-md-icon>
+        </md-button>
       </div>
     </div>
 

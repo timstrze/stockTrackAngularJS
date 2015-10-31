@@ -48,23 +48,60 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name Constants.getMarketOpen
+     * @name Constants.chartTypes
      * @propertyOf stockTrackAngularJsApp.service:Constants
      *
      * @description
-     * Returns an array of order types
+     * Returns an array of chart types
+     *
+     * @returns {Array} Returns an array of chart types
      *
      */
-    Constants.getMarketOpen = function () {
-
-      var today = new Date().getHours();
-      if (today >= 7 && today <= 19) {
-
-      } else {
-
+    Constants.chartTypes = [
+      {
+        title: 'Line Chart',
+        slug: 'line-chart'
+      },
+      {
+        title: 'OHLC Chart',
+        slug: 'ohlc-chart'
+      },
+      {
+        title: 'Candlestick Chart',
+        slug: 'candlestick-chart'
+      },
+      {
+        title: 'Kagi Chart',
+        slug: 'kagi-chart'
+      },
+      {
+        title: 'Comparison Chart',
+        slug: 'comparison-chart'
       }
+    ];
 
-    };
+
+    /**
+     * @ngdoc function
+     * @name Constants.chartTypes
+     * @propertyOf stockTrackAngularJsApp.service:chartExtras
+     *
+     * @description
+     * Returns an array of chart types
+     *
+     * @returns {Array} Returns an array of chart types
+     *
+     */
+    Constants.chartExtras = [
+      {
+        title: 'Moving Average',
+        slug: 'moving-average'
+      },
+      {
+        title: 'Bollinger Bands',
+        slug: 'bollinger-bands'
+      }
+    ];
 
 
     /**
@@ -81,8 +118,6 @@ angular.module('stockTrackAngularJsApp')
     Constants.positionEffects = ['To Open', 'To Close'];
 
 
-
-
     /**
      * @ngdoc function
      * @name Constants.TIF
@@ -95,7 +130,6 @@ angular.module('stockTrackAngularJsApp')
      *
      */
     Constants.timesinForceforOrders = ['EXT', 'GTC', 'GTC_EXT', 'Day', 'AM', 'PM'];
-
 
 
     /**
@@ -112,7 +146,6 @@ angular.module('stockTrackAngularJsApp')
     Constants.orderTypes = ['Limit', 'Market', 'Stop', 'StopLimit', 'TrailStop'];
 
 
-
     /**
      * @ngdoc function
      * @name Constants.fiveDaysFromtoday
@@ -125,7 +158,6 @@ angular.module('stockTrackAngularJsApp')
      *
      */
     Constants.fiveDaysFromtoday = new Date(new Date().setDate(new Date().getDate() - 5));
-
 
 
     /**
@@ -200,7 +232,7 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name Constants.historicalTabs
+     * @name Constants.historicalDateRange
      * @methodOf stockTrackAngularJsApp.service:Constants
      *
      * @description
@@ -209,7 +241,7 @@ angular.module('stockTrackAngularJsApp')
      * @returns {Array} Returns and
      *
      */
-    Constants.historicalTabs = function() {
+    Constants.historicalDateRange = function () {
       return [
         {
           title: '5 Day',

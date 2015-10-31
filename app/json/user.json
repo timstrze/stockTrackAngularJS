@@ -89,6 +89,7 @@
   ],
 
   "Preferences": {
+    "selectedHistoricalData": "3-month",
     "selectedHistoricalIndex": 2,
     "refreshState": true,
     "refreshRate": 10000

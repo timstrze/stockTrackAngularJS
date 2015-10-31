@@ -24,21 +24,29 @@ angular.module('stockTrackAngularJsApp')
       templateUrl: 'views/directives/watch-list-details.html',
       controller: function ($scope) {
 
+        $scope.Constants = Constants;
+
+        $scope.selectedChart = Constants.chartTypes[0].slug;
+        $scope.selectedExtras = Constants.chartExtras.map(function(d) {return d.slug;});
+
         /**
          * @ngdoc property
-         * @name historicalTabs
+         * @name historicalDateRange
          * @propertyOf stockTrackAngularJsApp.directive:watch-list-details
          *
          * @description
          * Make service method available to the ng-repeat.
          */
-        $scope.historicalTabs = Constants.historicalTabs();
+        $scope.historicalDateRange = Constants.historicalDateRange();
+
+
+        $scope.selectedHistoricalDateRange = $scope.historicalDateRange[2].slug;
 
 
 
         /**
          * @ngdoc property
-         * @name historicalTabs
+         * @name opensNewsWindow
          * @propertyOf stockTrackAngularJsApp.directive:watch-list-details
          *
          * @description
@@ -46,21 +54,6 @@ angular.module('stockTrackAngularJsApp')
          */
         $scope.openNewsWindow = function(url) {
           $window.open(url, '_blank')
-        };
-
-
-
-
-        /**
-         * @ngdoc property
-         * @name selectChartType
-         * @propertyOf stockTrackAngularJsApp.directive:watch-list-details
-         *
-         * @description
-         * Make service method available to the ng-repeat.
-         */
-        $scope.selectChartType = function(type) {
-          $scope.selectedChart = type;
         };
 
 

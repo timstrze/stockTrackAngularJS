@@ -120,7 +120,7 @@ angular.module('stockTrackAngularJsApp')
           // Set the selected Symbol
           $scope.user.selectedSymbol = symbol;
           // Set the selected tab from the User Preferences
-          $scope.selectedTab = Constants.historicalTabs()[$scope.user.Preferences.selectedHistoricalIndex];
+          $scope.selectedTab = Constants.historicalDateRange()[$scope.user.Preferences.selectedHistoricalIndex];
           // Clear the historicalData so the animation doesn't skip
           $scope.user.selectedSymbol.historicalData = [];
           // Get the historical graph data for the selected Symbol
@@ -166,7 +166,7 @@ angular.module('stockTrackAngularJsApp')
             // Set the selected symbol from the first watch list item
             $scope.user.selectedSymbol = $scope.user.WatchList[0].Symbol;
             // Set the selected tab from the User Preferences
-            $scope.selectedTab = Constants.historicalTabs()[$scope.user.Preferences.selectedHistoricalIndex];
+            $scope.selectedTab = Constants.historicalDateRange()[$scope.user.Preferences.selectedHistoricalIndex];
             // Clear thehistoricalData so the animation doesn't skip
             $scope.user.selectedSymbol.historicalData = [];
             // Get the historical graph data for the selected Symbol

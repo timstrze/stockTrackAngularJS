@@ -9,24 +9,87 @@
  *
  */
 angular.module('stockTrackAngularJsApp')
-  .factory('Market', function () {
+  .factory('Market', function ($interval) {
 
     var Market = {};
+
+    /**
+     * @ngdoc function
+     * @name Market.Open
+     * @propertyOf stockTrackAngularJsApp.service:Market
+     *
+     * @description
+     * Open time
+     *
+     */
+    Market.Open = 930;
+
+
+    /**
+     * @ngdoc function
+     * @name Market.Close
+     * @propertyOf stockTrackAngularJsApp.service:Market
+     *
+     * @description
+     * Close time
+     *
+     */
+    Market.Close = 1600;
 
 
 
     /**
      * @ngdoc function
-     * @name Market.time
-     * @methodOf stockTrackAngularJsApp.service:Market
+     * @name Market.isOpen
+     * @propertyOf stockTrackAngularJsApp.service:Market
      *
      * @description
-     * Public access to the GET, PUT, and POST methods
+     * Is the Market open?
      *
-     * @param {String} ID of the Market
      */
-    Market.time = '9:30 AM to 4:00 PM ET';
+    Market.isOpen = false;
 
+
+
+
+    /**
+     * @ngdoc function
+     * @name Market.init
+     * @propertyOf stockTrackAngularJsApp.service:Market
+     *
+     * @description
+     * Starts checking the
+     *
+     */
+    Market.init = function () {
+      var _this = this;
+      this.checkMarketStatus();
+      this.interval = $interval(function(){
+        _this.checkMarketStatus();
+      }, 60000);
+    };
+
+
+
+    /**
+     * @ngdoc function
+     * @name Market.checkMarketStatus
+     * @propertyOf stockTrackAngularJsApp.service:Market
+     *
+     * @description
+     * Returns an array of order types
+     *
+     */
+    Market.checkMarketStatus = function () {
+
+      var now = moment.tz("America/New_York").format('HHmm');
+
+      if (Market.Close > now && now > Market.Open) {
+        Market.isOpen = true;
+      } else {
+        Market.isOpen = false;
+      }
+    };
 
     return Market;
 

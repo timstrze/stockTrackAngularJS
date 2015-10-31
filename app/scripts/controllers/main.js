@@ -11,7 +11,7 @@
  */
 
 angular.module('stockTrackAngularJsApp')
-  .controller('MainController', function ($scope, $mdSidenav, $mdMedia, Constants, User) {
+  .controller('MainController', function ($scope, $mdSidenav, $mdMedia, Constants, Market, User) {
 
     // Default Properties
     $scope.showWatchlist = true;
@@ -32,7 +32,7 @@ angular.module('stockTrackAngularJsApp')
      *
      */
     $scope.init = function () {
-      Constants.getMarketOpen();
+      Market.init();
       // Gets the user
       $scope.getUser();
     };
@@ -64,7 +64,7 @@ angular.module('stockTrackAngularJsApp')
           // Set the first symbol in the watchlist as the selected symbol
           $scope.User.selectedSymbol = $scope.User.WatchList[0].Symbol;
           //
-          var selectedTab = Constants.historicalTabs()[$scope.User.Preferences.selectedHistoricalIndex || 2];
+          var selectedTab = Constants.historicalDateRange()[$scope.User.Preferences.selectedHistoricalIndex || 2];
           //
           $scope.User.selectedSymbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
           $scope.User.selectedSymbol.getSymbolNews();

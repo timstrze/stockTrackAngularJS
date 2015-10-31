@@ -29,7 +29,7 @@ describe('Service: Constants', function () {
     });
   });
 
-  describe('Constants.historicalTabs', function () {
+  describe('Constants.historicalDateRange', function () {
 
     it('should set an Array of default historical data for the tabs', function () {
       expect(angular.equals(Constants.historicalTabs(), [

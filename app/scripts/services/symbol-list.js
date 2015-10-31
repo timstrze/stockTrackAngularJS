@@ -9,7 +9,7 @@
  */
 
 angular.module('stockTrackAngularJsApp')
-  .factory('SymbolList', function (Symbol, $interval, $filter, $log) {
+  .factory('SymbolList', function (Symbol, Market, $interval, $filter, $log) {
 
     return {
 
@@ -156,32 +156,38 @@ angular.module('stockTrackAngularJsApp')
       refreshSymbols: function() {
         // Store a reference to this
         var _this = this;
-        // Get all the Symbols by name ['wfm', 'aapl', 'dis']
-        Symbol.http.all({list: this.Symbols.map(function(item) {return item.symbol.toLowerCase();})}).$promise.then(function (data) {
-          // Check to see results came back
-          if(data.query.results) {
-            // Loop over the results
-            angular.forEach(data.query.results.quote, function (quote, index) {
-              // Only save the last fifty asks
-              if(_this.Symbols[index].askHistory.length > 1440) {
-                // Remove the first item in the array
-                _this.Symbols[index].askHistory.shift();
-              }
-              // Check to make sure the Ask value is not null
-              if(quote.Ask) {
-                // Add the ask to the ask history array
-                _this.Symbols[index].askHistory.push(quote.Ask);
-              }
-              // Loop over the properties of the Symbol
-              Object.keys(quote).forEach(function (property) {
-                // Overwrite Symbol properties with the new values
-                _this.Symbols[index][property] = quote[property];
+        if(Market.isOpen) {
+          // Get all the Symbols by name ['wfm', 'aapl', 'dis']
+          Symbol.http.all({
+            list: this.Symbols.map(function (item) {
+              return item.symbol.toLowerCase();
+            })
+          }).$promise.then(function (data) {
+            // Check to see results came back
+            if (data.query.results) {
+              // Loop over the results
+              angular.forEach(data.query.results.quote, function (quote, index) {
+                // Only save the last fifty asks
+                if (_this.Symbols[index].askHistory.length > 1440) {
+                  // Remove the first item in the array
+                  _this.Symbols[index].askHistory.shift();
+                }
+                // Check to make sure the Ask value is not null
+                if (quote.Ask) {
+                  // Add the ask to the ask history array
+                  _this.Symbols[index].askHistory.push(quote.Ask);
+                }
+                // Loop over the properties of the Symbol
+                Object.keys(quote).forEach(function (property) {
+                  // Overwrite Symbol properties with the new values
+                  _this.Symbols[index][property] = quote[property];
+                });
               });
-            });
-          }
-        });
-        // Log Refresh Status
-        $log.debug('Refreshing Symbols: ' + $filter('date')(new Date(), 'medium'));
+            }
+          });
+          // Log Refresh Status
+          $log.debug('Refreshing Symbols: ' + $filter('date')(new Date(), 'medium'));
+        }
       },
 
 
