@@ -28,7 +28,9 @@ angular.module('stockTrackAngularJsApp')
 
         $scope.svg = d3.select(element[0]
           .querySelector('.base-chart'))
-          .append('svg');
+          .append('svg')
+          .attr('name', 'bgSvg')
+          .attr('style', 'background-color:#fff');
 
         $scope.svgContent = $scope.svg.append('g').attr('name', 'svgContent');
 
@@ -66,18 +68,22 @@ angular.module('stockTrackAngularJsApp')
         $scope.chartLine = $scope.svgContent.append('path').attr('name', 'chartLine');
 
 
-        $scope.movingAvgLine = $scope.svgContent.append('svg:path').attr('class', 'avg');
+        $scope.movingAvgLine = $scope.svgContent.append('svg:path').attr('class', 'avg')
+          .attr('style', 'stroke: #FF9900;fill: none;');
 
 
         $scope.xAxis = $scope.svgContent.append('g').attr('name', 'xAxis');
+          //.attr('style', 'fill: none;stroke: rgba(0,0,0,0.54);shape-rendering: crispEdges;');
+
         $scope.yAxis = $scope.svgContent.append('g').attr('name', 'yAxis');
+          //.attr('style', 'fill: none;stroke: rgba(0,0,0,0.54);shape-rendering: crispEdges;');
 
         $scope.horizontalGrid = $scope.svgContent.append('g').attr('name', 'horizontalGrid');
         $scope.verticalGrid = $scope.svgContent.append('g').attr('name', 'verticalGrid');
 
-        $scope.legend = $scope.svgContent.append('rect').attr('name', 'legend');
-        $scope.legendText = $scope.svgContent.append('foreignObject').attr('name', 'legendText')
-          .attr("x", '20');
+        //$scope.legend = $scope.svgContent.append('rect').attr('name', 'legend');
+        //$scope.legendText = $scope.svgContent.append('foreignObject').attr('name', 'legendText')
+        //  .attr("x", '20');
 
         $scope.parseDate = d3.time.format('%Y-%m-%d').parse;
 
@@ -245,13 +251,23 @@ angular.module('stockTrackAngularJsApp')
           $scope.xAxis
             .attr('class', 'x axis')
             .attr('transform', 'translate(0,' + ($scope.height) + ')')
-            .call(xAxis);
+            .call(xAxis)
+            .attr({
+              'fill': 'none',
+              'shape-rendering': 'crispEdges',
+              'stroke': 'rgba(0,0,0,0.54)'
+            });
 
 
           $scope.yAxis
             .attr('class', 'y axis')
             .attr('transform', 'translate(' + ($scope.width) + ',0)')
-            .call(yAxis);
+            .call(yAxis)
+            .attr({
+              'fill': 'none',
+              'shape-rendering': 'crispEdges',
+              'stroke': 'rgba(0,0,0,0.54)'
+            });
 
 
           //$scope.yAxisLines
@@ -390,16 +406,16 @@ angular.module('stockTrackAngularJsApp')
           //  .attr('height', '150')
           //  .attr('style', 'fill:red;stroke:black;stroke-width:5;opacity:.5');
 
-          var newHtml = '<div style="width:112px;height:100px;">' +
-            '<b>' + moment().format('MM-DD-YYYY') + '</b>' +
-            '<br> Open: '+ $scope.symbol.Open +
-            '<br> High: '+ $scope.symbol.DaysHigh +
-            '<br> Low: '+ $scope.symbol.DaysLow +
-            '<br> Ask: '+ $scope.symbol.Ask +
-            '</div>';
-
-          $scope.legendText.html(newHtml)
-            .attr("y", $scope.height - 120)
+          //var newHtml = '<div style="width:112px;height:100px;">' +
+          //  '<b>' + moment().format('MM-DD-YYYY') + '</b>' +
+          //  '<br> Open: '+ $scope.symbol.Open +
+          //  '<br> High: '+ $scope.symbol.DaysHigh +
+          //  '<br> Low: '+ $scope.symbol.DaysLow +
+          //  '<br> Ask: '+ $scope.symbol.Ask +
+          //  '</div>';
+          //
+          //$scope.legendText.html(newHtml)
+          //  .attr("y", $scope.height - 120)
 
 
         };

@@ -2,43 +2,39 @@
 }
 
 .base-chart .area{
-   fill: #F6F6F6;
 }
 
 .base-chart .line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
 }
 
-.base-chart .axis path,
-.base-chart .axis line {
-  fill: none;
-  stroke: rgba(0,0,0,0.54);
-  shape-rendering: crispEdges;
+.base-chart .axis path {
+  /*fill: none;*/
+  /*stroke: rgba(0,0,0,0.54);*/
+  /*shape-rendering: crispEdges;*/
 }
 
 .base-chart text {
-  fill: rgba(0,0,0,0.54);
+  /*fill: rgba(0,0,0,0.54);*/
 }
 
 .base-chart .bar.up-day path {
-  stroke: green;
+  /*stroke: green;*/
 }
 
 .base-chart .bar.down-day path {
-  stroke: red;
+  /*stroke: red;*/
 }
 
 .base-chart .bar.up-day rect {
-  fill: green;
+  /*fill: green;*/
 }
 
 .base-chart .bar.down-day rect {
-  fill: red;
+  /*fill: red;*/
 }
 
 .base-chart path.avg {
-  stroke: #FF9900;
-  fill: none;
+}
+
+.base-chart line.drawn-line {
 }

@@ -59,7 +59,7 @@
           </md-select>
         </md-input-container>
 
-        <md-button aria-label="Add Line">
+        <md-button aria-label="Add Line" ng-click="createLine()">
           <ng-md-icon icon="create" style="fill: black" size="18"></ng-md-icon>
         </md-button>
 
@@ -79,7 +79,7 @@
           <ng-md-icon icon="clear" style="fill: black" size="18"></ng-md-icon>
         </md-button>
 
-        <md-button aria-label="Save">
+        <md-button aria-label="Save" ng-click="saveImageToDesktop()">
           <ng-md-icon icon="save" style="fill: black" size="18"></ng-md-icon>
         </md-button>
       </div>
@@ -651,3 +651,10 @@
 
   </md-content>
 </div>
+
+
+<canvas class="export-canvas" width="960" height="500" style="display:none"></canvas>
+
+<div id="svgdataurl" style="display:none"></div>
+<div id="pngdataurl" style="display:none"></div>
+

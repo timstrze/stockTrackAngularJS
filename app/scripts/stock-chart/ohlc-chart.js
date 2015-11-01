@@ -30,10 +30,10 @@ angular.module('stockTrackAngularJsApp')
     var isUpDay = function(d) {
       return d.close > d.Open;
     };
-
-    var isDownDay = function (d) {
-      return d.Open > d.close;
-    };
+    //
+    //var isDownDay = function (d) {
+    //  return d.Open > d.close;
+    //};
 
     var applyOHLC = function ($scope, bars) {
 
@@ -61,6 +61,11 @@ angular.module('stockTrackAngularJsApp')
             {x: $scope.x(d.date) - tickWidth, y: $scope.y(d.Open)},
             {x: $scope.x(d.date), y: $scope.y(d.Open)}
           ]);
+        })
+        .attr({
+          'stroke': function(d) {
+            return  isUpDay(d) ? 'green' : 'red';
+          }
         });
 
       close.classed('close-tick', true)
@@ -72,6 +77,11 @@ angular.module('stockTrackAngularJsApp')
             {x: $scope.x(d.date), y: $scope.y(d.close)},
             {x: $scope.x(d.date) + tickWidth, y: $scope.y(d.close)}
           ]);
+        })
+        .attr({
+          'stroke': function(d) {
+            return  isUpDay(d) ? 'green' : 'red';
+          }
         });
 
     };
@@ -117,9 +127,10 @@ angular.module('stockTrackAngularJsApp')
         .append('g')
         .classed('bar', true);
 
-      bars.classed({
-        'up-day': isUpDay,
-        'down-day': isDownDay
+      bars.attr({
+        'fill': function(d) {
+          return  isUpDay(d) ? 'green' : 'red';
+        }
       });
 
       var paths = bars.selectAll('.high-low-line').data(function (d) {
@@ -137,6 +148,11 @@ angular.module('stockTrackAngularJsApp')
             { x: $scope.x(d.date), y: $scope.y(d.High) },
             { x: $scope.x(d.date), y: $scope.y(d.Low) }
           ]);
+        })
+        .attr({
+          'stroke': function(d) {
+            return  isUpDay(d) ? 'green' : 'red';
+          }
         });
 
       if(isCandlestick) {

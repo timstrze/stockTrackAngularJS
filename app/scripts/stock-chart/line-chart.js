@@ -56,7 +56,8 @@ angular.module('stockTrackAngularJsApp')
         .duration(500)
         .ease("linear")
         .attr('class', 'line')
-        .attr('d', line);
+        .attr('d', line)
+        .attr('style', 'fill: none;stroke: steelblue;stroke-width: 1.5px;');
     };
 
     return LineChart;
