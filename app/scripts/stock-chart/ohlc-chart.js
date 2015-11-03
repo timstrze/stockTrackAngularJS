@@ -14,9 +14,15 @@ angular.module('stockTrackAngularJsApp')
 
 
 
-    OHLCChart.cleanUp = function() {
+    OHLCChart.cleanUp = function($scope) {
       //OHLCChart.area.remove();
-      //OHLCChart.chartLine.remove();
+      if(OHLCChart.bars && OHLCChart.bars.selectAll('.bar')) {
+        var bars = OHLCChart.bars.selectAll('.bar');
+        bars.selectAll('.high-low-line').attr('d', function() {});
+        bars.selectAll('.open-tick').attr('d', function() {});
+        bars.selectAll('.close-tick').attr('d', function() {});
+        bars.selectAll('rect').remove();
+      }
     };
 
     var line = d3.svg.line()
@@ -117,6 +123,11 @@ angular.module('stockTrackAngularJsApp')
     };
 
     OHLCChart.render = function ($scope, historicalData, isCandlestick) {
+
+
+      //if(!OHLCChart.bars) {
+        OHLCChart.bars = $scope.svgContent;
+      //}
 
       var bars = $scope.svgContent.selectAll('.bar')
         .data(historicalData, function (d) {

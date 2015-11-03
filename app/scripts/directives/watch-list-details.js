@@ -14,10 +14,11 @@ x *
  *
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('watchListDetails', function ($mdDialog, $window, SymbolList, Constants) {
+  .directive('watchListDetails', function ($mdDialog, $window, SymbolList, Constants, SvgArtist) {
     return {
       restrict: 'E',
       scope: {
+        extras: '=',
         symbol: '=',
         user: '='
       },
@@ -25,9 +26,14 @@ angular.module('stockTrackAngularJsApp')
       controller: function ($scope) {
 
         $scope.Constants = Constants;
+        $scope.baseChartArtist = SvgArtist({target: '.base-chart'});
 
         $scope.selectedChart = Constants.chartTypes[0].slug;
-        $scope.selectedExtras = Constants.chartExtras.map(function(d) {return d.slug;});
+        //$scope.selectedExtras = Constants.chartExtras.map(function(item, index) {
+        //  if(index === 0) {
+        //    return item.slug;
+        //  }
+        //});
 
         /**
          * @ngdoc property
@@ -45,7 +51,7 @@ angular.module('stockTrackAngularJsApp')
 
 
         /**
-         * @ngdoc property
+         * @ngdoc function
          * @name opensNewsWindow
          * @propertyOf stockTrackAngularJsApp.directive:watch-list-details
          *
@@ -56,118 +62,6 @@ angular.module('stockTrackAngularJsApp')
           $window.open(url, '_blank')
         };
 
-        /**
-         * @ngdoc property
-         * @name opensNewsWindow
-         * @propertyOf stockTrackAngularJsApp.directive:watch-list-details
-         *
-         * @description
-         * Make service method available to the ng-repeat.
-         */
-        $scope.createLine = function() {
-          var line;
-
-          var vis =
-            d3.select(".base-chart svg")
-          .on("mousedown", mousedown)
-            .on("mouseup", mouseup);
-
-          function mousedown() {
-            var m = d3.mouse(this);
-            line = vis.append("line")
-              .attr("x1", m[0])
-              .attr("y1", m[1])
-              .attr("x2", m[0])
-              .attr("y2", m[1])
-              .attr(
-                  {
-                    'class': 'drawn-line',
-                    'fill': 'none',
-                    'shape-rendering': 'crispEdges',
-                    'stroke-width': '2px',
-                    'stroke': 'steelblue',
-                    'stroke-linecap': 'round'
-                  });
-
-            vis.on("mousemove", mousemove);
-          }
-
-          function mousemove() {
-            var m = d3.mouse(this);
-            line.attr("x2", m[0])
-              .attr("y2", m[1]);
-          }
-
-          function mouseup() {
-            vis.on("mousemove", null);
-          }
-        };
-
-
-
-        function binaryblob(){
-          var byteString = atob(document.querySelector("canvas").toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")); //wtf is atob?? https://developer.mozilla.org/en-US/docs/Web/API/Window.atob
-          var ab = new ArrayBuffer(byteString.length);
-          var ia = new Uint8Array(ab);
-          for (var i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-          }
-          var dataView = new DataView(ab);
-          var blob = new Blob([dataView], {type: "image/png"});
-          var DOMURL = self.URL || self.webkitURL || self;
-          var newurl = DOMURL.createObjectURL(blob);
-
-          var img = '<img src="'+newurl+'">';
-          d3.select("#img").html(img);
-        }
-
-
-        /**
-         * @ngdoc property
-         * @name saveImageToDesktop
-         * @propertyOf stockTrackAngularJsApp.directive:watch-list-details
-         *
-         * @description
-         * Make service method available to the ng-repeat.
-         */
-        $scope.saveImageToDesktop = function() {
-          var html = d3.select(".base-chart svg")
-            .attr("version", 1.1)
-            .attr("xmlns", "http://www.w3.org/2000/svg")
-            .node().parentNode.innerHTML;
-
-          //console.log(html);
-          var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
-          var img = '<img src="'+imgsrc+'">';
-          d3.select("#svgdataurl").html(img);
-
-          var canvas = document.querySelector(".export-canvas");
-
-          var someImage = d3.select(".base-chart svg").node().getBoundingClientRect();
-
-          canvas.height = someImage.height;
-          canvas.width = someImage.width;
-
-          var context = canvas.getContext("2d");
-
-          var image = new Image;
-          image.src = imgsrc;
-          image.onload = function() {
-            context.drawImage(image, 0, 0);
-
-            //save and serve it as an actual filename
-            binaryblob();
-
-            var a = document.createElement("a");
-            a.download = "sample.png";
-            a.href = canvas.toDataURL("image/png");
-
-            var pngimg = '<img src="'+a.href+'">';
-            d3.select("#pngdataurl").html(pngimg);
-
-            a.click();
-          };
-        };
 
 
 

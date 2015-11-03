@@ -59,7 +59,7 @@
           </md-select>
         </md-input-container>
 
-        <md-button aria-label="Add Line" ng-click="createLine()">
+        <md-button aria-label="Add Line" ng-class="{'md-raised':baseChartArtist.createLineActive}" ng-click="baseChartArtist.activateCreateLine()">
           <ng-md-icon icon="create" style="fill: black" size="18"></ng-md-icon>
         </md-button>
 
@@ -67,8 +67,8 @@
           <ng-md-icon icon="text_format" style="fill: black" size="18"></ng-md-icon>
         </md-button>
 
-        <md-button aria-label="Add Circle">
-          <ng-md-icon icon="add_circle" style="fill: black" size="18"></ng-md-icon>
+        <md-button aria-label="Layers">
+          <ng-md-icon icon="layers" style="fill: black" size="18"></ng-md-icon>
         </md-button>
 
         <md-button aria-label="Undo">
@@ -79,15 +79,18 @@
           <ng-md-icon icon="clear" style="fill: black" size="18"></ng-md-icon>
         </md-button>
 
-        <md-button aria-label="Save" ng-click="saveImageToDesktop()">
+        <md-button aria-label="Save" ng-click="baseChartArtist.saveImageToDesktop()">
           <ng-md-icon icon="save" style="fill: black" size="18"></ng-md-icon>
         </md-button>
       </div>
     </div>
 
     <!--Start Historical Data Line Chart-->
-    <div style="height:500px;">
-      <base-chart positions="user.Positions" selected-chart="selectedChart" symbol="symbol"></base-chart>
+    <div style="height:500px;" ng-class="{'use-cross-hairs': SvgArtist.createLineActive}">
+      <base-chart positions="user.Positions"
+                  selected-extras="selectedExtras"
+                  selected-chart="selectedChart"
+                  symbol="symbol"></base-chart>
     </div>
 
     <!--Start Symbol Details Tab Switcher-->

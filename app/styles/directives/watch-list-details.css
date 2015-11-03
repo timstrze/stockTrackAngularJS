@@ -118,3 +118,8 @@ watch-list-details {
   min-width: 44px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
+
+.watch-list-details .use-cross-hairs {
+  cursor: crosshair;
+}
+

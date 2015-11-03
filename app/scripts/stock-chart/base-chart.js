@@ -20,6 +20,7 @@ angular.module('stockTrackAngularJsApp')
     return {
       scope: {
         symbol: '=',
+        selectedExtras: '=',
         selectedChart: '=',
         positions: '='
       },
@@ -34,15 +35,12 @@ angular.module('stockTrackAngularJsApp')
 
         $scope.svgContent = $scope.svg.append('g').attr('name', 'svgContent');
 
-
         //$scope.chartPositions = $scope.svgContent.append('path').attr('name', 'chartPositions');
-
 
         // Add extra margin
         $scope.margin = {top: 20, right: 40, bottom: 30, left: 0};
 
-
-        var gradient = $scope.svgContent.append('svg:defs')
+        $scope.gradient = $scope.svgContent.append('svg:defs')
           .append('svg:linearGradient')
           .attr('id', 'gradient')
           .attr('x1', '100%')
@@ -51,12 +49,12 @@ angular.module('stockTrackAngularJsApp')
           .attr('y2', '0%')
           .attr('spreadMethod', 'pad');
 
-        gradient.append('svg:stop')
+        $scope.gradient.append('svg:stop')
           .attr('offset', '0%')
           .attr('stop-color', '#fff')
           .attr('stop-opacity', 1);
 
-        gradient.append('svg:stop')
+        $scope.gradient.append('svg:stop')
           .attr('offset', '100%')
           .attr('stop-color', '#b8e1fc')
           .attr('stop-opacity', 1);
@@ -64,13 +62,19 @@ angular.module('stockTrackAngularJsApp')
         $scope.chartArea = $scope.svgContent.append('path').attr('name', 'chartArea')
           .style('fill', 'url(#gradient)');
 
-
         $scope.chartLine = $scope.svgContent.append('path').attr('name', 'chartLine');
 
+        $scope.bollingerBandArea = $scope.svgContent.append('svg:path').attr('class', 'bollinger-band-area')
+          .attr('style', 'fill: grey;').attr('fill-opacity', 0.2);
 
-        $scope.movingAvgLine = $scope.svgContent.append('svg:path').attr('class', 'avg')
-          .attr('style', 'stroke: #FF9900;fill: none;');
+        $scope.bollingerBandHigh = $scope.svgContent.append('svg:path').attr('class', 'band bollinger-band-high')
+          .attr('style', 'stroke: black; fill: none;');
 
+        $scope.bollingerBandLow = $scope.svgContent.append('svg:path').attr('class', 'band bollinger-band-low')
+          .attr('style', 'stroke: black; fill: none;');
+
+        $scope.movingAvgLine = $scope.svgContent.append('svg:path').attr('class', 'moving-average')
+          .attr('style', 'stroke: #FF9900; fill: none;');
 
         $scope.xAxis = $scope.svgContent.append('g').attr('name', 'xAxis');
           //.attr('style', 'fill: none;stroke: rgba(0,0,0,0.54);shape-rendering: crispEdges;');
@@ -79,13 +83,58 @@ angular.module('stockTrackAngularJsApp')
           //.attr('style', 'fill: none;stroke: rgba(0,0,0,0.54);shape-rendering: crispEdges;');
 
         $scope.horizontalGrid = $scope.svgContent.append('g').attr('name', 'horizontalGrid');
+
         $scope.verticalGrid = $scope.svgContent.append('g').attr('name', 'verticalGrid');
 
-        //$scope.legend = $scope.svgContent.append('rect').attr('name', 'legend');
-        //$scope.legendText = $scope.svgContent.append('foreignObject').attr('name', 'legendText')
-        //  .attr("x", '20');
-
         $scope.parseDate = d3.time.format('%Y-%m-%d').parse;
+
+        $scope.renderBollingerBands = function () {
+
+          //var _movingSum;
+          var bollingerBandLow = d3.svg.line()
+            .x(function (d, i) {
+              return $scope.x(d.date);
+            })
+            .y(function (d, i) {
+              return $scope.y(d.Low);
+            })
+            .interpolate(movingAvg(3));
+
+
+          var bollingerBandArea = d3.svg.area()
+            .x(function(d) { return $scope.x(d.date); })
+            .y0(function(d) { return $scope.y(d.Low); })
+            .y1(function(d) { return $scope.y(d.High); })
+            .interpolate(movingAvg(3));
+
+          //var _movingSum;
+          var bollingerBandHigh = d3.svg.line()
+            .x(function (d, i) {
+              return $scope.x(d.date);
+            })
+            .y(function (d, i) {
+              return $scope.y(d.High);
+            })
+            .interpolate(movingAvg(3));
+
+          $scope.bollingerBandLow
+            .transition()
+            .duration(500)
+            .ease("linear")
+            .attr('d', bollingerBandLow($scope.symbol.historicalData));
+
+          $scope.bollingerBandHigh
+            .transition()
+            .duration(500)
+            .ease("linear")
+            .attr('d', bollingerBandHigh($scope.symbol.historicalData));
+
+          $scope.bollingerBandArea
+            .transition()
+            .duration(500)
+            .ease("linear")
+            .attr('d', bollingerBandArea($scope.symbol.historicalData));
+        };
 
         $scope.getBollingerBands = function (n, k, data) {
           var bands = []; //{ ma: 0, low: 0, high: 0 }
@@ -106,7 +155,6 @@ angular.module('stockTrackAngularJsApp')
           }
           return bands;
         };
-
 
         $scope.resizeScene = function () {
 
@@ -151,7 +199,6 @@ angular.module('stockTrackAngularJsApp')
           $scope.svgContent
             .attr('transform', 'translate(' + $scope.margin.left + ',' + $scope.margin.top + ')');
         };
-
 
         $scope.renderPositions = function () {
           //var positions;
@@ -219,7 +266,6 @@ angular.module('stockTrackAngularJsApp')
           //  $scope.svgContent.selectAll('circle').remove()
           //}
         };
-
 
         $scope.renderXYAxis = function () {
 
@@ -336,32 +382,36 @@ angular.module('stockTrackAngularJsApp')
           verticalGridLine.exit().remove();
 
 
-          var movingAvg = function (n) {
-            return function (points) {
-              points = points.map(function (each, index, array) {
-                var to = index + n - 1;
-                var subSeq, sum;
-                if (to < points.length) {
-                  subSeq = array.slice(index, to + 1);
-                  sum = subSeq.reduce(function (a, b) {
-                    return [a[0] + b[0], a[1] + b[1]];
-                  });
-                  return sum.map(function (each) {
-                    return each / n;
-                  });
-                }
-                return undefined;
-              });
-              points = points.filter(function (each) {
-                return typeof each !== 'undefined'
-              });
-              // Transform the points into a basis line
-              var pathDesc = d3.svg.line().interpolate('basis')(points);
-              // Remove the extra 'M'
-              return pathDesc.slice(1, pathDesc.length);
-            }
-          };
 
+        };
+
+        var movingAvg = function (n) {
+          return function (points) {
+            points = points.map(function (each, index, array) {
+              var to = index + n - 1;
+              var subSeq, sum;
+              if (to < points.length) {
+                subSeq = array.slice(index, to + 1);
+                sum = subSeq.reduce(function (a, b) {
+                  return [a[0] + b[0], a[1] + b[1]];
+                });
+                return sum.map(function (each) {
+                  return each / n;
+                });
+              }
+              return undefined;
+            });
+            points = points.filter(function (each) {
+              return typeof each !== 'undefined'
+            });
+            // Transform the points into a basis line
+            var pathDesc = d3.svg.line().interpolate('basis')(points);
+            // Remove the extra 'M'
+            return pathDesc.slice(1, pathDesc.length);
+          }
+        };
+
+        $scope.renderMovingAverage = function() {
 
           //var _movingSum;
           var movingAverageLine = d3.svg.line()
@@ -374,51 +424,56 @@ angular.module('stockTrackAngularJsApp')
             .interpolate(movingAvg(3));
 
           $scope.movingAvgLine
+            .transition()
+            .duration(500)
+            .ease("linear")
             .attr('d', movingAverageLine($scope.symbol.historicalData));
-
-
         };
-
 
         $scope.render = function () {
           $scope.resizeScene();
 
           if ($scope.selectedChart === 'ohlc-chart') {
+            OHLCChart.cleanUp();
             LineChart.cleanUp();
             OHLCChart.render($scope, $scope.symbol.historicalData);
           } else if ($scope.selectedChart === 'candlestick-chart') {
+            OHLCChart.cleanUp();
             LineChart.cleanUp();
             OHLCChart.render($scope, $scope.symbol.historicalData, true);
           } else {
+            LineChart.cleanUp();
             OHLCChart.cleanUp();
             LineChart.render($scope, $scope.symbol.historicalData);
           }
 
+          if($scope.selectedExtras && $scope.selectedExtras.toString().indexOf('moving-average') > -1) {
+            $scope.renderMovingAverage();
+          }else{
+            $scope.movingAvgLine.attr('d', function() {});
+          }
+
+          if($scope.selectedExtras && $scope.selectedExtras.toString().indexOf('bollinger-bands') > -1) {
+            $scope.renderBollingerBands();
+          }else{
+            $scope.bollingerBandHigh.attr('d', function() {});
+            $scope.bollingerBandLow.attr('d', function() {});
+            $scope.bollingerBandArea.attr('d', function() {});
+          }
+
           $scope.renderXYAxis();
 
-
-          //$scope.legend
-          //  .attr('x', '50')
-          //  .attr('y', '20')
-          //  .attr('rx', '20')
-          //  .attr('ry', '20')
-          //  .attr('width', '150')
-          //  .attr('height', '150')
-          //  .attr('style', 'fill:red;stroke:black;stroke-width:5;opacity:.5');
-
-          //var newHtml = '<div style="width:112px;height:100px;">' +
-          //  '<b>' + moment().format('MM-DD-YYYY') + '</b>' +
-          //  '<br> Open: '+ $scope.symbol.Open +
-          //  '<br> High: '+ $scope.symbol.DaysHigh +
-          //  '<br> Low: '+ $scope.symbol.DaysLow +
-          //  '<br> Ask: '+ $scope.symbol.Ask +
-          //  '</div>';
-          //
-          //$scope.legendText.html(newHtml)
-          //  .attr("y", $scope.height - 120)
-
-
         };
+
+
+
+
+
+
+
+
+
+
 
 
         /**
@@ -432,7 +487,7 @@ angular.module('stockTrackAngularJsApp')
          */
         $scope.$watch(function () {
           if ($scope.symbol && $scope.symbol.historicalData) {
-            return JSON.stringify([$scope.symbol.historicalData, $scope.selectedChart]);
+            return JSON.stringify([$scope.symbol.historicalData, $scope.selectedChart, $scope.selectedExtras]);
           }
         }, function () {
           // Make sure there is historical data

@@ -13,8 +13,12 @@ angular.module('stockTrackAngularJsApp')
     var LineChart = {};
 
     LineChart.cleanUp = function() {
-      LineChart.area.remove();
-      LineChart.chartLine.remove();
+      if(LineChart.area) {
+        LineChart.area.attr('d', function() {});
+      }
+      if(LineChart.chartLine) {
+        LineChart.chartLine.attr('d', function() {});
+      }
     };
 
 

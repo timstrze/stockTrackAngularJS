@@ -85,7 +85,7 @@ angular.module('stockTrackAngularJsApp')
       var now = moment.tz("America/New_York").format('HHmm');
       var dayOfWeek = moment().day();
 
-      if ((Market.Close > now && now > Market.Open) && (dayOfWeek < 5)) {
+      if ((Market.Close > now && now > Market.Open) && (dayOfWeek > 0 && dayOfWeek < 6)) {
         Market.isOpen = true;
       } else {
         Market.isOpen = false;
