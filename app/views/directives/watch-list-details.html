@@ -68,7 +68,7 @@
         </md-button>
 
         <md-button aria-label="Layers">
-          <ng-md-icon icon="layers" style="fill: black" size="18"></ng-md-icon>
+          <ng-md-icon icon="layers" style="fill: black" size="18"></ng-md-icon>{{baseChartArtist.Layers.length}}
         </md-button>
 
         <md-button aria-label="Undo">
@@ -86,11 +86,12 @@
     </div>
 
     <!--Start Historical Data Line Chart-->
-    <div style="height:500px;" ng-class="{'use-cross-hairs': SvgArtist.createLineActive}">
+    <div style="height:500px;" ng-class="{'use-cross-hairs': baseChartArtist.createLineActive}">
       <base-chart positions="user.Positions"
                   selected-extras="selectedExtras"
                   selected-chart="selectedChart"
-                  symbol="symbol"></base-chart>
+                  symbol="symbol">
+      </base-chart>
     </div>
 
     <!--Start Symbol Details Tab Switcher-->

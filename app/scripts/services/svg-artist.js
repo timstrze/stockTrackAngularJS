@@ -20,15 +20,8 @@ angular.module('stockTrackAngularJsApp')
         _this[property] = properties[property];
       });
 
-      properties.target
-
-      d3.select(".base-chart svg") .append('g').attr('name', 'svgContent');
+      _this.Layers = [];
     };
-
-
-
-
-
 
 
 
@@ -59,12 +52,6 @@ angular.module('stockTrackAngularJsApp')
         .attr("y2", m[1]);
     };
 
-    var deActivateCreateLine = function (svg) {
-      SvgArtist.createLineActive = false;
-      svg.on("mousemove", null);
-      svg.on("mousedown", null);
-      $rootScope.$apply();
-    };
 
     var binaryblob = function (){
       var byteString = atob(document.querySelector("canvas").toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")); //wtf is atob?? https://developer.mozilla.org/en-US/docs/Web/API/Window.atob
@@ -94,18 +81,35 @@ angular.module('stockTrackAngularJsApp')
      */
     SvgArtist.prototype.activateCreateLine = function() {
 
-      SvgArtist.createLineActive = true;
+      var _this = this;
 
-      var svg = d3.select(".base-chart svg");
+      this.createLineActive = true;
 
-      var line = svg.append("line");
+      if(!this.svgContainer) {
+        d3.select(this.target + " svg").append('g').attr('name', 'svgArtist').attr('class', 'svg-artist');
+        this.svgContainer = d3.select(this.target + "  svg");
+      }
 
-      svg
+      var svg = this.svgContainer;
+
+      var line = d3.select(this.target + "  .svg-artist").append("line");
+
+      d3.select(this.target + " svg")
         .on("mousedown", function () {
           mousedown(line, svg);
         })
         .on("mouseup", function () {
-          deActivateCreateLine(svg);
+
+          _this.Layers.push({
+            name: 'Line 1',
+            type: 'Line',
+            item: line
+          });
+
+          _this.createLineActive = false;
+          svg.on("mousemove", null);
+          svg.on("mousedown", null);
+          $rootScope.$apply();
         });
     };
 
