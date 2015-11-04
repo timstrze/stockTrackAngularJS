@@ -24,15 +24,14 @@ angular.module('stockTrackAngularJsApp')
         selectedChart: '=',
         positions: '='
       },
-      template: '<div class="base-chart"></div>',
+      template: '<div class="base-chart"><svg><g name="svgContent" class="svg-content"></g></svg></div>',
       link: function postLink($scope, element) {
 
-        $scope.svg = d3.select(element[0].querySelector('.base-chart'))
-          .append('svg')
+        $scope.svg = d3.select(element[0].querySelector('.base-chart svg'))
           .attr('name', 'baseChart')
           .attr('style', 'background-color:#fff');
 
-        $scope.svgContent = $scope.svg.append('g').attr('name', 'svgContent');
+        $scope.svgContent = $scope.svg.selectAll(".svg-content");
 
         //$scope.chartPositions = $scope.svgContent.append('path').attr('name', 'chartPositions');
 

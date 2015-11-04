@@ -20,6 +20,10 @@ angular.module('stockTrackAngularJsApp')
         _this[property] = properties[property];
       });
 
+      this.svgContainer = d3.select(this.target + "  svg");
+      this.svgArtist = this.svgContainer.append('g').attr('name', 'svgArtist').attr('class', 'svg-artist');
+
+
       this.Layers = [];
     };
 
@@ -80,11 +84,6 @@ angular.module('stockTrackAngularJsApp')
      */
     SvgArtist.prototype.createNewLayer = function() {
 
-      if(!this.svgContainer) {
-        this.svgArtist = d3.select(this.target + " svg").append('g').attr('name', 'svgArtist').attr('class', 'svg-artist');
-        this.svgContainer = d3.select(this.target + "  svg");
-      }
-
       this.Layers.unshift({
         name: 'Layer ' + this.Layers.length,
         layer: this.svgArtist.append('g').attr('name', 'Layer ' + this.Layers.length).attr('class', 'layer'),
@@ -111,11 +110,6 @@ angular.module('stockTrackAngularJsApp')
       var _this = this;
 
       this.createLineActive = true;
-
-      if(!this.svgContainer) {
-        this.svgArtist = d3.select(this.target + " svg").append('g').attr('name', 'svgArtist').attr('class', 'svg-artist');
-        this.svgContainer = d3.select(this.target + "  svg");
-      }
 
       if(!this.selectedLayer) {
         if(this.Layers.length === 0) {
