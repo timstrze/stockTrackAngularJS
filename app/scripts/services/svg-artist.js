@@ -118,28 +118,27 @@ angular.module('stockTrackAngularJsApp')
       }
 
       if(!this.selectedLayer) {
-        if(this.Layers.length > 0) {
-          this.selectedLayer =  this.Layers[0]
-        }else{
+        if(this.Layers.length === 0) {
           this.Layers.push({
             name: 'Layer 0',
+            layer: this.svgArtist.append('g').attr('name', 'Layer 0').attr('class', 'layer'),
             items: []
-          })
+          });
         }
+        this.selectedLayer =  this.Layers[0];
       }
-
 
       var svg = this.svgContainer;
 
       var line = this.selectedLayer.layer.append("line");
+
+      this.selectedLayer.items.unshift(line);
 
       svg
         .on("mousedown", function () {
           mousedown(line, svg);
         })
         .on("mouseup", function () {
-
-
 
           _this.createLineActive = false;
           svg.on("mousemove", null);
@@ -243,7 +242,7 @@ angular.module('stockTrackAngularJsApp')
      */
     SvgArtist.prototype.makeSelection = function() {
 
-      this.selectItem = !this.selectItem;
+      this.selectItemActive = !this.selectItemActive;
     };
 
 
@@ -263,6 +262,8 @@ angular.module('stockTrackAngularJsApp')
       });
 
       this.Layers = [];
+
+      this.selectedLayer = null;
     };
 
 
@@ -274,8 +275,13 @@ angular.module('stockTrackAngularJsApp')
      * @description
      * Make service method available to the ng-repeat.
      */
-    SvgArtist.prototype.removeLayer = function(layer) {
-      console.log(layer)
+    SvgArtist.prototype.removeLayer = function() {
+      angular.forEach(this.selectedLayer.items, function(item) {
+        item.remove();
+      });
+      this.Layers.splice(this.Layers.indexOf(this.selectedLayer), 1);
+
+      this.selectedLayer = this.Layers[0];
     };
 
 
