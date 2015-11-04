@@ -59,6 +59,10 @@
           </md-select>
         </md-input-container>
 
+        <md-button aria-label="Select" ng-class="{'md-raised':baseChartArtist.selectItem}" ng-click="baseChartArtist.makeSelection()">
+          <ng-md-icon icon="my_location" style="fill: black" size="18"></ng-md-icon>
+        </md-button>
+
         <md-button aria-label="Add Line" ng-class="{'md-raised':baseChartArtist.createLineActive}" ng-click="baseChartArtist.activateCreateLine()">
           <ng-md-icon icon="create" style="fill: black" size="18"></ng-md-icon>
         </md-button>
@@ -67,26 +71,47 @@
           <ng-md-icon icon="text_format" style="fill: black" size="18"></ng-md-icon>
         </md-button>
 
-        <md-button aria-label="Layers">
-          <ng-md-icon icon="layers" style="fill: black" size="18"></ng-md-icon>{{baseChartArtist.Layers.length}}
+        <md-menu md-offset="0 -7">
+          <md-button aria-label="Open demo menu" ng-click="$mdOpenMenu($event)">
+            <ng-md-icon md-menu-origin icon="layers" style="fill: black" size="18"></ng-md-icon>{{baseChartArtist.Layers.length}}
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item ng-repeat="item in baseChartArtist.Layers">
+              <md-button aria-label="Select Layer" ng-click="baseChartArtist.selectLayer(item)"> <div layout="row">
+                <p flex>{{item.name}}</p>
+            </div></md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
+        <md-button aria-label="New Layer" ng-click="baseChartArtist.createNewLayer()">
+          <ng-md-icon icon="content_copy" style="fill: black" size="18"></ng-md-icon>
         </md-button>
 
-        <md-button aria-label="Undo">
+        <md-button aria-label="Rotate">
+          <ng-md-icon icon="refresh" style="fill: black" size="18"></ng-md-icon>
+        </md-button>
+
+        <md-button aria-label="Undo" ng-click="baseChartArtist.undoAction()">
           <ng-md-icon icon="undo" style="fill: black" size="18"></ng-md-icon>
         </md-button>
 
-        <md-button aria-label="Clear">
-          <ng-md-icon icon="clear" style="fill: black" size="18"></ng-md-icon>
+        <md-button aria-label="Clear" ng-click="baseChartArtist.removeAllLayers()">
+          <ng-md-icon icon="layers_clear" style="fill: black" size="18"></ng-md-icon>
         </md-button>
 
         <md-button aria-label="Save" ng-click="baseChartArtist.saveImageToDesktop()">
           <ng-md-icon icon="save" style="fill: black" size="18"></ng-md-icon>
         </md-button>
+
+        <md-input-container>
+          <input aria-label="Selected Layer" ng-if="baseChartArtist.selectedLayer" ng-model="baseChartArtist.selectedLayer.name">
+        </md-input-container>
       </div>
     </div>
 
     <!--Start Historical Data Line Chart-->
-    <div style="height:500px;" ng-class="{'use-cross-hairs': baseChartArtist.createLineActive}">
+    <div style="height:500px;" ng-class="{'use-cross-hairs': baseChartArtist.createLineActive, 'use-grab': baseChartArtist.selectItem}">
       <base-chart positions="user.Positions"
                   selected-extras="selectedExtras"
                   selected-chart="selectedChart"

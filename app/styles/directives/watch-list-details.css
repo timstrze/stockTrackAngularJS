@@ -119,6 +119,13 @@ watch-list-details {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
+.watch-list-details .use-grab {
+  cursor: grab;
+}
+.watch-list-details .use-pointer {
+  cursor: pointer;
+}
+
 .watch-list-details .use-cross-hairs {
   cursor: crosshair;
 }

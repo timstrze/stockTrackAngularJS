@@ -20,7 +20,7 @@ angular.module('stockTrackAngularJsApp')
         _this[property] = properties[property];
       });
 
-      _this.Layers = [];
+      this.Layers = [];
     };
 
 
@@ -52,7 +52,6 @@ angular.module('stockTrackAngularJsApp')
         .attr("y2", m[1]);
     };
 
-
     var binaryblob = function (){
       var byteString = atob(document.querySelector("canvas").toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")); //wtf is atob?? https://developer.mozilla.org/en-US/docs/Web/API/Window.atob
       var ab = new ArrayBuffer(byteString.length);
@@ -79,6 +78,34 @@ angular.module('stockTrackAngularJsApp')
      * @description
      * Make service method available to the ng-repeat.
      */
+    SvgArtist.prototype.createNewLayer = function() {
+
+      if(!this.svgContainer) {
+        this.svgArtist = d3.select(this.target + " svg").append('g').attr('name', 'svgArtist').attr('class', 'svg-artist');
+        this.svgContainer = d3.select(this.target + "  svg");
+      }
+
+      this.Layers.unshift({
+        name: 'Layer ' + this.Layers.length,
+        layer: this.svgArtist.append('g').attr('name', 'Layer ' + this.Layers.length).attr('class', 'layer'),
+        items: []
+      });
+
+      this.selectedLayer =  this.Layers[0];
+
+    };
+
+
+
+
+    /**
+     * @ngdoc function
+     * @name activateCreateLine
+     * @methodOf stockTrackAngularJsApp.service:SvgArtist
+     *
+     * @description
+     * Make service method available to the ng-repeat.
+     */
     SvgArtist.prototype.activateCreateLine = function() {
 
       var _this = this;
@@ -86,29 +113,38 @@ angular.module('stockTrackAngularJsApp')
       this.createLineActive = true;
 
       if(!this.svgContainer) {
-        d3.select(this.target + " svg").append('g').attr('name', 'svgArtist').attr('class', 'svg-artist');
+        this.svgArtist = d3.select(this.target + " svg").append('g').attr('name', 'svgArtist').attr('class', 'svg-artist');
         this.svgContainer = d3.select(this.target + "  svg");
       }
 
+      if(!this.selectedLayer) {
+        if(this.Layers.length > 0) {
+          this.selectedLayer =  this.Layers[0]
+        }else{
+          this.Layers.push({
+            name: 'Layer 0',
+            items: []
+          })
+        }
+      }
+
+
       var svg = this.svgContainer;
 
-      var line = d3.select(this.target + "  .svg-artist").append("line");
+      var line = this.selectedLayer.layer.append("line");
 
-      d3.select(this.target + " svg")
+      svg
         .on("mousedown", function () {
           mousedown(line, svg);
         })
         .on("mouseup", function () {
 
-          _this.Layers.push({
-            name: 'Line 1',
-            type: 'Line',
-            item: line
-          });
+
 
           _this.createLineActive = false;
           svg.on("mousemove", null);
           svg.on("mousedown", null);
+          svg.on("mouseup", null);
           $rootScope.$apply();
         });
     };
@@ -159,6 +195,87 @@ angular.module('stockTrackAngularJsApp')
 
         a.click();
       };
+    };
+
+
+
+    /**
+     * @ngdoc property
+     * @name undoAction
+     * @propertyOf stockTrackAngularJsApp.service:SvgArtist
+     *
+     * @description
+     * Make service method available to the ng-repeat.
+     */
+    SvgArtist.prototype.selectLayer = function(item) {
+
+      this.selectedLayer = item;
+    };
+
+
+    /**
+     * @ngdoc property
+     * @name undoAction
+     * @propertyOf stockTrackAngularJsApp.service:SvgArtist
+     *
+     * @description
+     * Make service method available to the ng-repeat.
+     */
+    SvgArtist.prototype.undoAction = function() {
+
+      if(this.Layers.length > 0) {
+
+        this.Layers[0].item.remove();
+
+        this.Layers.shift();
+      }
+    };
+
+
+
+    /**
+     * @ngdoc property
+     * @name clearAll
+     * @propertyOf stockTrackAngularJsApp.service:SvgArtist
+     *
+     * @description
+     * Make service method available to the ng-repeat.
+     */
+    SvgArtist.prototype.makeSelection = function() {
+
+      this.selectItem = !this.selectItem;
+    };
+
+
+    /**
+     * @ngdoc property
+     * @name clearAll
+     * @propertyOf stockTrackAngularJsApp.service:SvgArtist
+     *
+     * @description
+     * Make service method available to the ng-repeat.
+     */
+    SvgArtist.prototype.removeAllLayers = function() {
+      angular.forEach(this.Layers, function(layer) {
+        angular.forEach(layer.items, function(item) {
+          item.remove();
+        });
+      });
+
+      this.Layers = [];
+    };
+
+
+    /**
+     * @ngdoc property
+     * @name removeLayer
+     * @propertyOf stockTrackAngularJsApp.service:SvgArtist
+     *
+     * @description
+     * Make service method available to the ng-repeat.
+     */
+    SvgArtist.prototype.removeLayer = function(layer) {
+      console.log(layer)
     };
 
 
