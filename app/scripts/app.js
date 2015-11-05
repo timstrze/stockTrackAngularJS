@@ -18,8 +18,8 @@ angular
     'ngTouch',
     'ngMaterial',
     'ngMessages',
-    'LocalStorageModule',
-    'ngMdIcons'
+    'ngMdIcons',
+    'svgArtistApp'
   ])
   .config(function ($routeProvider, $httpProvider) {
     $routeProvider
@@ -38,9 +38,6 @@ angular
     $httpProvider.interceptors.push('LoadingInterceptor');
 
   })
-  .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
-    localStorageServiceProvider.setPrefix('staja');
-  }])
   .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
       //.dark();

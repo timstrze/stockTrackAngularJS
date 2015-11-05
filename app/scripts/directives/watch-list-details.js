@@ -14,7 +14,7 @@ x *
  *
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('watchListDetails', function ($mdDialog, $window, SymbolList, Constants, SvgArtist) {
+  .directive('watchListDetails', function ($mdDialog, $window, SymbolList, Constants) {
     return {
       restrict: 'E',
       scope: {
@@ -25,9 +25,12 @@ angular.module('stockTrackAngularJsApp')
       templateUrl: 'views/directives/watch-list-details.html',
       controller: function ($scope) {
 
+        debugger;
+
         $scope.Constants = Constants;
 
-        $scope.baseChartArtist = new SvgArtist({target: '.base-chart'});
+        $scope.baseChartArtist = {};
+        //$scope.baseChartArtist = new SvgArtist({target: '.base-chart'});
 
         $scope.selectedChart = Constants.chartTypes[0].slug;
         //$scope.selectedExtras = Constants.chartExtras.map(function(item, index) {
