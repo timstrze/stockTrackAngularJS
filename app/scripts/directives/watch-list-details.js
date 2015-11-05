@@ -24,13 +24,10 @@ angular.module('stockTrackAngularJsApp')
       },
       templateUrl: 'views/directives/watch-list-details.html',
       controller: function ($scope) {
-
-        debugger;
-
         $scope.Constants = Constants;
 
         $scope.baseChartArtist = {};
-        //$scope.baseChartArtist = new SvgArtist({target: '.base-chart'});
+        $scope.baseChartArtist = new SvgArtist({target: '.base-chart'});
 
         $scope.selectedChart = Constants.chartTypes[0].slug;
         //$scope.selectedExtras = Constants.chartExtras.map(function(item, index) {
