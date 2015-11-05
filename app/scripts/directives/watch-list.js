@@ -13,7 +13,7 @@
  * @param {Object} user User Object
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('watchList', function ($mdDialog, Symbol, Constants, localStorageService, SymbolList) {
+  .directive('watchList', function ($mdDialog, Symbol, Constants, SymbolList) {
     return {
       scope: {
         user: '='

@@ -14,7 +14,7 @@ x *
  *
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('watchListDetails', function ($mdDialog, $window, SymbolList, Constants) {
+  .directive('watchListDetails', function ($mdDialog, $window, SymbolList, Constants, SvgArtist) {
     return {
       restrict: 'E',
       scope: {
