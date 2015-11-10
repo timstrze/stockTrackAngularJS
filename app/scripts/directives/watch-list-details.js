@@ -26,8 +26,8 @@ angular.module('stockTrackAngularJsApp')
       controller: function ($scope) {
         $scope.Constants = Constants;
 
-        $scope.baseChartArtist = {};
-        $scope.baseChartArtist = new SvgArtist({target: '.base-chart'});
+        $scope.svgChartArtist = {};
+        $scope.svgChartArtist = new SvgArtist({target: '.svg-chart'});
 
         $scope.selectedChart = Constants.chartTypes[0].slug;
         //$scope.selectedExtras = Constants.chartExtras.map(function(item, index) {

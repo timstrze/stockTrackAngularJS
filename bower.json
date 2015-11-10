@@ -15,7 +15,8 @@
     "angular-material-icons": "~0.5.0",
     "moment": "~2.10.6",
     "moment-timezone": "~0.4.1",
-    "svg-artist": "https://timstrze@github.com/timstrze/svgArtist.git#latest"
+    "svg-artist": "https://timstrze@github.com/timstrze/svgArtist.git#latest",
+    "svg-charts": "https://timstrze@github.com/timstrze/svgCharts.git#latest"
   },
   "devDependencies": {
     "angular-mocks": "^1.3.0"

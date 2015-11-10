@@ -19,7 +19,8 @@ angular
     'ngMaterial',
     'ngMessages',
     'ngMdIcons',
-    'svgArtistApp'
+    'svgArtistApp',
+    'svgChartsApp'
   ])
   .config(function ($routeProvider, $httpProvider) {
     $routeProvider
