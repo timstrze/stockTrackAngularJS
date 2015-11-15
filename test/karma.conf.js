@@ -31,8 +31,8 @@ module.exports = function(config) {
       'bower_components/angular-material-icons/angular-material-icons.min.js',
       'bower_components/moment/moment.js',
       'bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
-      'bower_components/svg-artist/dist/scripts/vendor.js',
       'bower_components/svg-artist/dist/scripts/scripts.js',
+      'bower_components/svg-charts/dist/scripts/scripts.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

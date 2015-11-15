@@ -26,6 +26,7 @@ angular.module('stockTrackAngularJsApp')
       controller: function ($scope) {
         $scope.Constants = Constants;
 
+        $scope.settings = {showLine: true, showText: true, showSave: true};
         $scope.svgChartArtist = {};
         $scope.svgChartArtist = new SvgArtist({target: '.svg-chart'});
 

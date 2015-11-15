@@ -57,66 +57,8 @@
           </md-select>
         </md-input-container>
 
-        <md-button aria-label="Select" ng-class="{'md-raised':svgChartArtist.selectItemActive}" ng-click="svgChartArtist.makeSelection()">
-          <md-icon md-svg-icon="images/icons/arrow-up-left.svg"></md-icon>
-        </md-button>
+        <svg-artist-tools settings="settings" svg-instance="svgChartArtist"></svg-artist-tools>
 
-        <md-button aria-label="Pen">
-          <md-icon md-svg-icon="images/icons/pen.svg"></md-icon>
-        </md-button>
-
-        <md-button aria-label="Add Line" ng-class="{'md-raised':svgChartArtist.createLineActive}" ng-click="svgChartArtist.activateCreateLine()">
-          <ng-md-icon icon="create" style="fill: black" size="18"></ng-md-icon>
-        </md-button>
-
-        <md-button aria-label="Add Text" ng-click="svgChartArtist.addText()" ng-class="{'md-raised':svgChartArtist.createTextActive}">
-          <ng-md-icon icon="text_format" style="fill: black" size="18"></ng-md-icon>
-        </md-button>
-
-        <md-menu md-offset="0 -7">
-          <md-button ng-disabled="!svgChartArtist.Layers.length" aria-label="Open demo menu" ng-click="$mdOpenMenu($event)">
-            <ng-md-icon md-menu-origin icon="layers" style="fill: black" size="18"></ng-md-icon>{{svgChartArtist.Layers.length}}
-          </md-button>
-          <md-menu-content width="4">
-            <md-menu-item ng-repeat="item in svgChartArtist.Layers">
-              <md-button aria-label="Select Layer" ng-click="svgChartArtist.selectLayer(item)"> <div layout="row">
-                <p flex>{{item.name}}</p>
-            </div></md-button>
-            </md-menu-item>
-          </md-menu-content>
-        </md-menu>
-
-        <md-button aria-label="New Layer" ng-click="svgChartArtist.createNewLayer()">
-          <ng-md-icon icon="content_copy" style="fill: black" size="18"></ng-md-icon>
-        </md-button>
-
-        <md-button aria-label="Clear" ng-click="svgChartArtist.removeAllLayers()">
-          <ng-md-icon icon="layers_clear" style="fill: black" size="18"></ng-md-icon>
-        </md-button>
-
-        <!--<md-button aria-label="Rotate">-->
-          <!--<ng-md-icon icon="refresh" style="fill: black" size="18"></ng-md-icon>-->
-        <!--</md-button>-->
-
-        <!--<md-button aria-label="Undo" ng-click="svgChartArtist.undoAction()">-->
-          <!--<ng-md-icon icon="undo" style="fill: black" size="18"></ng-md-icon>-->
-        <!--</md-button>-->
-
-        <md-button aria-label="Save" ng-click="svgChartArtist.saveImageToDesktop()">
-          <ng-md-icon icon="save" style="fill: black" size="18"></ng-md-icon>
-        </md-button>
-
-        <md-input-container>
-          <input aria-label="Selected Layer" ng-if="svgChartArtist.selectedLayer" ng-model="svgChartArtist.selectedLayer.name">
-        </md-input-container>
-
-        <md-button aria-label="Hide/Show Layer" ng-if="svgChartArtist.selectedLayer">
-          <md-icon md-svg-icon="images/icons/eye.svg"></md-icon>
-        </md-button>
-
-        <md-button aria-label="Remove Layer" ng-if="svgChartArtist.selectedLayer" ng-click="svgChartArtist.removeLayer()">
-          <ng-md-icon icon="delete" style="fill: black" size="18"></ng-md-icon>
-        </md-button>
       </div>
     </div>
 
