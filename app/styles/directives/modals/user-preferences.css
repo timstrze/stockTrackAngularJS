@@ -1,2 +1,6 @@
 .modal-user-preferences {
 }
+
+.modal-user-preferences form {
+  width: 100%;
+}

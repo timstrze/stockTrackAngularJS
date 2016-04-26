@@ -64,10 +64,10 @@
 
     <!--Start Historical Data Line Chart-->
     <div style="height:500px;" ng-class="{'use-cross-hairs': svgChartArtist.createLineActive, 'use-grab': svgChartArtist.selectItemActive}">
-      <svg-chart positions="user.Positions"
+      <svg-chart subPlots="user.Positions[0].buys"
                   selected-extras="selectedExtras"
                   selected-chart="selectedChart"
-                  symbol="symbol">
+                  chart-data="symbol.historicalData">
       </svg-chart>
     </div>
 
@@ -625,6 +625,9 @@
               </md-list-item>
               <md-divider></md-divider>
             </md-list>
+          </md-tab>
+          <md-tab label="activity">
+            Activity
           </md-tab>
         </md-tabs>
       </md-content>

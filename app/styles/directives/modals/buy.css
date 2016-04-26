@@ -22,3 +22,8 @@
 .modal-buy h2 .negative {
     color: #FF4C4C;
 }
+
+.modal-buy form {
+  width: 100%;
+}
+

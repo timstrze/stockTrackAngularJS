@@ -36,7 +36,8 @@ angular.module('stockTrackAngularJsApp')
       id: '@id'
     }, {
       get: {
-        method: 'GET'
+        method: 'GET',
+        isArray: true
       }
     });
 
@@ -111,7 +112,7 @@ angular.module('stockTrackAngularJsApp')
           // Set a default quantity
           $scope.quantity = 1;
           // Set the Constants in the html template
-          $scope.constants = Constants;
+          $scope.Constants = Constants;
           // Set the Symbol
           $scope.symbol = symbol;
           // Set the User
@@ -151,7 +152,9 @@ angular.module('stockTrackAngularJsApp')
       // Open buy modal
       $mdDialog.show({
         controller: ['$scope', '$interval', function ($scope, $interval) {
-
+          // Set the Constants in the html template
+          $scope.Constants = Constants;
+          // Set the User
           $scope.user = _this;
 
           /**

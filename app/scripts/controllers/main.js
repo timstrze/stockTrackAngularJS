@@ -11,7 +11,7 @@
  */
 
 angular.module('stockTrackAngularJsApp')
-  .controller('MainController', function ($scope, $mdSidenav, $mdMedia, Constants, Market, User) {
+  .controller('MainController', function ($scope, $mdSidenav, $mdMedia, Constants, Market, User, Accounts) {
 
     // Default Properties
     $scope.showWatchlist = true;
@@ -53,8 +53,10 @@ angular.module('stockTrackAngularJsApp')
     $scope.getUser = function () {
       // Gets the user
       User.http.get({}, function (results) {
+        // Sets the Accounts Object
+        $scope.Accounts = new Accounts(results);
         // Creates the User Object and sets the scope variable
-        $scope.User = new User(results);
+        $scope.User = new User(results[0]);
         // Initiates the Symbol list for the watchlist and positions
         $scope.User.initSymbolList().then(function () {
           //* Link the Symbols in the position list to the Symbols in the SymbolList.
