@@ -105,8 +105,8 @@ angular.module('stockTrackAngularJsApp')
       },
       all: {
         method: 'GET',
-        url: 'json/symbols.json',
-        // url: 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol in (":list")',
+        // url: 'json/symbols.json',
+        url: 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol in (":list")',
         params: {
           format: 'json',
           env: 'store://datatables.org/alltableswithkeys'
@@ -134,8 +134,8 @@ angular.module('stockTrackAngularJsApp')
     }, {
       details: {
         method: 'GET',
-        url: 'json/historical-data.json',
-        // url: 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.historicaldata where symbol = ":symbol" and startDate = ":startDate" and endDate = ":endDate"',
+        // url: 'json/historical-data.json',
+        url: 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.historicaldata where symbol = ":symbol" and startDate = ":startDate" and endDate = ":endDate"',
         params: {
           format: 'json',
           env: 'store://datatables.org/alltableswithkeys'
