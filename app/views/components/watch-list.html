@@ -11,13 +11,19 @@
           </md-button>
           <md-menu-content width="2">
             <md-menu-item>
-              <md-button aria-label="Refresh" ng-click="refreshSymbols()"> <span md-menu-align-target>Refresh</span></md-button>
+              <md-button aria-label="Refresh" ng-click="$ctrl.refreshSymbols()"> <span md-menu-align-target>Refresh</span></md-button>
             </md-menu-item>
             <md-menu-item>
               <md-button aria-label="Sort A-Z" ng-click="$ctrl.sortWatchList('aToZ')"> <span md-menu-align-target>Sort A-Z</span></md-button>
             </md-menu-item>
             <md-menu-item>
               <md-button aria-label="Sort Z-A" ng-click="$ctrl.sortWatchList('zToA')"> <span md-menu-align-target>Sort Z-A</span></md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="Sort % Asc" ng-click="$ctrl.sortWatchList('sortChangeAsc')"> <span md-menu-align-target>Sort % Asc</span></md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="Sort % Desc" ng-click="$ctrl.sortWatchList('sortChangeDesc')"> <span md-menu-align-target>Sort % Desc</span></md-button>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
