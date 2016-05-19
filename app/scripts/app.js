@@ -25,6 +25,8 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/routes/main.html',
+        bindToController: true,
+        controllerAs: '$ctrl',
         controller: 'MainController'
       })
       .otherwise({

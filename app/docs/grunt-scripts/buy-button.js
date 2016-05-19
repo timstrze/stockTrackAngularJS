@@ -111,7 +111,7 @@ angular.module('stockTrackAngularJsApp')
               // Pass through to buy function
               $scope.buy = _scope.buy;
             }],
-            templateUrl: 'views/directives/modals/buy.html',
+            templateUrl: 'views/modals/buy.html',
             targetEvent: event
           });
         };

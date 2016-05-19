@@ -1,4 +1,4 @@
-<md-dialog aria-label="{{symbol.Name}}" class="modal-user-preferences">
+<md-dialog aria-label="{{$ctrl.symbol.Name}}" class="modal-user-preferences">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>User Settings
@@ -16,20 +16,20 @@
 
           <md-input-container class="md-block">
             <label>Company</label>
-            <input ng-model="user.company">
+            <input ng-model="$ctrl.user.company">
           </md-input-container>
 
           <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm>
               <label>First name</label>
-              <input required name="firstName" ng-model="user.firstName">
+              <input required name="firstName" ng-model="$ctrl.user.firstName">
               <div ng-messages="userPreferencesForm.firstName.$error">
                 <div ng-message="required">This is required.</div>
               </div>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>
               <label>Last Name</label>
-              <input required name="lastName" ng-model="user.lastName">
+              <input required name="lastName" ng-model="$ctrl.user.lastName">
               <div ng-messages="userPreferencesForm.lastName.$error">
                 <div ng-message="required">This is required.</div>
               </div>
@@ -38,7 +38,7 @@
 
           <md-input-container class="md-block">
             <label>Address</label>
-            <input required name="address" ng-model="user.address">
+            <input required name="address" ng-model="$ctrl.user.address">
             <div ng-messages="userPreferencesForm.address.$error">
               <div ng-message="required">This is required.</div>
             </div>
@@ -46,12 +46,12 @@
 
           <md-input-container class="md-block">
             <label>Address 2</label>
-            <input ng-model="user.address2" placeholder="Address 2">
+            <input ng-model="$ctrl.user.address2" placeholder="Address 2">
           </md-input-container>
 
           <md-input-container class="md-block">
             <label>City</label>
-            <input required ng-model="user.city" placeholder="City">
+            <input required ng-model="$ctrl.user.city" placeholder="City">
             <div ng-messages="userPreferencesForm.city.$error">
               <div ng-message="required">This is required.</div>
             </div>
@@ -60,8 +60,8 @@
           <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm>
               <label>State</label>
-              <md-select required ng-model="user.state">
-                <md-option ng-repeat="state in Constants.states"
+              <md-select required ng-model="$ctrl.user.state">
+                <md-option ng-repeat="state in $ctrl.Constants.states"
                            value="{{state}}">
                   {{state}}
                 </md-option>
@@ -72,7 +72,7 @@
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>
               <label>Postal Code</label>
-              <input required name="postalCode" ng-model="user.postalCode">
+              <input required name="postalCode" ng-model="$ctrl.user.postalCode">
               <div ng-messages="userPreferencesForm.postalCode.$error">
                 <div ng-message="required">This is required.</div>
               </div>
@@ -85,18 +85,18 @@
       <md-content>
 
         <div layout-gt-sm="row">
-            <md-switch ng-model="user.Preferences.refreshState" aria-label="Symbol Refresh" ng-change="symbolRefreshChange()">
-              Symbol Refresh: {{(user.Preferences.refreshState) ? "On" : "Off"}}
+            <md-switch ng-model="$ctrl.user.Preferences.refreshState" aria-label="Symbol Refresh" ng-change="$ctrl.symbolRefreshChange()">
+              Symbol Refresh: {{($ctrl.user.Preferences.refreshState) ? "On" : "Off"}}
             </md-switch>
 
           <div flex="5" hide-xs hide-sm>
             <!-- Spacer //-->
           </div>
           <md-input-container class="md-block" flex-gt-sm>
-            <md-select ng-model="user.Preferences.refreshRate"
+            <md-select ng-model="$ctrl.user.Preferences.refreshRate"
                        aria-label="Refresh Rate"
-                       ng-disabled="!user.Preferences.refreshState"
-                       ng-change="symbolRefreshChange()">
+                       ng-disabled="!$ctrl.user.Preferences.refreshState"
+                       ng-change="$ctrl.symbolRefreshChange()">
               <md-option value="10000">10 Seconds</md-option>
               <md-option value="20000">20 Seconds</md-option>
               <md-option value="30000">30 Seconds</md-option>
@@ -111,7 +111,7 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="cancel()" class="md-primary">
+      <md-button ng-click="$ctrl.cancel()" class="md-primary">
         Close
       </md-button>
     </md-dialog-actions>

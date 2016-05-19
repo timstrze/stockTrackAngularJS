@@ -11,45 +11,113 @@
     "state": "Illinois",
     "postalCode": "60611",
     "email": "timstrze@gmail.com",
-
     "availableCash": 15000,
-
     "WatchList": [
       {
-        "symbol":"AAPL"
+        "symbol": "ba"
       },
       {
-        "symbol":"AXP"
+        "symbol": "h"
       },
       {
-        "symbol":"WFM"
+        "symbol": "e"
       },
       {
-        "symbol":"DIS"
+        "symbol": "r"
       },
       {
-        "symbol":"RCL"
+        "symbol": "ta"
+      },
+      {
+        "symbol": "v"
+      },
+      {
+        "symbol": "b"
+      },
+      {
+        "symbol": "a"
+      },
+      {
+        "symbol": "va"
+      },
+      {
+        "symbol": "ar"
+      },
+      {
+        "symbol": "te"
+      },
+      {
+        "symbol": "ne"
+      },
+      {
+        "symbol": "p"
+      },
+      {
+        "symbol": "ma"
+      },
+      {
+        "symbol": "rdy"
+      },
+      {
+        "symbol": "ap"
+      },
+      {
+        "symbol": "for"
+      },
+      {
+        "symbol": "ford"
+      },
+      {
+        "symbol": "AAPL"
+      },
+      {
+        "symbol": "AXP"
+      },
+      {
+        "symbol": "WFM"
+      },
+      {
+        "symbol": "DIS"
+      },
+      {
+        "symbol": "RCL"
       }
     ],
-
+    "WatchList2": [
+      {
+        "symbol": "AAPL"
+      },
+      {
+        "symbol": "AXP"
+      },
+      {
+        "symbol": "WFM"
+      },
+      {
+        "symbol": "DIS"
+      },
+      {
+        "symbol": "RCL"
+      }
+    ],
     "Positions": [
       {
-        "symbol":"AXP",
+        "symbol": "AXP",
         "buys": [
           {
-            "ask":"79.41",
-            "quantity":10,
-            "created":"2015-08-07 2:07:45 PM"
+            "ask": "79.41",
+            "quantity": 10,
+            "created": "2015-08-07 2:07:45 PM"
           },
           {
-            "ask":"79.61",
-            "quantity":9,
-            "created":"2015-08-07 7:05:45 PM"
+            "ask": "79.61",
+            "quantity": 9,
+            "created": "2015-08-07 7:05:45 PM"
           }
         ]
       },
       {
-        "symbol":"RCL",
+        "symbol": "RCL",
         "buys": [
           {
             "ask": "90.41",
@@ -59,7 +127,7 @@
         ]
       },
       {
-        "symbol":"WFM",
+        "symbol": "WFM",
         "buys": [
           {
             "ask": "35.80",
@@ -69,7 +137,7 @@
         ]
       },
       {
-        "symbol":"DIS",
+        "symbol": "DIS",
         "buys": [
           {
             "ask": "109.80",
@@ -79,7 +147,6 @@
         ]
       }
     ],
-
     "Preferences": {
       "selectedHistoricalData": "3-month",
       "selectedHistoricalIndex": 2,
@@ -99,57 +166,54 @@
     "state": "Illinois",
     "postalCode": "60611",
     "email": "timstrze@gmail.com",
-
     "availableCash": 15000,
-
     "WatchList": [
       {
-        "symbol":"NFLX"
+        "symbol": "NFLX"
       },
       {
-        "symbol":"AMZN"
+        "symbol": "AMZN"
       },
       {
-        "symbol":"GOOG"
+        "symbol": "GOOG"
       },
       {
-        "symbol":"AAPL"
+        "symbol": "AAPL"
       },
       {
-        "symbol":"AXP"
+        "symbol": "AXP"
       },
       {
-        "symbol":"WFM"
+        "symbol": "WFM"
       },
       {
-        "symbol":"DIS"
+        "symbol": "DIS"
       },
       {
-        "symbol":"RCL"
+        "symbol": "RCL"
       },
       {
-        "symbol":"MAR"
+        "symbol": "MAR"
       }
     ],
-
     "Positions": [
       {
-        "symbol":"AXP",
+        "symbol": "AXP",
         "buys": [
           {
-            "ask":"79.41",
-            "quantity":10,
-            "created":"2015-08-07 2:07:45 PM"
+            "ask": "79.41",
+            "quantity": 10,
+            "created": "2015-08-07 2:07:45 PM"
           },
           {
-            "ask":"79.61",
-            "quantity":9,
-            "created":"2015-08-07 7:05:45 PM"
+            "ask": "79.61",
+            "quantity": 9,
+            "created": "2015-08-07 7:05:45 PM"
           }
         ]
       },
       {
-        "symbol":"RCL",
+        "symbol": "RCL",
         "buys": [
           {
             "ask": "90.41",
@@ -159,7 +223,7 @@
         ]
       },
       {
-        "symbol":"WFM",
+        "symbol": "WFM",
         "buys": [
           {
             "ask": "35.80",
@@ -169,7 +233,7 @@
         ]
       },
       {
-        "symbol":"DIS",
+        "symbol": "DIS",
         "buys": [
           {
             "ask": "109.80",
@@ -179,7 +243,6 @@
         ]
       }
     ],
-
     "Preferences": {
       "selectedHistoricalData": "3-month",
       "selectedHistoricalIndex": 2,

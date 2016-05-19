@@ -1,40 +1,41 @@
 'use strict';
 
 /**
- * @ngdoc directive
- * @name stockTrackAngularJsApp.directive:positions
+ * @ngdoc component
+ * @name stockTrackAngularJsApp.component:positions
  * @element positions
  * @restrict E
  *
  * @description
  * # positions
- * Directive to display User Positions.
+ * component to display User Positions.
  *
  * @param {Object} positions User Positions
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('positions', function (SymbolList) {
-    return {
-      scope: {
+  .component('positions', {
+      bindings: {
         positions: '='
       },
-      templateUrl: 'views/directives/positions.html',
+      templateUrl: 'views/components/positions.html',
       restrict: 'E',
-      controller: function ($scope) {
+      controller: ['SymbolList', '$scope',function (SymbolList, $scope) {
+
+        var _this = this;
 
         /**
          * @ngdoc function
          * @name totalPositions
-         * @methodOf stockTrackAngularJsApp.directive:positions
+         * @methodOf stockTrackAngularJsApp.component:positions
          *
          * @description
          * Calculates the PNL for the User Positions. If the buy did happen today use the Symbols ask value then
          * use the Symbols previous close value.
          *
          */
-        $scope.totalPositions = function() {
+        this.totalPositions = function() {
           // Loop over the User Positions
-          angular.forEach($scope.positions, function(position) {
+          angular.forEach(this.positions, function(position) {
             // Set the default values
             var totalQuantity = 0;
             var totalPNL = 0;
@@ -77,13 +78,13 @@ angular.module('stockTrackAngularJsApp')
         /**
          * @ngdoc function
          * @name refreshSymbols
-         * @methodOf stockTrackAngularJsApp.directive:positions
+         * @methodOf stockTrackAngularJsApp.component:positions
          *
          * @description
          * Pass through to the SymbolList.refreshSymbols method.
          *
          */
-        $scope.refreshSymbols = function() {
+        this.refreshSymbols = function() {
           SymbolList.refreshSymbols();
         };
 
@@ -91,17 +92,16 @@ angular.module('stockTrackAngularJsApp')
         /**
          * @ngdoc function
          * @name $watch
-         * @eventOf stockTrackAngularJsApp.directive:positions
+         * @eventOf stockTrackAngularJsApp.component:positions
          *
          * @description
          * Watches the User Positions and calls the totalPositions Function.
          *
          */
-        $scope.$watch('positions', function() {
-          if($scope.positions) {
-            $scope.totalPositions();
+        $scope.$watch('$ctrl.positions', function() {
+          if(_this.positions) {
+            _this.totalPositions();
           }
         }, true);
-      }
-    };
+      }]
   });

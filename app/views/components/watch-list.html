@@ -2,7 +2,7 @@
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
         <h2>
-          Watchlist ({{user.WatchList.length}})
+          Watchlist ({{$ctrl.user.WatchList.length}})
         </h2>
         <span flex></span>
         <md-menu md-offset="0 0">
@@ -14,10 +14,10 @@
               <md-button aria-label="Refresh" ng-click="refreshSymbols()"> <span md-menu-align-target>Refresh</span></md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button aria-label="Sort A-Z"> <span md-menu-align-target>Sort A-Z</span></md-button>
+              <md-button aria-label="Sort A-Z" ng-click="$ctrl.sortWatchList('aToZ')"> <span md-menu-align-target>Sort A-Z</span></md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button aria-label="Sort Z-A"> <span md-menu-align-target>Sort Z-A</span></md-button>
+              <md-button aria-label="Sort Z-A" ng-click="$ctrl.sortWatchList('zToA')"> <span md-menu-align-target>Sort Z-A</span></md-button>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
@@ -28,20 +28,20 @@
         <form ng-submit="$event.preventDefault()">
             <md-autocomplete
                     md-search-text-change="null"
-                    md-selected-item="selectedItem"
-                    md-search-text="searchText"
-                    md-selected-item-change="chooseSymbol(item)"
-                    md-items="item in search(searchText)"
+                    md-selected-item="$ctrl.selectedItem"
+                    md-search-text="$ctrl.searchText"
+                    md-selected-item-change="$ctrl.chooseSymbol(item)"
+                    md-items="item in $ctrl.search($ctrl.searchText)"
                     md-item-text="item.display"
                     placeholder="Search Symbols">
-                <span md-highlight-text="searchText">{{item.display}}</span>
+                <span md-highlight-text="$ctrl.searchText">{{item.display}}</span>
             </md-autocomplete>
         </form>
 
         <md-content style="max-height:839px;">
             <md-list>
-                <md-list-item class="md-3-line" ng-repeat="watchListItem in user.WatchList" ng-click="selectSymbol(watchListItem.Symbol)"
-                              ng-class="{selected: watchListItem.Symbol == user.selectedSymbol}">
+                <md-list-item class="md-3-line" ng-repeat="watchListItem in $ctrl.user.WatchList" ng-click="$ctrl.selectSymbol(watchListItem.Symbol)"
+                              ng-class="{selected: watchListItem.Symbol == $ctrl.user.selectedSymbol}">
                     <div class="md-list-item-text">
 
                           <!--<span style="text-transform: uppercase;">{{watchListItem.Symbol.Symbol}}:</span>-->
@@ -65,7 +65,7 @@
                         <p style="float:left;">
                           Day's Range: {{watchListItem.Symbol.DaysRange}}
                         </p>
-                        <spark-line ng-if="user.Preferences.refreshState && watchListItem.Symbol.askHistory.length > 0" symbol="watchListItem.Symbol"></spark-line>
+                        <spark-line ng-if="$ctrl.user.Preferences.refreshState && watchListItem.Symbol.askHistory.length > 0" symbol="watchListItem.Symbol"></spark-line>
                     </div>
 
                     <md-menu>
@@ -75,18 +75,18 @@
                       <md-menu-content width="2">
                         <md-menu-item>
                           <md-button aria-label="Buy"
-                                     ng-click="user.openBuyModal($event, watchListItem.Symbol)">
+                                     ng-click="$ctrl.user.openBuyModal($event, watchListItem.Symbol)">
                             <span md-menu-align-target>Buy</span>
                           </md-button>
                         </md-menu-item>
                         <md-menu-item>
                           <md-button aria-label="Sell"
-                                     ng-click="user.openSellModal($event, watchListItem.Symbol)">
+                                     ng-click="$ctrl.user.openSellModal($event, watchListItem.Symbol)">
                             <span md-menu-align-target>Sell</span>
                           </md-button>
                         </md-menu-item>
                         <md-menu-item>
-                          <md-button aria-label="Remove" ng-click="removeFromWatchlist(watchListItem.Symbol, $event)">
+                          <md-button aria-label="Remove" ng-click="$ctrl.removeFromWatchlist(watchListItem.Symbol, $event)">
                             <span md-menu-align-target>Remove</span>
                           </md-button>
                         </md-menu-item>

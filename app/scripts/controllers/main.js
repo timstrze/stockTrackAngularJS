@@ -13,9 +13,11 @@
 angular.module('stockTrackAngularJsApp')
   .controller('MainController', function ($scope, $mdSidenav, $mdMedia, Constants, Market, User, Accounts) {
 
+    var _this = this;
+
     // Default Properties
-    $scope.showWatchlist = true;
-    $scope.showPositions = false;
+    this.showWatchlist = true;
+    this.showPositions = false;
 
 
 
@@ -31,10 +33,10 @@ angular.module('stockTrackAngularJsApp')
      * Initiates the application
      *
      */
-    $scope.init = function () {
+    this.init = function () {
       Market.init();
       // Gets the user
-      $scope.getUser();
+      this.getUser();
     };
 
 
@@ -50,26 +52,26 @@ angular.module('stockTrackAngularJsApp')
      * Gets the User.
      *
      */
-    $scope.getUser = function () {
+    this.getUser = function () {
       // Gets the user
       User.http.get({}, function (results) {
         // Sets the Accounts Object
-        $scope.Accounts = new Accounts(results);
+        _this.Accounts = new Accounts(results);
         // Creates the User Object and sets the scope variable
-        $scope.User = new User(results[0]);
+        _this.User = new User(results[0]);
         // Initiates the Symbol list for the watchlist and positions
-        $scope.User.initSymbolList().then(function () {
+        _this.User.initSymbolList().then(function () {
           //* Link the Symbols in the position list to the Symbols in the SymbolList.
-          $scope.User.linkPositionSymbols();
+          _this.User.linkPositionSymbols();
           // Set the Symbols in the watch list
-          $scope.User.linkWatchlistSymbols();
+          _this.User.linkWatchlistSymbols();
           // Set the first symbol in the watchlist as the selected symbol
-          $scope.User.selectedSymbol = $scope.User.WatchList[0].Symbol;
+          _this.User.selectedSymbol = _this.User.WatchList[0].Symbol;
           //
-          var selectedTab = Constants.historicalDateRange()[$scope.User.Preferences.selectedHistoricalIndex || 2];
+          var selectedTab = Constants.historicalDateRange()[_this.User.Preferences.selectedHistoricalIndex || 2];
           //
-          $scope.User.selectedSymbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
-          $scope.User.selectedSymbol.getSymbolNews();
+          _this.User.selectedSymbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
+          _this.User.selectedSymbol.getSymbolNews();
         });
       });
     };
@@ -88,9 +90,9 @@ angular.module('stockTrackAngularJsApp')
      * Toggles the Positions side bar.
      *
      */
-    $scope.positionsToggle = function () {
-      $scope.showWatchlist = false;
-      $scope.showPositions = true;
+    this.positionsToggle = function () {
+      this.showWatchlist = false;
+      this.showPositions = true;
       // Only toggle the modal if small size
       if($mdMedia('sm') || $mdMedia('md')) {
         $mdSidenav('positions').toggle();
@@ -111,7 +113,7 @@ angular.module('stockTrackAngularJsApp')
      * Toggles the User Preferences Modal.
      *
      */
-    $scope.toggleUserPreferences = function () {
+    this.toggleUserPreferences = function () {
       $mdSidenav('user-preferences').toggle();
     };
 
@@ -129,9 +131,9 @@ angular.module('stockTrackAngularJsApp')
      * Toggles the Watch List side bar.
      *
      */
-    $scope.watchlistToggle = function () {
-      $scope.showWatchlist = true;
-      $scope.showPositions = false;
+    this.watchlistToggle = function () {
+      this.showWatchlist = true;
+      this.showPositions = false;
       // Only toggle the modal if small size
       if($mdMedia('sm') || $mdMedia('md')) {
         $mdSidenav('watch-list').toggle();
@@ -153,7 +155,7 @@ angular.module('stockTrackAngularJsApp')
      *
      */
     $scope.$on('loader_show', function () {
-      $scope.isLoading = true;
+      _this.isLoading = true;
     });
 
 
@@ -171,7 +173,7 @@ angular.module('stockTrackAngularJsApp')
      *
      */
     $scope.$on('loader_hide', function () {
-      $scope.isLoading = false;
+      _this.isLoading = false;
     });
 
 
@@ -182,6 +184,6 @@ angular.module('stockTrackAngularJsApp')
      * Initiates the application.
      *
      */
-    $scope.init();
+    this.init();
 
   });

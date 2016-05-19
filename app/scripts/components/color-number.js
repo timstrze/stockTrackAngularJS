@@ -1,8 +1,8 @@
 'use strict';
 
 /**
- * @ngdoc directive
- * @name stockTrackAngularJsApp.directive:color-number
+ * @ngdoc component
+ * @name stockTrackAngularJsApp.component:color-number
  * @element color-number
  * @restrict E
  *
@@ -12,12 +12,10 @@
  * @param {Number} number Number to test if positive or negative
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('colorNumber', function () {
-    return {
-      scope: {
-        number: '='
+  .component('colorNumber', {
+      bindings: {
+        number: '<'
       },
-      templateUrl: 'views/directives/color-number.html',
+      templateUrl: 'views/components/color-number.html',
       restrict: 'E'
-    };
   });

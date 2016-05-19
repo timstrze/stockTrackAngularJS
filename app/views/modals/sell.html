@@ -1,13 +1,13 @@
-<md-dialog aria-label="{{symbol.Name}}" class="modal-sell">
+<md-dialog aria-label="{{$ctrl.symbol.Name}}" class="modal-sell">
     <form>
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>Sell
                   <span style="text-transform: uppercase;">
-                    {{symbol.Symbol}}:
+                    {{$ctrl.symbol.Symbol}}:
                   </span>
-                  <span ng-class="{positive: symbol.Change.indexOf('+') > -1, negative: symbol.Change.indexOf('-') > -1}">
-                    {{symbol.Ask}} {{symbol.Change}} ({{symbol.ChangeinPercent}})
+                  <span ng-class="{positive: $ctrl.symbol.Change.indexOf('+') > -1, negative: $ctrl.symbol.Change.indexOf('-') > -1}">
+                    {{$ctrl.symbol.Ask}} {{$ctrl.symbol.Change}} ({{$ctrl.symbol.ChangeinPercent}})
                   </span>
                 </h2>
                 <span flex></span>
@@ -22,15 +22,15 @@
           <md-list>
               <md-list-item class="md-2-line">
                   <div class="md-list-item-text">
-                    <h3>Ask: <span>{{symbol.Ask | currency}}</span></h3>
+                    <h3>Ask: <span>{{$ctrl.symbol.Ask | currency}}</span></h3>
 
-                    <h4>Available Cash: <span>{{user.availableCash | currency}}</span></h4>
+                    <h4>Available Cash: <span>{{$ctrl.user.availableCash | currency}}</span></h4>
 
                     <form name="sell">
                       <md-input-container>
                         <label>Quantity</label>
                         <input required type="number" step="any" name="quantity" ng-model="quantity" min="1" max="9999999">
-                        <div ng-messages="sell.quantity.$error">
+                        <div ng-messages="$ctrl.sell.quantity.$error">
                           <div ng-message="required">You've got to charge something! You can't just <b>give away</b> a Missile Defense System.</div>
                           <div ng-message="min">You should charge at least $800 an hour. This job is a big deal... if you mess up, everyone dies!</div>
                           <div ng-message="max">$5,000 an hour? That's a little ridiculous. I doubt event Bill Clinton could afford that.</div>
@@ -38,8 +38,8 @@
                       </md-input-container>
                     </form>
 
-                    <p>Sell {{quantity}} shares of {{symbol.Symbol}} at {{symbol.Ask | currency}} a share for <b>{{quantity * symbol.Ask | currency}}</b></p>
-                    <p>You will have {{user.availableCash -(quantity * symbol.Ask) | currency}} in remaining cash.</p>
+                    <p>Sell {{$ctrl.quantity}} shares of {{$ctrl.symbol.Symbol}} at {{$ctrl.symbol.Ask | currency}} a share for <b>{{$ctrl.quantity * $ctrl.symbol.Ask | currency}}</b></p>
+                    <p>You will have {{$ctrl.user.availableCash -($ctrl.quantity * $ctrl.symbol.Ask) | currency}} in remaining cash.</p>
                   </div>
               </md-list-item>
           </md-list>
@@ -47,10 +47,10 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-click="cancel()" class="md-primary">
+            <md-button ng-click="$ctrl.cancel()" class="md-primary">
                 Cancel
             </md-button>
-            <md-button ng-click="sell()" class="md-primary">
+            <md-button ng-click="$ctrl.sell()" class="md-primary">
                 Sell
             </md-button>
         </md-dialog-actions>

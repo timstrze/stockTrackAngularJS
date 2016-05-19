@@ -2,10 +2,10 @@
   <md-toolbar>
     <div class="md-toolbar-tools">
       <h2>
-        Positions ({{positions.length}})
+        Positions ({{$ctrl.positions.length}})
       </h2>
       <span flex></span>
-      <md-button class="md-icon-button" aria-label="Refresh" ng-click="refreshSymbols()">
+      <md-button class="md-icon-button" aria-label="Refresh" ng-click="$ctrl.refreshSymbols()">
         <ng-md-icon icon="refresh" style="fill: #fff" size="22"></ng-md-icon>
       </md-button>
     </div>
@@ -16,14 +16,14 @@
     <form ng-submit="$event.preventDefault()">
       <md-input-container flex style="padding-bottom: 0;">
         <label>Filter Positions</label>
-        <input ng-model="searchText">
+        <input ng-model="$ctrl.searchText">
       </md-input-container>
     </form>
 
     <md-content style="max-height:839px;">
       <md-list>
-        <md-list-item class="md-3-line" ng-repeat="position in positions | filter:searchText"
-                      ng-click="selectPosition(position)"
+        <md-list-item class="md-3-line" ng-repeat="position in $ctrl.positions | filter:$ctrl.searchText"
+                      ng-click="$ctrl.selectPosition(position)"
                       ng-class="{selected: false}">
           <div class="md-list-item-text">
 
@@ -39,9 +39,9 @@
             </p>
             <!--<md-list>-->
             <!--<md-list-item ng-repeat="buy in position.buys">-->
-            <!--ask: {{buy.ask}} <br />-->
-            <!--quantity: {{buy.quantity}} <br />-->
-            <!--created: {{buy.created}}-->
+            <!--ask: {{$ctrl.buy.ask}} <br />-->
+            <!--quantity: {{$ctrl.buy.quantity}} <br />-->
+            <!--created: {{$ctrl.buy.created}}-->
             <!--</md-list-item>-->
             <!--</md-list>-->
             <p>

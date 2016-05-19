@@ -1,45 +1,45 @@
 'use strict';
 
 /**
- * @ngdoc directive
- * @name stockTrackAngularJsApp.directive:user-totals
+ * @ngdoc component
+ * @name stockTrackAngularJsApp.component:user-totals
  * @element user-totals
  * @restrict E
  *
  * @description
  * # userTotals
- * Directive to calculate the daily and total PNL and the User's total value
+ * component to calculate the daily and total PNL and the User's total value
  *
  * @param {Object} user User Object
  */
 angular.module('stockTrackAngularJsApp')
-  .directive('userTotals', function () {
-    return {
-      scope: {
-        user: '='
+  .component('userTotals', {
+      bindings: {
+        user: '<'
       },
-      templateUrl: 'views/directives/user-totals.html',
+      templateUrl: 'views/components/user-totals.html',
       restrict: 'E',
       controller: function($scope) {
 
+        var _this = this;
 
         /**
          * @ngdoc function
          * @name calculateTotals
-         * @methodOf stockTrackAngularJsApp.directive:user-totals
+         * @methodOf stockTrackAngularJsApp.component:user-totals
          *
          * @description
          * Calculates the daily and total PNL and the User's total value. Adds the Positions total PNL to the User's total PNL.
          * Adds the Positions daily PNL to the User's daily PNL. Adds the Positions total value to the User's total value.
          *
          */
-        $scope.calculateTotals = function() {
+        this.calculateTotals = function() {
           // Set the default values
           var dailyPNL = 0;
           var totalPNL = 0;
           var totalValue = 0;
           // Loop over the User Positions
-          angular.forEach($scope.user.Positions, function(position) {
+          angular.forEach(this.user.Positions, function(position) {
             // Add the Positions total PNL to the User's total PNL
             totalPNL = totalPNL + position.totalPNL;
             // Add the Positions daily PNL to the User's daily PNL
@@ -48,27 +48,26 @@ angular.module('stockTrackAngularJsApp')
             totalValue = totalValue + position.totalValue;
           });
           // Set the scope values
-          $scope.dailyPNL = dailyPNL;
-          $scope.totalPNL = totalPNL;
-          $scope.totalValue = totalValue;
+          this.dailyPNL = dailyPNL;
+          this.totalPNL = totalPNL;
+          this.totalValue = totalValue;
         };
 
 
         /**
          * @ngdoc function
          * @name $watch
-         * @eventOf stockTrackAngularJsApp.directive:user-totals
+         * @eventOf stockTrackAngularJsApp.component:user-totals
          *
          * @description
          * Watches the User Positions calls the calculateTotals Function.
          *
          */
-        $scope.$watch('user.Positions', function() {
-          if($scope.user && $scope.user.Positions) {
-            $scope.calculateTotals();
+        $scope.$watch('$ctrl.user.Positions', function() {
+          if(_this.user && _this.user.Positions) {
+            _this.calculateTotals();
           }
         }, true);
 
       }
-    };
   });

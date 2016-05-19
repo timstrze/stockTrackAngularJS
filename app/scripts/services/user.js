@@ -58,21 +58,23 @@ angular.module('stockTrackAngularJsApp')
       var _this = this;
       // Open sell modal
       $mdDialog.show({
-        controller: ['$scope', function ($scope) {
+        controller: function () {
           // Set a default quantity
-          $scope.quantity = 1;
+          this.quantity = 1;
           // Set the Symbol
-          $scope.symbol = symbol;
+          this.symbol = symbol;
           // Set the User
-          $scope.user = _this;
+          this.user = _this;
           // Closes the modal
-          $scope.cancel = function () {
+          this.cancel = function () {
             $mdDialog.cancel();
           };
           // Pass through to sell function
-          $scope.sell = _this.sell;
-        }],
-        templateUrl: 'views/directives/modals/sell.html',
+          this.sell = _this.sell;
+        },
+        bindToController: true,
+        controllerAs: '$ctrl',
+        templateUrl: 'views/modals/sell.html',
         targetEvent: event
       });
     };
@@ -106,33 +108,35 @@ angular.module('stockTrackAngularJsApp')
       var _this = this;
       // Open buy modal
       $mdDialog.show({
-        controller: ['$scope', function ($scope) {
+        controller: function () {
           // Set a default quantity
-          $scope.limitLocked = false;
+          this.limitLocked = false;
           // Set a default quantity
-          $scope.quantity = 1;
+          this.quantity = 1;
           // Set the Constants in the html template
-          $scope.Constants = Constants;
+          this.Constants = Constants;
           // Set the Symbol
-          $scope.symbol = symbol;
+          this.symbol = symbol;
           // Set the User
-          $scope.user = _this;
+          this.user = _this;
           // Closes the modal
-          $scope.lockLimit = function () {
-            $scope.limitLocked = true;
+          this.lockLimit = function () {
+            this.limitLocked = true;
           };
           // Closes the modal
-          $scope.unlockLimit = function () {
-            $scope.limitLocked = false;
+          this.unlockLimit = function () {
+            this.limitLocked = false;
           };
           // Closes the modal
-          $scope.cancel = function () {
+          this.cancel = function () {
             $mdDialog.cancel();
           };
           // Pass through to buy function
-          $scope.buy = _this.buy;
-        }],
-        templateUrl: 'views/directives/modals/buy.html',
+          this.buy = _this.buy;
+        },
+        bindToController: true,
+        controllerAs: '$ctrl',
+        templateUrl: 'views/modals/buy.html',
         targetEvent: event
       });
     };
@@ -151,11 +155,11 @@ angular.module('stockTrackAngularJsApp')
       var _this = this;
       // Open buy modal
       $mdDialog.show({
-        controller: ['$scope', '$interval', function ($scope, $interval) {
+        controller: ['$interval', function ($interval) {
           // Set the Constants in the html template
-          $scope.Constants = Constants;
+          this.Constants = Constants;
           // Set the User
-          $scope.user = _this;
+          this.user = _this;
 
           /**
            * @ngdoc function
@@ -167,28 +171,30 @@ angular.module('stockTrackAngularJsApp')
            * Sets the refresh interval for the Symbol List. Refresh rate is a {Number} in milliseconds.
            *
            */
-          $scope.symbolRefreshChange = function() {
+          this.symbolRefreshChange = function() {
             // Remove the window.setInterval stored on the SymbolList
             $interval.cancel(SymbolList.interval);
             // Check to see if the refresh state is turned on
-            if($scope.user.Preferences.refreshState) {
+            if(this.user.Preferences.refreshState) {
               // Set the refresh interval for the Symbols
               SymbolList.interval = $interval(function(){
                   // Call the refresh method
                   SymbolList.refreshSymbols();
                 },
                 // Set the time of the refresh {Number} in milliseconds
-                $scope.user.Preferences.refreshRate);
+                this.user.Preferences.refreshRate);
             }
           };
 
           // Closes the modal
-          $scope.cancel = function () {
+          this.cancel = function () {
             $mdDialog.cancel();
           };
 
         }],
-        templateUrl: 'views/directives/modals/user-preferences.html',
+        bindToController: true,
+        controllerAs: '$ctrl',
+        templateUrl: 'views/modals/user-preferences.html',
         targetEvent: event
       });
     };

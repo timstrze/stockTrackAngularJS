@@ -1,14 +1,14 @@
 <div class="user-totals" show-lg style="max-height: 46px">
   <md-button class="md-secondary" aria-label="Daily P/L">
-    Daily P/L: {{dailyPNL | currency}}
+    Daily P/L: {{$ctrl.dailyPNL | currency}}
   </md-button>
   <md-button class="md-secondary" aria-label="Total P/L">
-    Total P/L: {{totalPNL | currency}}
+    Total P/L: {{$ctrl.totalPNL | currency}}
   </md-button>
   <md-button class="md-secondary" aria-label="Total Value">
-    Total Value: {{totalValue | currency}}
+    Total Value: {{$ctrl.totalValue | currency}}
   </md-button>
   <md-button class="md-secondary" aria-label="Available Cash">
-    Available Cash: {{user.availableCash | currency}}
+    Available Cash: {{$ctrl.user.availableCash | currency}}
   </md-button>
 </div>

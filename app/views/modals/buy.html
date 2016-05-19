@@ -1,16 +1,16 @@
-<md-dialog aria-label="{{symbol.Name}}" class="modal-buy">
+<md-dialog aria-label="{{$ctrl.symbol.Name}}" class="modal-buy">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Buy
               <span style="text-transform: uppercase;">
-                {{symbol.Symbol}}:
+                {{$ctrl.symbol.Symbol}}:
               </span>
-              <span ng-class="{positive: symbol.Change.indexOf('+') > -1, negative: symbol.Change.indexOf('-') > -1}">
-                {{symbol.Ask}} {{symbol.Change}} ({{symbol.ChangeinPercent}})
+              <span ng-class="{positive: $ctrl.symbol.Change.indexOf('+') > -1, negative: $ctrl.symbol.Change.indexOf('-') > -1}">
+                {{$ctrl.symbol.Ask}} {{$ctrl.symbol.Change}} ({{$ctrl.symbol.ChangeinPercent}})
               </span>
             </h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="cancel()">
+            <md-button class="md-icon-button" ng-click="$ctrl.cancel()">
                 <ng-md-icon icon="remove_circle_outline" size="20" style="fill:#fff;"
                             aria-label="Close dialog"></ng-md-icon>
             </md-button>
@@ -20,19 +20,19 @@
         <div class="md-toolbar-tools">
           <div layout="row" class="symbol-line">
             <div flex="20">
-              <p>Last: <br />{{symbol.LastTradePriceOnly}}</p>
+              <p>Last: <br />{{$ctrl.symbol.LastTradePriceOnly}}</p>
             </div>
             <div flex="20" class="row-right">
-              <p>Ask:  <br />{{symbol.Ask}}</p>
+              <p>Ask:  <br />{{$ctrl.symbol.Ask}}</p>
             </div>
             <div flex="20" class="row-right">
-              <p>Bid:  <br />{{symbol.Bid}}</p>
+              <p>Bid:  <br />{{$ctrl.symbol.Bid}}</p>
             </div>
             <div flex="20">
-              <p>High:  <br />{{symbol.DaysHigh}}</p>
+              <p>High:  <br />{{$ctrl.symbol.DaysHigh}}</p>
             </div>
             <div flex="20" class="row-right center">
-              <p>Low:  <br />{{symbol.DaysLow}}</p>
+              <p>Low:  <br />{{$ctrl.symbol.DaysLow}}</p>
             </div>
           </div>
         </div>
@@ -41,10 +41,10 @@
       <div class="md-toolbar-tools">
         <div layout="row" class="symbol-line">
           <div flex="50">
-            <p>Trade Cost: {{quantity * symbol.Ask | currency}}</p>
+            <p>Trade Cost: {{$ctrl.quantity * $ctrl.symbol.Ask | currency}}</p>
           </div>
           <div flex="50" class="row-right">
-            <p>Available Cash: {{user.availableCash | currency}}</p>
+            <p>Available Cash: {{$ctrl.user.availableCash | currency}}</p>
           </div>
         </div>
       </div>
@@ -57,37 +57,37 @@
 
         <md-input-container class="md-block">
           <label>Type</label>
-          <md-select ng-model="orderType">
-            <md-option ng-selected="$first" ng-repeat="orderType in Constants.orderTypes" value="{{orderType}}">{{orderType}}</md-option>
+          <md-select ng-model="$ctrl.orderType">
+            <md-option ng-selected="$first" ng-repeat="orderType in $ctrl.Constants.orderTypes" value="{{orderType}}">{{orderType}}</md-option>
           </md-select>
         </md-input-container>
 
         <md-input-container class="md-block">
           <label>Quantity</label>
-          <input required type="number" step="any" name="quantity" ng-model="quantity" min="1" max="9999999">
+          <input required type="number" step="any" name="quantity" ng-model="$ctrl.quantity" min="1" max="9999999">
         </md-input-container>
 
         <span ng-show="!limitLocked">
             <md-input-container class="md-icon-float">
               <label>Limit: </label>
-              <md-icon ng-click="lockLimit()" md-svg-src="images/icons/lock.svg"></md-icon>
-              <input type="text" required name="lastTradePriceOnly" ng-model="symbol.LastTradePriceOnly">
+              <md-icon ng-click="$ctrl.lockLimit()" md-svg-src="images/icons/lock.svg"></md-icon>
+              <input type="text" required name="lastTradePriceOnly" ng-model="$ctrl.symbol.LastTradePriceOnly">
             </md-input-container>
         </span>
 
-        <span ng-show="limitLocked">
-            <md-input-container ng-show="limitLocked" class="md-icon-float">
+        <span ng-show="$ctrl.limitLocked">
+            <md-input-container ng-show="$ctrl.limitLocked" class="md-icon-float">
               <label>Limit:</label>
-              <md-icon ng-click="unlockLimit()" md-svg-src="images/icons/lock-open.svg"></md-icon>
-              <input type="text" required name="lastTradePriceOnly" ng-model="symbol.LastTradePriceOnly">
+              <md-icon ng-click="$ctrl.unlockLimit()" md-svg-src="images/icons/lock-open.svg"></md-icon>
+              <input type="text" required name="lastTradePriceOnly" ng-model="$ctrl.symbol.LastTradePriceOnly">
             </md-input-container>
         </span>
 
         <md-input-container class="md-block">
           <label>Position Effect</label>
-          <md-select ng-model="positionEffects">
+          <md-select ng-model="$ctrl.positionEffects">
             <md-option ng-selected="$first"
-                       ng-repeat="positionEffect in Constants.positionEffects"
+                       ng-repeat="positionEffect in $ctrl.Constants.positionEffects"
                        value="{{positionEffect}}">
               {{positionEffect}}
             </md-option>
@@ -96,9 +96,9 @@
 
         <md-input-container class="md-block">
           <label>TIF</label>
-          <md-select ng-model="tif">
+          <md-select ng-model="$ctrl.tif">
             <md-option ng-selected="$first"
-                       ng-repeat="timesinForceforOrder in Constants.timesinForceforOrders"
+                       ng-repeat="timesinForceforOrder in $ctrl.Constants.timesinForceforOrders"
                        value="{{timesinForceforOrder}}">{{timesinForceforOrder}}
             </md-option>
           </md-select>
@@ -106,36 +106,36 @@
 
         <md-input-container class="md-block">
           <label>Instructions</label>
-          <input type="text" name="instruction" ng-model="instruction">
+          <input type="text" name="instruction" ng-model="$ctrl.instruction">
         </md-input-container>
 
         <md-input-container class="md-block">
           <label>Exchange</label>
-          <md-select disabled ng-model="exchange">
+          <md-select disabled ng-model="$ctrl.exchange">
             <md-option selected="true" value="best">Best</md-option>
           </md-select>
         </md-input-container>
 
         <md-input-container class="md-block">
           <label>Account</label>
-          <md-select ng-model="account">
-            <md-option selected="true" value="user.accountNickname">{{user.accountNickname}}</md-option>
+          <md-select ng-model="$ctrl.account">
+            <md-option selected="true" value="$ctrl.user.accountNickname">{{$ctrl.user.accountNickname}}</md-option>
           </md-select>
         </md-input-container>
       </form>
     </md-content>
     <md-content layout-gt-sm="row" layout-padding>
-      <p>Buy {{quantity}} shares of {{symbol.Symbol}} at {{symbol.Ask | currency}} a share for <b>{{quantity * symbol.Ask | currency}}</b></p>
-      <p>You will have {{user.availableCash -(quantity * symbol.Ask) | currency}} in remaining cash.</p>
+      <p>Buy {{$ctrl.quantity}} shares of {{$ctrl.symbol.Symbol}} at {{$ctrl.symbol.Ask | currency}} a share for <b>{{$ctrl.quantity * $ctrl.symbol.Ask | currency}}</b></p>
+      <p>You will have {{$ctrl.user.availableCash -($ctrl.quantity * $ctrl.symbol.Ask) | currency}} in remaining cash.</p>
     </md-content>
   </md-dialog-content>
 
   <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="cancel()" class="md-primary">
+      <md-button ng-click="$ctrl.cancel()" class="md-primary">
           Cancel
       </md-button>
-      <md-button ng-click="buy()" class="md-primary">
+      <md-button ng-click="$ctrl.buy()" class="md-primary">
           Buy
       </md-button>
   </md-dialog-actions>
