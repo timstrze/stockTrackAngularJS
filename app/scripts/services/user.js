@@ -305,6 +305,21 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
+     * @name refreshSymbols
+     * @methodOf stockTrackAngularJsApp.service:User
+     *
+     * @description
+     * Pass through to the SymbolList.refreshSymbols method.
+     *
+     */
+    User.prototype.refreshSymbols = function() {
+      SymbolList.refreshSymbols();
+    };
+
+
+
+    /**
+     * @ngdoc function
      * @name User.linkWatchlistSymbols
      * @methodOf stockTrackAngularJsApp.service:User
      *

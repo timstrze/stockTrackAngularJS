@@ -2,19 +2,43 @@
   <md-toolbar>
     <div class="md-toolbar-tools">
       <h2>
-        Positions ({{$ctrl.positions.length}})
+        Positions ({{$ctrl.user.Positions.length}})
       </h2>
       <span flex></span>
-      <md-button class="md-icon-button" aria-label="Refresh" ng-click="$ctrl.refreshSymbols()">
-        <ng-md-icon icon="refresh" style="fill: #fff" size="22"></ng-md-icon>
-      </md-button>
+      <md-menu md-offset="0 0">
+        <md-button aria-label="Open demo menu" ng-click="$mdOpenMenu($event)">
+          <ng-md-icon md-menu-origin icon="sort" style="fill: #fff" size="20"></ng-md-icon>
+        </md-button>
+        <md-menu-content width="2">
+          <md-menu-item>
+            <md-button aria-label="Refresh" ng-click="$ctrl.user.refreshSymbols()"> <span md-menu-align-target>Refresh</span></md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button aria-label="Sort A-Z" ng-click="$ctrl.sortSymbols('aToZ')"> <span md-menu-align-target>Sort A-Z</span></md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button aria-label="Sort Z-A" ng-click="$ctrl.sortSymbols('zToA')"> <span md-menu-align-target>Sort Z-A</span></md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button aria-label="Sort Daily PNL Asc" ng-click="$ctrl.sortPositions('sortDailyPNLAsc')"> <span md-menu-align-target>Sort Daily PNL Asc</span></md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button aria-label="Sort Daily PNL Desc" ng-click="$ctrl.sortPositions('sortDailyPNLDesc')"> <span md-menu-align-target>Sort Daily PNL Desc</span></md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button aria-label="Sort % Asc" ng-click="$ctrl.sortSymbols('sortChangeAsc')"> <span md-menu-align-target>Sort % Asc</span></md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button aria-label="Sort % Desc" ng-click="$ctrl.sortSymbols('sortChangeDesc')"> <span md-menu-align-target>Sort % Desc</span></md-button>
+          </md-menu-item>
+        </md-menu-content>
     </div>
   </md-toolbar>
 
   <md-content>
 
     <form ng-submit="$event.preventDefault()">
-      <md-input-container flex style="padding-bottom: 0;">
+      <md-input-container class="md-block" style="margin-bottom: -20px;">
         <label>Filter Positions</label>
         <input ng-model="$ctrl.searchText">
       </md-input-container>
@@ -22,7 +46,7 @@
 
     <md-content style="max-height:839px;">
       <md-list>
-        <md-list-item class="md-3-line" ng-repeat="position in $ctrl.positions | filter:$ctrl.searchText"
+        <md-list-item class="md-3-line" ng-repeat="position in $ctrl.user.Positions | filter:$ctrl.searchText"
                       ng-click="$ctrl.selectPosition(position)"
                       ng-class="{selected: false}">
           <div class="md-list-item-text">

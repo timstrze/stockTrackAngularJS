@@ -39,7 +39,7 @@
         <!--</md-tabs>-->
 
         <md-input-container>
-          <md-select ng-model="selectedHistoricalDateRange" placeholder="Select a Date"
+          <md-select ng-model="$ctrl.selectedHistoricalDateRange" placeholder="Select a Date"
                      ng-change="$ctrl.symbol.getHistoricalData(opt.startDate, opt.endDate)">
             <md-option ng-value="opt.slug" ng-repeat="opt in $ctrl.historicalDateRange">{{ opt.title }}</md-option>
           </md-select>
@@ -342,7 +342,7 @@
                         <p>Last Trade With Time:</p>
                       </div>
                       <div flex="50" class="row-right">
-                        <p>{{$ctrl.symbol.LastTradeWithTime}}</p>
+                        <p ng-bind-html="$ctrl.symbol.LastTradeWithTime"></p>
                       </div>
                     </div>
                   </md-list-item>
@@ -403,7 +403,7 @@
                       </div>
                     </div>
                   </md-list-item>
-
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -416,7 +416,7 @@
                       </div>
                     </div>
                   </md-list-item>
-
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -467,6 +467,7 @@
                       </div>
                     </div>
                   </md-list-item>
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -477,6 +478,7 @@
                       </div>
                     </div>
                   </md-list-item>
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -487,6 +489,7 @@
                       </div>
                     </div>
                   </md-list-item>
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -497,6 +500,7 @@
                       </div>
                     </div>
                   </md-list-item>
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -507,6 +511,7 @@
                       </div>
                     </div>
                   </md-list-item>
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -517,6 +522,7 @@
                       </div>
                     </div>
                   </md-list-item>
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -527,6 +533,7 @@
                       </div>
                     </div>
                   </md-list-item>
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -537,6 +544,7 @@
                       </div>
                     </div>
                   </md-list-item>
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -547,6 +555,7 @@
                       </div>
                     </div>
                   </md-list-item>
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -557,6 +566,7 @@
                       </div>
                     </div>
                   </md-list-item>
+                  <md-divider></md-divider>
                   <md-list-item class="stacked-details">
                     <div layout="row" class="stacked-details-row">
                       <div flex="50">
@@ -567,7 +577,6 @@
                       </div>
                     </div>
                   </md-list-item>
-
                 </md-list>
 
               </div>

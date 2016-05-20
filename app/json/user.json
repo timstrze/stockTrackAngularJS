@@ -12,7 +12,7 @@
     "postalCode": "60611",
     "email": "timstrze@gmail.com",
     "availableCash": 15000,
-    "WatchList": [
+    "WatchList2": [
       {
         "symbol": "ba"
       },
@@ -83,7 +83,7 @@
         "symbol": "RCL"
       }
     ],
-    "WatchList2": [
+    "WatchList": [
       {
         "symbol": "AAPL"
       },

@@ -40,11 +40,11 @@
       </md-sidenav>
       <md-sidenav ng-show="!$ctrl.showWatchlist && $ctrl.showPositions" class="md-sidenav-left md-whiteframe-z2" md-component-id="positions"
                   md-is-locked-open="$mdMedia('gt-md')">
-        <positions positions="$ctrl.User.Positions"></positions>
+        <positions user="$ctrl.User"></positions>
       </md-sidenav>
       <!--End Left Navbar-->
 
-      <watch-list-details user="User"
+      <watch-list-details user="$ctrl.User"
                           symbol="$ctrl.User.selectedSymbol">
       </watch-list-details>
 

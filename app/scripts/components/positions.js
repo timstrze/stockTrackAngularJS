@@ -15,11 +15,11 @@
 angular.module('stockTrackAngularJsApp')
   .component('positions', {
       bindings: {
-        positions: '='
+        user: '='
       },
       templateUrl: 'views/components/positions.html',
       restrict: 'E',
-      controller: ['SymbolList', '$scope',function (SymbolList, $scope) {
+      controller: ['SymbolList', 'Constants', '$filter', '$scope',function (SymbolList, Constants, $filter, $scope) {
 
         var _this = this;
 
@@ -35,7 +35,7 @@ angular.module('stockTrackAngularJsApp')
          */
         this.totalPositions = function() {
           // Loop over the User Positions
-          angular.forEach(this.positions, function(position) {
+          angular.forEach(this.user.Positions, function(position) {
             // Set the default values
             var totalQuantity = 0;
             var totalPNL = 0;
@@ -75,17 +75,58 @@ angular.module('stockTrackAngularJsApp')
         };
 
 
+
         /**
          * @ngdoc function
-         * @name refreshSymbols
+         * @name sortPositions
          * @methodOf stockTrackAngularJsApp.component:positions
          *
          * @description
          * Pass through to the SymbolList.refreshSymbols method.
          *
          */
-        this.refreshSymbols = function() {
-          SymbolList.refreshSymbols();
+        this.sortSymbols = function(type) {
+          $filter('orderWatchList')(this.user.Positions, type);
+        };
+
+
+
+        /**
+         * @ngdoc function
+         * @name sortPositions
+         * @methodOf stockTrackAngularJsApp.component:positions
+         *
+         * @description
+         * Pass through to the SymbolList.refreshSymbols method.
+         *
+         */
+        this.sortPositions = function(type) {
+          $filter('orderWatchList')(this.user.Positions, type);
+        };
+
+
+
+        /**
+         * @ngdoc function
+         * @name selectSymbol
+         * @methodOf stockTrackAngularJsApp.component:positions
+         *
+         * @description
+         * Sets the selected Symbol and get the historical graph data for the selected Symbol.
+         *
+         * @param {Object} symbol Symbol Object
+         *
+         */
+        this.selectSymbol = function (symbol) {
+          // Set the selected Symbol
+          this.user.selectedSymbol = symbol;
+          // Set the selected tab from the User Preferences
+          this.selectedTab = Constants.historicalDateRange()[this.user.Preferences.selectedHistoricalIndex];
+          // Clear the historicalData so the animation doesn't skip
+          this.user.selectedSymbol.historicalData = [];
+          // Get the historical graph data for the selected Symbol
+          symbol.getHistoricalData(this.selectedTab.startDate, this.selectedTab.endDate);
+          symbol.getSymbolNews();
         };
 
 
@@ -98,8 +139,8 @@ angular.module('stockTrackAngularJsApp')
          * Watches the User Positions and calls the totalPositions Function.
          *
          */
-        $scope.$watch('$ctrl.positions', function() {
-          if(_this.positions) {
+        $scope.$watch('$ctrl.user.Positions', function() {
+          if(_this.user && _this.user.Positions) {
             _this.totalPositions();
           }
         }, true);

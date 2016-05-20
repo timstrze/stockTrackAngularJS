@@ -71,21 +71,6 @@ angular.module('stockTrackAngularJsApp')
 
         /**
          * @ngdoc function
-         * @name refreshSymbols
-         * @methodOf stockTrackAngularJsApp.component:watch-list
-         *
-         * @description
-         * Pass through to the SymbolList.refreshSymbols method.
-         *
-         */
-        this.refreshSymbols = function() {
-          SymbolList.refreshSymbols();
-        };
-
-
-
-        /**
-         * @ngdoc function
          * @name chooseSymbol
          * @methodOf stockTrackAngularJsApp.component:watch-list
          *
