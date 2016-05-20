@@ -88,10 +88,10 @@
         "symbol": "AAPL"
       },
       {
-        "symbol": "AXP"
+        "symbol": "AMZN"
       },
       {
-        "symbol": "WFM"
+        "symbol": "MAR"
       },
       {
         "symbol": "DIS"
@@ -102,37 +102,12 @@
     ],
     "Positions": [
       {
-        "symbol": "AXP",
-        "buys": [
-          {
-            "ask": "79.41",
-            "quantity": 10,
-            "created": "2015-08-07 2:07:45 PM"
-          },
-          {
-            "ask": "79.61",
-            "quantity": 9,
-            "created": "2015-08-07 7:05:45 PM"
-          }
-        ]
-      },
-      {
         "symbol": "RCL",
         "buys": [
           {
-            "ask": "90.41",
-            "quantity": 92,
-            "created": "2015-08-06 2:05:45 PM"
-          }
-        ]
-      },
-      {
-        "symbol": "WFM",
-        "buys": [
-          {
-            "ask": "35.80",
-            "quantity": 52,
-            "created": "2015-08-03 2:05:45 PM"
+            "ask": "74.434168",
+            "quantity": 44,
+            "created": "2015-04-23 2:05:45 PM"
           }
         ]
       },
@@ -140,9 +115,39 @@
         "symbol": "DIS",
         "buys": [
           {
-            "ask": "109.80",
-            "quantity": 52,
-            "created": "2015-08-01 2:05:45 PM"
+            "ask": "98.7",
+            "quantity": 25,
+            "created": "2015-02-28 2:05:45 PM"
+          }
+        ]
+      },
+      {
+        "symbol": "MAR",
+        "buys": [
+          {
+            "ask": "67.063",
+            "quantity": 20,
+            "created": "2015-04-09 2:05:45 PM"
+          }
+        ]
+      },
+      {
+        "symbol": "AMZN",
+        "buys": [
+          {
+            "ask": "450.870296",
+            "quantity": 15,
+            "created": "2014-04-09 2:05:45 PM"
+          }
+        ]
+      },
+      {
+        "symbol": "AAPL",
+        "buys": [
+          {
+            "ask": "106.053",
+            "quantity": 12,
+            "created": "2014-03-27 2:05:45 PM"
           }
         ]
       }

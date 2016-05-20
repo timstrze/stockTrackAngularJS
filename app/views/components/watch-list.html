@@ -20,10 +20,10 @@
               <md-button aria-label="Sort Z-A" ng-click="$ctrl.sortWatchList('zToA')"> <span md-menu-align-target>Sort Z-A</span></md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button aria-label="Sort % Asc" ng-click="$ctrl.sortWatchList('sortChangeAsc')"> <span md-menu-align-target>Sort % Asc</span></md-button>
+              <md-button aria-label="Sort Change % Asc" ng-click="$ctrl.sortWatchList('sortChangeAsc')"> <span md-menu-align-target>Sort Change % Asc</span></md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button aria-label="Sort % Desc" ng-click="$ctrl.sortWatchList('sortChangeDesc')"> <span md-menu-align-target>Sort % Desc</span></md-button>
+              <md-button aria-label="Sort Change % Desc" ng-click="$ctrl.sortWatchList('sortChangeDesc')"> <span md-menu-align-target>Sort Change % Desc</span></md-button>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
@@ -46,7 +46,7 @@
 
         <md-content style="max-height:839px;">
             <md-list>
-                <md-list-item class="md-3-line" ng-repeat="watchListItem in $ctrl.user.WatchList" ng-click="$ctrl.selectSymbol(watchListItem.Symbol)"
+                <md-list-item class="md-3-line" ng-repeat="watchListItem in $ctrl.user.WatchList" ng-click="$ctrl.user.selectSymbol(watchListItem.Symbol)"
                               ng-class="{selected: watchListItem.Symbol == $ctrl.user.selectedSymbol}">
                     <div class="md-list-item-text">
 

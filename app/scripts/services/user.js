@@ -316,6 +316,33 @@ angular.module('stockTrackAngularJsApp')
       SymbolList.refreshSymbols();
     };
 
+    
+
+
+    /**
+     * @ngdoc function
+     * @name User.selectSymbol
+     * @methodOf stockTrackAngularJsApp.service:User
+     *
+     * @description
+     * Sets the selected Symbol and get the historical graph data for the selected Symbol.
+     *
+     * @param {Object} symbol Symbol Object
+     *
+     */
+    User.prototype.selectSymbol = function (symbol) {
+      // Set the selected Symbol
+      this.selectedSymbol = symbol;
+      // Set the selected tab from the User Preferences
+      this.selectedTab = Constants.historicalDateRange()[this.Preferences.selectedHistoricalIndex];
+      // Clear the historicalData so the animation doesn't skip
+      this.selectedSymbol.historicalData = [];
+      // Get the historical graph data for the selected Symbol
+      symbol.getHistoricalData(this.selectedTab.startDate, this.selectedTab.endDate);
+      symbol.getSymbolNews();
+    };
+    
+
 
 
     /**

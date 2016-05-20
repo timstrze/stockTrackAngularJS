@@ -64,7 +64,7 @@ angular.module('stockTrackAngularJsApp')
          *
          */
         this.sortWatchList = function(type) {
-          $filter('orderWatchList')(this.user.WatchList, type);
+          $filter('sortSymbols')(this.user.WatchList, type);
         };
 
 
@@ -98,31 +98,6 @@ angular.module('stockTrackAngularJsApp')
             // Set the selected Symbol
             this.selectSymbol(this.user.WatchList[0].Symbol);
           }
-        };
-
-
-
-        /**
-         * @ngdoc function
-         * @name selectSymbol
-         * @methodOf stockTrackAngularJsApp.component:watch-list
-         *
-         * @description
-         * Sets the selected Symbol and get the historical graph data for the selected Symbol.
-         *
-         * @param {Object} symbol Symbol Object
-         *
-         */
-        this.selectSymbol = function (symbol) {
-          // Set the selected Symbol
-          this.user.selectedSymbol = symbol;
-          // Set the selected tab from the User Preferences
-          this.selectedTab = Constants.historicalDateRange()[this.user.Preferences.selectedHistoricalIndex];
-          // Clear the historicalData so the animation doesn't skip
-          this.user.selectedSymbol.historicalData = [];
-          // Get the historical graph data for the selected Symbol
-          symbol.getHistoricalData(this.selectedTab.startDate, this.selectedTab.endDate);
-          symbol.getSymbolNews();
         };
 
 

@@ -11,25 +11,62 @@
         </md-button>
         <md-menu-content width="2">
           <md-menu-item>
-            <md-button aria-label="Refresh" ng-click="$ctrl.user.refreshSymbols()"> <span md-menu-align-target>Refresh</span></md-button>
+            <md-button aria-label="Refresh" ng-click="$ctrl.user.refreshSymbols()"><span
+              md-menu-align-target>Refresh</span></md-button>
+          </md-menu-item>
+
+          <md-menu-item>
+            <md-button aria-label="Sort A-Z" ng-click="$ctrl.sortSymbols('aToZ')"><span
+              md-menu-align-target>Sort A-Z</span></md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button aria-label="Sort A-Z" ng-click="$ctrl.sortSymbols('aToZ')"> <span md-menu-align-target>Sort A-Z</span></md-button>
+            <md-button aria-label="Sort Z-A" ng-click="$ctrl.sortSymbols('zToA')"><span
+              md-menu-align-target>Sort Z-A</span></md-button>
+          </md-menu-item>
+
+          <md-menu-item>
+            <md-button aria-label="Sort Daily P/L Asc" ng-click="$ctrl.sortPositions('sortDailyPNLAsc')"><span
+              md-menu-align-target>Sort Daily P/L Asc</span></md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button aria-label="Sort Z-A" ng-click="$ctrl.sortSymbols('zToA')"> <span md-menu-align-target>Sort Z-A</span></md-button>
+            <md-button aria-label="Sort Daily P/L Desc" ng-click="$ctrl.sortPositions('sortDailyPNLDesc')"><span
+              md-menu-align-target>Sort Daily P/L Desc</span></md-button>
+          </md-menu-item>
+
+          <md-menu-item>
+            <md-button aria-label="Sort Total P/L Asc" ng-click="$ctrl.sortPositions('sortTotalPNLAsc')"><span
+              md-menu-align-target>Sort Total P/L Asc</span></md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button aria-label="Sort Daily PNL Asc" ng-click="$ctrl.sortPositions('sortDailyPNLAsc')"> <span md-menu-align-target>Sort Daily PNL Asc</span></md-button>
+            <md-button aria-label="Sort Total P/L Desc" ng-click="$ctrl.sortPositions('sortTotalPNLDesc')"><span
+              md-menu-align-target>Sort Total P/L Desc</span></md-button>
+          </md-menu-item>
+
+          <md-menu-item>
+            <md-button aria-label="Sort Quantity Asc" ng-click="$ctrl.sortPositions('sortTotalQuantityAsc')"><span
+              md-menu-align-target>Sort Quantity Asc</span></md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button aria-label="Sort Daily PNL Desc" ng-click="$ctrl.sortPositions('sortDailyPNLDesc')"> <span md-menu-align-target>Sort Daily PNL Desc</span></md-button>
+            <md-button aria-label="Sort Quantity Desc" ng-click="$ctrl.sortPositions('sortTotalQuantityDesc')"><span
+              md-menu-align-target>Sort Quantity Desc</span></md-button>
+          </md-menu-item>
+
+          <md-menu-item>
+            <md-button aria-label="Sort Total Value Asc" ng-click="$ctrl.sortPositions('sortTotalValueAsc')"><span
+              md-menu-align-target>Sort Total Value Asc</span></md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button aria-label="Sort % Asc" ng-click="$ctrl.sortSymbols('sortChangeAsc')"> <span md-menu-align-target>Sort % Asc</span></md-button>
+            <md-button aria-label="Sort Total Value Desc" ng-click="$ctrl.sortPositions('sortTotalValueDesc')"><span
+              md-menu-align-target>Sort Total Value Desc</span></md-button>
+          </md-menu-item>
+
+          <md-menu-item>
+            <md-button aria-label="Sort Change % Asc" ng-click="$ctrl.sortSymbols('sortChangeAsc')"><span
+              md-menu-align-target>Sort Change % Asc</span></md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button aria-label="Sort % Desc" ng-click="$ctrl.sortSymbols('sortChangeDesc')"> <span md-menu-align-target>Sort % Desc</span></md-button>
+            <md-button aria-label="Sort Change % Desc" ng-click="$ctrl.sortSymbols('sortChangeDesc')"><span
+              md-menu-align-target>Sort Change % Desc</span></md-button>
           </md-menu-item>
         </md-menu-content>
     </div>
@@ -47,7 +84,7 @@
     <md-content style="max-height:839px;">
       <md-list>
         <md-list-item class="md-3-line" ng-repeat="position in $ctrl.user.Positions | filter:$ctrl.searchText"
-                      ng-click="$ctrl.selectPosition(position)"
+                      ng-click="$ctrl.user.selectSymbol(position.Symbol)"
                       ng-class="{selected: false}">
           <div class="md-list-item-text">
 
