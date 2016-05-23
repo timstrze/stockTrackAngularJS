@@ -59,6 +59,10 @@ angular.module('stockTrackAngularJsApp')
         _this.Accounts = new Accounts(results);
         // Creates the User Object and sets the scope variable
         _this.User = new User(results[0]);
+        // Set the theme from the Constants Object so it will fill out the form on first load
+        _this.User.Preferences.theme = Constants.themeTypes.find(function (theme) {
+          return theme.slug === _this.User.Preferences.theme.slug;
+        });
         // Initiates the Symbol list for the watchlist and positions
         _this.User.initSymbolList().then(function () {
           //* Link the Symbols in the position list to the Symbols in the SymbolList.

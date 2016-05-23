@@ -157,7 +157,12 @@
       "selectedHistoricalIndex": 2,
       "refreshState": true,
       "refreshRate": 10000,
-      "theme": "default"
+      "theme": {
+        "slug": "darkPurple",
+        "name": "Dark Purple",
+        "foreground": "#4682B4",
+        "background": "#FFFFFF"
+      }
     }
   },
   {
@@ -254,7 +259,12 @@
       "selectedHistoricalIndex": 2,
       "refreshState": true,
       "refreshRate": 10000,
-      "theme": "default"
+      "theme": {
+        "slug": "darkPurple",
+        "name": "Dark Purple",
+        "foreground": "#4682B4",
+        "background": "#FFFFFF"
+      }
     }
   }
 ]

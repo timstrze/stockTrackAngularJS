@@ -124,10 +124,6 @@ angular.module('stockTrackAngularJsApp')
       {
         title: 'Split View',
         slug: 'split-view'
-      },
-      {
-        title: 'Dark Theme',
-        slug: 'dark-theme'
       }
     ];
 
@@ -185,7 +181,35 @@ angular.module('stockTrackAngularJsApp')
      * @returns {Array} Returns an array of theme types
      *
      */
-    Constants.themeTypes = ['default', 'darkPurple', 'mintGreen', 'autumn'];
+
+    Constants.themeTypes = [
+      {
+        slug: 'default',
+        title: 'Default',
+        font: '#4682B4',
+        background: '#FFFFFF'
+      }, {
+        slug: 'dark',
+        title: 'Dark',
+        font: '#FFFFFF',
+        background: '#272727'
+      }, {
+        slug: 'darkPurple',
+        title: 'Dark Purple',
+        font: '#FFFFFF',
+        background: 'rgb(14,15,20)'
+      }, {
+        slug: 'mintGreen',
+        title: 'Mint Green',
+        font: 'rgba(0,0,0,0.54)',
+        background: 'rgb(210,211,209)'
+      }, {
+        slug: 'autumn',
+        title: 'Autumn',
+        font: 'rgba(0,0,0,0.54)',
+        background: 'rgb(255,228,143)'
+      }
+    ];
 
 
     /**
@@ -316,9 +340,6 @@ angular.module('stockTrackAngularJsApp')
       "WI": "Wisconsin",
       "WY": "Wyoming"
     };
-
-
-
 
 
     /**

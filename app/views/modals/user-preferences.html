@@ -1,4 +1,4 @@
-<md-dialog aria-label="{{$ctrl.symbol.Name}}" class="modal-user-preferences" md-theme="{{$ctrl.user.Preferences.theme}}">
+<md-dialog aria-label="{{$ctrl.symbol.Name}}" class="modal-user-preferences" md-theme="{{$ctrl.user.Preferences.theme.slug}}">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>User Settings
@@ -86,11 +86,10 @@
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
-            <label>Theme </label>
-            <md-select required ng-model="$ctrl.user.Preferences.theme">
-              <md-option ng-repeat="theme in $ctrl.Constants.themeTypes"
-                         value="{{theme}}">
-                {{theme}}
+            <label>Theme</label>
+            <md-select ng-model="$ctrl.user.Preferences.theme">
+              <md-option ng-value="theme" ng-repeat="theme in $ctrl.Constants.themeTypes">
+                {{theme.title}}
               </md-option>
             </md-select>
             <div ng-messages="userPreferencesForm.state.$error">
