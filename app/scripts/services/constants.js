@@ -176,6 +176,20 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
+     * @name Constants.themeTypes
+     * @propertyOf stockTrackAngularJsApp.service:Constants
+     *
+     * @description
+     * Returns an array of order types
+     *
+     * @returns {Array} Returns an array of theme types
+     *
+     */
+    Constants.themeTypes = ['default', 'darkPurple', 'mintGreen', 'autumn'];
+
+
+    /**
+     * @ngdoc function
      * @name Constants.fiveDaysFromtoday
      * @propertyOf stockTrackAngularJsApp.service:Constants
      *

@@ -156,7 +156,8 @@
       "selectedHistoricalData": "3-month",
       "selectedHistoricalIndex": 2,
       "refreshState": true,
-      "refreshRate": 10000
+      "refreshRate": 10000,
+      "theme": "default"
     }
   },
   {
@@ -252,7 +253,8 @@
       "selectedHistoricalData": "3-month",
       "selectedHistoricalIndex": 2,
       "refreshState": true,
-      "refreshRate": 10000
+      "refreshRate": 10000,
+      "theme": "default"
     }
   }
 ]

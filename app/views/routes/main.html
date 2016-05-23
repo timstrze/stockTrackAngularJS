@@ -1,10 +1,10 @@
-<div class="main-route">
+<div class="main-route" md-theme="{{$ctrl.User.Preferences.theme}}">
   <div ng-show="$ctrl.isLoading" layout="column" layout-margin
        style="position: fixed; top: -14px; left: 0px; width: 100%; z-index: 9999;">
     <md-progress-linear md-mode="indeterminate"></md-progress-linear>
   </div>
   <md-content>
-    <md-toolbar class="md-primary primary-toolbar">
+    <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
         <md-button aria-label="StockTracker" class="md-fab">
           <ng-md-icon md-menu-origin icon="equalizer" style="fill: #fff" size="20"></ng-md-icon>

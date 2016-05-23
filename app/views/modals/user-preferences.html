@@ -1,4 +1,4 @@
-<md-dialog aria-label="{{$ctrl.symbol.Name}}" class="modal-user-preferences">
+<md-dialog aria-label="{{$ctrl.symbol.Name}}" class="modal-user-preferences" md-theme="{{$ctrl.user.Preferences.theme}}">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>User Settings
@@ -82,7 +82,22 @@
         </form>
       </md-content>
 
-      <md-content>
+      <md-content layout-padding>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Theme </label>
+            <md-select required ng-model="$ctrl.user.Preferences.theme">
+              <md-option ng-repeat="theme in $ctrl.Constants.themeTypes"
+                         value="{{theme}}">
+                {{theme}}
+              </md-option>
+            </md-select>
+            <div ng-messages="userPreferencesForm.state.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+        </div>
 
         <div layout-gt-sm="row">
             <md-switch ng-model="$ctrl.user.Preferences.refreshState" aria-label="Symbol Refresh" ng-change="$ctrl.symbolRefreshChange()">

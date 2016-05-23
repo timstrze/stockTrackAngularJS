@@ -73,12 +73,12 @@ md-toolbar {
   border: 1px solid rgb(214, 214, 214);
 }
 
-.primary-toolbar {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#416dba+0,3f51b5+35,3f51b5+53,3b4aaa+100 */
-  background: #416dba; /* Old browsers */ /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */
-  background: linear-gradient(to bottom,  #416dba 0%,#3f51b5 35%,#3f51b5 53%,#3b4aaa 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#416dba', endColorstr='#3b4aaa',GradientType=0 ); /* IE6-9 */
-}
+/*.primary-toolbar {*/
+  /*!* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#416dba+0,3f51b5+35,3f51b5+53,3b4aaa+100 *!*/
+  /*background: #416dba; !* Old browsers *! !* FF3.6+ *! !* Chrome,Safari4+ *! !* Chrome10+,Safari5.1+ *! !* Opera 11.10+ *! !* IE10+ *!*/
+  /*background: linear-gradient(to bottom,  #416dba 0%,#3f51b5 35%,#3f51b5 53%,#3b4aaa 100%); !* W3C *!*/
+  /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#416dba', endColorstr='#3b4aaa',GradientType=0 ); !* IE6-9 *!*/
+/*}*/
 
 .md-button.md-fab {
   line-height: 45px;

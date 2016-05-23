@@ -96,7 +96,7 @@ angular.module('stockTrackAngularJsApp')
               Symbol: SymbolList.addSymbol(newSymbol)
             });
             // Set the selected Symbol
-            this.selectSymbol(this.user.WatchList[0].Symbol);
+            this.user.selectSymbol(this.user.WatchList[0].Symbol);
           }
         };
 

@@ -316,7 +316,7 @@ angular.module('stockTrackAngularJsApp')
       SymbolList.refreshSymbols();
     };
 
-    
+
 
 
     /**
@@ -341,7 +341,7 @@ angular.module('stockTrackAngularJsApp')
       symbol.getHistoricalData(this.selectedTab.startDate, this.selectedTab.endDate);
       symbol.getSymbolNews();
     };
-    
+
 
 
 

@@ -40,7 +40,6 @@ angular
     $httpProvider.interceptors.push('LoadingInterceptor');
 
   })
-  .config(function($mdThemingProvider) {
-    $mdThemingProvider.theme('default')
-      //.dark();
+  .config(function ($mdThemingProvider) {
+    $mdThemingProvider.alwaysWatchTheme(true);
   });

@@ -2,10 +2,10 @@
   <md-content flex>
 
     <!--Start Buy/Sell Toolbar-->
-    <md-toolbar class="md-primary">
+    <md-toolbar class="md-primary md-hue-2">
       <div class="md-toolbar-tools" ng-show="$ctrl.symbol.Symbol">
         <span class="chip"
-          ng-class="{positive: $ctrl.symbol.Change.indexOf('+') > -1, negative: $ctrl.symbol.Change.indexOf('-') > -1}">
+              ng-class="{positive: $ctrl.symbol.Change.indexOf('+') > -1, negative: $ctrl.symbol.Change.indexOf('-') > -1}">
            <span style="text-transform: uppercase;">
              {{$ctrl.symbol.Symbol}}:
            </span>
@@ -30,12 +30,12 @@
       <div flex="100" class="chart-buttons">
         <!--Start Historical Data Tab Switcher-->
         <!--<md-tabs md-selected="$ctrl.user.Preferences.selectedHistoricalIndex" md-border-bottom-->
-                 <!--style="min-height: inherit !important;">-->
-          <!--<md-tab ng-repeat="tab in historicalTabs"-->
-                  <!--ng-disabled="tab.disabled"-->
-                  <!--label="{{tab.title}}"-->
-                  <!--md-on-select="$ctrl.symbol.getHistoricalData(tab.startDate, tab.endDate)">-->
-          <!--</md-tab>-->
+        <!--style="min-height: inherit !important;">-->
+        <!--<md-tab ng-repeat="tab in historicalTabs"-->
+        <!--ng-disabled="tab.disabled"-->
+        <!--label="{{tab.title}}"-->
+        <!--md-on-select="$ctrl.symbol.getHistoricalData(tab.startDate, tab.endDate)">-->
+        <!--</md-tab>-->
         <!--</md-tabs>-->
 
         <md-input-container>
@@ -63,11 +63,12 @@
     </div>
 
     <!--Start Historical Data Line Chart-->
-    <div style="height:500px;" ng-class="{'use-cross-hairs': $ctrl.svgChartArtist.createLineActive, 'use-grab': $ctrl.svgChartArtist.selectItemActive}">
+    <div style="height:500px;"
+         ng-class="{'use-cross-hairs': $ctrl.svgChartArtist.createLineActive, 'use-grab': $ctrl.svgChartArtist.selectItemActive}">
       <svg-chart subPlots="$ctrl.user.Positions[0].buys"
-                  selected-extras="$ctrl.selectedExtras"
-                  selected-chart="$ctrl.selectedChart"
-                  chart-data="$ctrl.symbol.historicalData">
+                 selected-extras="$ctrl.selectedExtras"
+                 selected-chart="$ctrl.selectedChart"
+                 chart-data="$ctrl.symbol.historicalData">
       </svg-chart>
     </div>
 
@@ -342,7 +343,8 @@
                         <p>Last Trade With Time:</p>
                       </div>
                       <div flex="50" class="row-right">
-                        <p ng-bind-html="$ctrl.symbol.LastTradeWithTime"></p>
+                        <p>{{$ctrl.symbol.LastTradeWithTime}}</p>
+                        <p ng-bind-html-unsafe="$ctrl.symbol.LastTradeWithTime"></p>
                       </div>
                     </div>
                   </md-list-item>
@@ -437,7 +439,8 @@
                       </div>
                       <div flex="50" class="row-right">
                         <p>
-                          <color-number number="$ctrl.symbol.PercentChangeFromTwoHundreddayMovingAverage"></color-number>
+                          <color-number
+                            number="$ctrl.symbol.PercentChangeFromTwoHundreddayMovingAverage"></color-number>
                         </p>
                       </div>
                     </div>
@@ -585,7 +588,7 @@
           <md-tab label="earnings">
             <div layout="column" flex layout-fill ng-cloak>
               <!--<md-toolbar md-scroll-shrink>-->
-                <!--<div class="md-toolbar-tools">{{$ctrl.symbol.Name}}</div>-->
+              <!--<div class="md-toolbar-tools">{{$ctrl.symbol.Name}}</div>-->
               <!--</md-toolbar>-->
               <md-content ng-hide="!positions.buys">
                 <section>
@@ -596,7 +599,8 @@
                     Total Value: {{positions.totalValue}}
                   </md-subheader>
                   <md-list layout-padding>
-                    <md-list-item class="md-3-line" ng-repeat="position in positions.buys | orderBy:position.created:true">
+                    <md-list-item class="md-3-line"
+                                  ng-repeat="position in positions.buys | orderBy:position.created:true">
                       <img ng-src="{{message.face}}" class="md-avatar" alt="{{message.who}}">
 
                       <div class="md-list-item-text">
@@ -622,7 +626,7 @@
           </md-tab>
           <md-tab label="news">
             <md-list ng-repeat="newsItem in $ctrl.symbol.$news">
-              <md-list-item class="md-3-line" ng-click="openNewsWindow(newsItem.unescapedUrl)">
+              <md-list-item class="md-3-line" ng-click="$ctrl.openNewsWindow(newsItem.unescapedUrl)">
                 <img ng-src="{{newsItem.image.url}}" class="md-avatar" alt="{{newsItem.who}}"/>
 
                 <div class="md-list-item-text" layout="column">
@@ -636,7 +640,11 @@
             </md-list>
           </md-tab>
           <md-tab label="activity">
-            Activity
+            <md-content class="md-padding">
+              <section>
+                <h3>Activity</h3>
+              </section>
+            </md-content>
           </md-tab>
         </md-tabs>
       </md-content>
