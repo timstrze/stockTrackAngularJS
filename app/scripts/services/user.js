@@ -36,10 +36,37 @@ angular.module('stockTrackAngularJsApp')
       id: '@id'
     }, {
       get: {
-        method: 'GET',
-        isArray: true
+        method: 'GET'
       }
     });
+
+
+
+
+
+    /**
+     * @ngdoc function
+     * @name changeWatchList
+     * @methodOf stockTrackAngularJsApp.services:User
+     *
+     * @description
+     * Create the initial Symbol List from the User's watch list and position list.
+     *
+     * @return {Object} Returns the Promise from getting all the Symbol data
+     */
+    User.prototype.changeWatchList = function () {
+      // Create the initial Symbol List from the User's watch list and position list
+      var _this = this;
+      // Initiates the Symbol list for the watchlist and positions
+      this.initSymbolList().then(function () {
+        //* Link the Symbols in the position list to the Symbols in the SymbolList.
+        _this.linkPositionSymbols();
+        // Set the Symbols in the watch list
+        _this.linkWatchlistSymbols();
+        // Set the selected Symbol
+        _this.selectSymbol(_this.selectedAccount.selectedWatchList.Symbols[0]);
+      });
+    };
 
 
 
@@ -213,21 +240,21 @@ angular.module('stockTrackAngularJsApp')
       // Create a reference to this
       var _this = this;
       // Check to see if the User has enough cash to make the trade
-      if ((this.user.availableCash - (this.quantity * this.symbol.Ask) < 0)) {
+      if ((this.user.selectedAccount.availableCash - (this.quantity * this.symbol.Ask) < 0)) {
         // Alert the User
         $window.alert('Sorry, not enough available cash for this transaction.');
         // Return false to end the function
         return false;
       }
       // Check to see if the Symbol is already in the Positions list
-      var isInPositions = this.user.Positions.some(function(position) {
+      var isInPositions = this.user.selectedAccount.Positions.some(function(position) {
         // Return true if the Symbols match
         return position.Symbol.Symbol.toLowerCase() === _this.symbol.Symbol.toLowerCase();
       });
       // If the Symbol is already in the Positions list then you push to the existing Position
       if (isInPositions) {
         // Loop over the Positions
-        angular.forEach(this.user.Positions, function (position) {
+        angular.forEach(this.user.selectedAccount.Positions, function (position) {
           // Check to see if Symbols match
           if (position.Symbol.Symbol.toLowerCase() === _this.symbol.Symbol.toLowerCase()) {
             // Push the buy into the Position
@@ -241,7 +268,7 @@ angular.module('stockTrackAngularJsApp')
         // The Symbol is not in the Positions list
       } else {
         // Add the new Position to the top of the list
-        this.user.Positions.unshift({
+        this.user.selectedAccount.Positions.unshift({
           Symbol: this.symbol,
           symbol: this.symbol.Symbol,
           buys: [{
@@ -252,9 +279,28 @@ angular.module('stockTrackAngularJsApp')
         });
       }
       // Update the User's available cash
-      this.user.availableCash = this.user.availableCash - (this.quantity * this.symbol.Ask);
+      this.user.selectedAccount.availableCash = this.user.selectedAccount.availableCash - (this.quantity * this.symbol.Ask);
       // Close the modal window
       $mdDialog.cancel();
+    };
+
+
+
+    /**
+     * @ngdoc function
+     * @name User.selectAccount
+     * @methodOf stockTrackAngularJsApp.service:User
+     *
+     * @description
+     * Create the initial Symbol List from the User's watch list and position list.
+     *
+     * @return {Object} Returns the Promise from getting all the Symbol data
+     */
+    User.prototype.selectAccount = function () {
+      // Create the initial Symbol List from the User's watch list and position list
+      this.selectedAccount.selectedWatchList = this.selectedAccount.WatchLists[0];
+      // Changes and initiates the Symbol list for the watchlist and positions
+      this.changeWatchList();
     };
 
 
@@ -267,11 +313,11 @@ angular.module('stockTrackAngularJsApp')
      * @description
      * Create the initial Symbol List from the User's watch list and position list.
      *
-     * @return {Promise} Returns the promise from getting all the Symbol data
+     * @return {Object} Returns the Promise from getting all the Symbol data
      */
     User.prototype.initSymbolList = function () {
       // Create the initial Symbol List from the User's watch list and position list
-      return SymbolList.init(this.WatchList, this.Positions, this.Preferences);
+      return SymbolList.init(this.selectedAccount.selectedWatchList, this.selectedAccount.Positions, this.Preferences);
     };
 
 
@@ -289,7 +335,7 @@ angular.module('stockTrackAngularJsApp')
       // Reference the Symbols in the SymbolList
       var symbols = SymbolList.Symbols;
       // Loop through the User.Positions
-      angular.forEach(this.Positions, function(position) {
+      angular.forEach(this.selectedAccount.Positions, function(position) {
         // Loops through the SymbolList
         angular.forEach(symbols, function(smbl) {
           // Check if Symbols match
@@ -332,14 +378,14 @@ angular.module('stockTrackAngularJsApp')
      */
     User.prototype.selectSymbol = function (symbol) {
       // Set the selected Symbol
-      this.selectedSymbol = symbol;
+      this.selectedAccount.selectedSymbol = symbol;
       // Set the selected tab from the User Preferences
       this.selectedTab = Constants.historicalDateRange()[this.Preferences.selectedHistoricalIndex];
       // Clear the historicalData so the animation doesn't skip
-      this.selectedSymbol.historicalData = [];
+      this.selectedAccount.selectedSymbol.historicalData = [];
       // Get the historical graph data for the selected Symbol
-      symbol.getHistoricalData(this.selectedTab.startDate, this.selectedTab.endDate);
-      symbol.getSymbolNews();
+      symbol.Symbol.getHistoricalData(this.selectedTab.startDate, this.selectedTab.endDate);
+      symbol.Symbol.getSymbolNews();
     };
 
 
@@ -358,7 +404,7 @@ angular.module('stockTrackAngularJsApp')
       // Reference the Symbols in the SymbolList
       var symbols = SymbolList.Symbols;
       // Loop through the User.WatchList
-      angular.forEach(this.WatchList, function(watchList) {
+      angular.forEach(this.selectedAccount.selectedWatchList.Symbols, function(watchList) {
         // Loops through the SymbolList
         angular.forEach(symbols, function(smbl) {
           // Check if Symbols match

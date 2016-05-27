@@ -1,9 +1,11 @@
 <div class="watch-list">
     <md-toolbar class="md-primary md-hue-2">
       <div class="md-toolbar-tools">
-        <h2>
-          Watchlist ({{$ctrl.user.WatchList.length}})
-        </h2>
+          <md-select aria-label="Select Watch List" ng-model="$ctrl.user.selectedAccount.selectedWatchList" ng-change="$ctrl.user.changeWatchList()">
+            <md-option ng-value="watchList" ng-repeat="watchList in $ctrl.user.selectedAccount.WatchLists">
+              {{watchList.title}} ({{watchList.Symbols.length}})
+            </md-option>
+          </md-select>
         <span flex></span>
         <md-menu md-offset="0 0">
           <md-button aria-label="Open demo menu" ng-click="$mdOpenMenu($event)">
@@ -11,7 +13,16 @@
           </md-button>
           <md-menu-content width="2">
             <md-menu-item>
-              <md-button aria-label="Refresh" ng-click="$ctrl.user.refreshSymbols()"> <span md-menu-align-target>Refresh</span></md-button>
+              <md-button aria-label="Create Watchlist" ng-click="$ctrl.openCreateWatchlistModal($event)"> <span md-menu-align-target>Create Watchlist</span></md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-disabled="$ctrl.user.selectedAccount.WatchLists.length < 2" aria-label="Delete Watchlist" ng-click="$ctrl.deleteWatchlist($event)"> <span md-menu-align-target>Delete Watchlist</span></md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="Minimize Maximize WatchList" ng-click="$ctrl.minimizeWatchList()"> <span ng-if="!$ctrl.user.Preferences.minimizeWatchListView" md-menu-align-target>Minimize WatchList</span> <span ng-if="$ctrl.user.Preferences.minimizeWatchListView" md-menu-align-target>Maximize WatchList</span></md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="Refresh Symbols" ng-click="$ctrl.user.refreshSymbols()"> <span md-menu-align-target>Refresh</span></md-button>
             </md-menu-item>
             <md-menu-item>
               <md-button aria-label="Sort A-Z" ng-click="$ctrl.sortWatchList('aToZ')"> <span md-menu-align-target>Sort A-Z</span></md-button>
@@ -46,32 +57,21 @@
 
         <md-content style="max-height:839px;">
             <md-list>
-                <md-list-item class="md-3-line" ng-repeat="watchListItem in $ctrl.user.WatchList" ng-click="$ctrl.user.selectSymbol(watchListItem.Symbol)"
-                              ng-class="{selected: watchListItem.Symbol == $ctrl.user.selectedSymbol}">
+                <md-list-item ng-class="{'md-3-line': !$ctrl.user.Preferences.minimizeWatchListView, 'md-2-line': $ctrl.user.Preferences.minimizeWatchListView}" ng-repeat="watchListItem in $ctrl.user.selectedAccount.selectedWatchList.Symbols"
+                              ng-click="$ctrl.user.selectSymbol(watchListItem)"
+                              ng-class="{selected: watchListItem.Symbol == $ctrl.user.selectedAccount.selectedSymbol}">
                     <div class="md-list-item-text">
-
-                          <!--<span style="text-transform: uppercase;">{{watchListItem.Symbol.Symbol}}:</span>-->
-                          <!--<span class="chip" ng-class="{positive: watchListItem.Symbol.Change.indexOf('+') > -1, negative: watchListItem.Symbol.Change.indexOf('-') > -1}">-->
-                            <!--<span style="text-transform: uppercase;">-->
-                             <!--{{watchListItem.Symbol.Symbol}}:-->
-                            <!--</span>-->
-                            <!--<span>-->
-                            <!--{{watchListItem.Symbol.Ask | number:2}} {{watchListItem.Symbol.Change}} ({{watchListItem.Symbol.ChangeinPercent}})-->
-                            <!--</span>-->
-                          <!--</span>-->
-
-
                         <h3>
                           <span style="text-transform: uppercase;">{{watchListItem.Symbol.Symbol}}:</span> <span
                           ng-class="{positive: watchListItem.Symbol.Change.indexOf('+') > -1, negative: watchListItem.Symbol.Change.indexOf('-') > -1}">{{watchListItem.Symbol.Ask}} {{watchListItem.Symbol.Change}} ({{watchListItem.Symbol.ChangeinPercent}})</span>
                         </h3>
-
-
-                        <!--<h4>{{watchListItem.Symbol.Name}}</h4>-->
-                        <p style="float:left;">
+                        <p ng-show="!$ctrl.user.Preferences.minimizeWatchListView" style="float:left;">
                           Day's Range: {{watchListItem.Symbol.DaysRange}}
                         </p>
-                        <spark-line ng-if="$ctrl.user.Preferences.refreshState && watchListItem.Symbol.askHistory.length > 0" symbol="watchListItem.Symbol"></spark-line>
+                        <p ng-show="!$ctrl.user.Preferences.minimizeWatchListView" style="float:left;">
+                          Previous Close: {{watchListItem.Symbol.PreviousClose}}
+                        </p>
+                        <spark-line ng-if="!$ctrl.user.Preferences.minimizeWatchListView && $ctrl.user.Preferences.refreshState && watchListItem.Symbol.askHistory.length > 0" symbol="watchListItem.Symbol"></spark-line>
                     </div>
 
                     <md-menu>

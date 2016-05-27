@@ -88,7 +88,7 @@ angular.module('stockTrackAngularJsApp')
       },
       {
         title: 'Volume',
-        slug: 'volume'
+        slug: 'volume-chart'
       }
     ];
 
@@ -118,7 +118,7 @@ angular.module('stockTrackAngularJsApp')
         slug: 'data-points'
       },
       {
-        title: 'Sub Plot Points',
+        title: 'Positions',
         slug: 'sub-plot-points'
       },
       {
@@ -186,7 +186,7 @@ angular.module('stockTrackAngularJsApp')
       {
         slug: 'default',
         title: 'Default',
-        font: '#4682B4',
+        font: 'rgba(0,0,0,0.54)',
         background: '#FFFFFF'
       }, {
         slug: 'dark',
@@ -208,6 +208,11 @@ angular.module('stockTrackAngularJsApp')
         title: 'Autumn',
         font: 'rgba(0,0,0,0.54)',
         background: 'rgb(255,228,143)'
+      }, {
+        slug: 'blueGreen',
+        title: 'Blue Green',
+        font: 'rgba(0,0,0,0.54)',
+        background: 'rgb(248,250,250)'
       }
     ];
 

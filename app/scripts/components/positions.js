@@ -35,7 +35,7 @@ angular.module('stockTrackAngularJsApp')
          */
         this.totalPositions = function() {
           // Loop over the User Positions
-          angular.forEach(this.user.Positions, function(position) {
+          angular.forEach(this.user.selectedAccount.Positions, function(position) {
             // Set the default values
             var totalQuantity = 0;
             var totalPNL = 0;
@@ -86,7 +86,7 @@ angular.module('stockTrackAngularJsApp')
          *
          */
         this.sortSymbols = function(type) {
-          $filter('sortSymbols')(this.user.Positions, type);
+          $filter('sortSymbols')(this.user.selectedAccount.Positions, type);
         };
 
 
@@ -101,7 +101,7 @@ angular.module('stockTrackAngularJsApp')
          *
          */
         this.sortPositions = function(type) {
-          $filter('sortSymbols')(this.user.Positions, type);
+          $filter('sortSymbols')(this.user.selectedAccount.Positions, type);
         };
 
 
@@ -114,8 +114,8 @@ angular.module('stockTrackAngularJsApp')
          * Watches the User Positions and calls the totalPositions Function.
          *
          */
-        $scope.$watch('$ctrl.user.Positions', function() {
-          if(_this.user && _this.user.Positions) {
+        $scope.$watch('$ctrl.user.selectedAccount.Positions', function() {
+          if(_this.user && _this.user.selectedAccount && _this.user.selectedAccount.Positions) {
             _this.totalPositions();
           }
         }, true);

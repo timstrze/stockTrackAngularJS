@@ -39,7 +39,7 @@ angular.module('stockTrackAngularJsApp')
           var totalPNL = 0;
           var totalValue = 0;
           // Loop over the User Positions
-          angular.forEach(this.user.Positions, function(position) {
+          angular.forEach(this.user.selectedAccount.Positions, function(position) {
             // Add the Positions total PNL to the User's total PNL
             totalPNL = totalPNL + position.totalPNL;
             // Add the Positions daily PNL to the User's daily PNL
@@ -48,6 +48,7 @@ angular.module('stockTrackAngularJsApp')
             totalValue = totalValue + position.totalValue;
           });
           // Set the scope values
+          this.netLiquidity = totalValue + this.user.selectedAccount.availableCash;
           this.dailyPNL = dailyPNL;
           this.totalPNL = totalPNL;
           this.totalValue = totalValue;
@@ -63,8 +64,8 @@ angular.module('stockTrackAngularJsApp')
          * Watches the User Positions calls the calculateTotals Function.
          *
          */
-        $scope.$watch('$ctrl.user.Positions', function() {
-          if(_this.user && _this.user.Positions) {
+        $scope.$watch('$ctrl.user.selectedAccount.Positions', function() {
+          if(_this.user && _this.user.selectedAccount && _this.user.selectedAccount.Positions) {
             _this.calculateTotals();
           }
         }, true);

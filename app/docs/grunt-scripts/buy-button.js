@@ -39,7 +39,7 @@ angular.module('stockTrackAngularJsApp')
          */
         $scope.buy = function () {
           // Check to see if the User has enough cash to make the trade
-          if (($scope.user.availableCash - ($scope.quantity * $scope.symbol.Ask) < 0)) {
+          if (($scope.user.selectedAccount.availableCash - ($scope.quantity * $scope.symbol.Ask) < 0)) {
             // Alert the User
             $window.alert('Sorry, not enough available cash for this transaction.');
             // Return false to end the function
@@ -78,7 +78,7 @@ angular.module('stockTrackAngularJsApp')
             });
           }
           // Update the User's available cash
-          $scope.user.availableCash = $scope.user.availableCash - ($scope.quantity * $scope.symbol.Ask);
+          $scope.user.selectedAccount.availableCash = $scope.user.selectedAccount.availableCash - ($scope.quantity * $scope.symbol.Ask);
           // Close the modal window
           $mdDialog.cancel();
         };

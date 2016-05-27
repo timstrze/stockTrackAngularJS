@@ -54,6 +54,104 @@ angular.module('stockTrackAngularJsApp')
 
 
 
+
+
+
+        /**
+         * @ngdoc function
+         * @name openCreateWatchlistModal
+         * @methodOf stockTrackAngularJsApp.component:watch-list
+         *
+         * @description
+         * Opens the sell modal. Sets the default quantity to 1.
+         *
+         */
+        this.openCreateWatchlistModal = function (event) {
+          // Create a reference to this
+          var _this = this;
+          // Open sell modal
+          $mdDialog.show({
+            controller: function () {
+              // Set the User
+              this.user = _this.user;
+              this.search = _this.search;
+
+              this.symbolSuggestions = SymbolList.createUniqueSymbolList();
+
+              this.symbolSuggestions = $filter('limitTo')(this.symbolSuggestions, 10);
+
+              this.symbolList = [];
+
+              this.chooseSymbol = function(item) {
+                if(item) {
+                  this.symbolList.push(item.Symbol);
+                  var symbolPlacement = this.symbolSuggestions.findIndex(function(symbol){ return symbol.toLowerCase() === item.Symbol.toLowerCase();});
+
+                  if(symbolPlacement > -1) {
+                    this.symbolSuggestions.splice(symbolPlacement, 1);
+                  }
+                  this.searchText = '';
+                }
+              };
+              // Closes the modal
+              this.cancel = function () {
+                $mdDialog.cancel();
+              };
+              // Closes the modal
+              this.addSymbolToWatchlist = function (chip) {
+                this.symbolList.push(chip);
+
+                var symbolPlacement = this.symbolSuggestions.indexOf(chip);
+
+                if(symbolPlacement > -1) {
+                  this.symbolSuggestions.splice(symbolPlacement, 1);
+                }
+              };
+              // Closes the modal
+              this.create = function () {
+                if(this.newWatchlistTitle) {
+
+                  var newList = {
+                    title: this.newWatchlistTitle,
+                    Symbols: this.symbolList.map(function (sl) {
+                      return {
+                        symbol: sl
+                      };
+                    })
+                  };
+
+                  this.user.selectedAccount.WatchLists.unshift(newList);
+                  this.user.selectedAccount.selectedWatchList = this.user.selectedAccount.WatchLists[0];
+                  this.user.changeWatchList();
+
+                  $mdDialog.cancel();
+                }
+              };
+            },
+            bindToController: true,
+            controllerAs: '$ctrl',
+            templateUrl: 'views/modals/watchlist-create.html',
+            targetEvent: event
+          });
+        };
+
+
+
+        /**
+         * @ngdoc function
+         * @name minimizeWatchList
+         * @methodOf stockTrackAngularJsApp.component:watch-list
+         *
+         * @description
+         * Pass through to the SymbolList.refreshSymbols method.
+         *
+         */
+        this.minimizeWatchList = function() {
+          this.user.Preferences.minimizeWatchListView = !this.user.Preferences.minimizeWatchListView;
+        };
+
+
+
         /**
          * @ngdoc function
          * @name sortWatchList
@@ -64,7 +162,37 @@ angular.module('stockTrackAngularJsApp')
          *
          */
         this.sortWatchList = function(type) {
-          $filter('sortSymbols')(this.user.WatchList, type);
+          $filter('sortSymbols')(this.user.selectedAccount.selectedWatchList.Symbols, type);
+        };
+
+
+
+        /**
+         * @ngdoc function
+         * @name createWatchlist
+         * @methodOf stockTrackAngularJsApp.component:watch-list
+         *
+         * @description
+         * Pass through to the SymbolList.refreshSymbols method.
+         *
+         */
+        this.deleteWatchlist = function (event) {
+          var _this = this;
+          // Build confirm object
+          var confirm = $mdDialog.confirm()
+            .parent(angular.element(document.body))
+            .title('Remove the watch list')
+            .content('Would you like to remove the watch list titled "' + _this.user.selectedAccount.selectedWatchList.title + '"?')
+            .ariaLabel('Remove watch list?')
+            .ok('Remove')
+            .cancel('Keep')
+            .targetEvent(event);
+          // Display the confirm window
+          $mdDialog.show(confirm).then(function () {
+            _this.user.selectedAccount.WatchLists.splice(_this.user.selectedAccount.WatchLists.indexOf(_this.user.selectedAccount.selectedWatchList), 1);
+            _this.user.selectedAccount.selectedWatchList = _this.user.selectedAccount.WatchLists[0];
+            _this.user.changeWatchList();
+          });
         };
 
 
@@ -87,16 +215,16 @@ angular.module('stockTrackAngularJsApp')
             // Reset the type-ahead text box
             this.searchText = '';
             // Check to see if the type-ahead Symbol is in the User WatchList
-            if(this.user.WatchList.some(function(wlSymbol) {return wlSymbol.symbol.toLowerCase() === newSymbol.symbol.toLowerCase();})) {
+            if(this.user.selectedAccount.selectedWatchList.Symbols.some(function(wlSymbol) {return wlSymbol.symbol.toLowerCase() === newSymbol.symbol.toLowerCase();})) {
               return false;
             }
             // Add new symbol to the symbol list
-            this.user.WatchList.unshift({
+            this.user.selectedAccount.selectedWatchList.Symbols.unshift({
               symbol: newSymbol.symbol,
               Symbol: SymbolList.addSymbol(newSymbol)
             });
             // Set the selected Symbol
-            this.user.selectSymbol(this.user.WatchList[0].Symbol);
+            this.user.selectSymbol(this.user.selectedAccount.selectedWatchList.Symbols[0]);
           }
         };
 
@@ -131,20 +259,13 @@ angular.module('stockTrackAngularJsApp')
             // Remove the Symbol from SymbolList if it is not in Positions
             SymbolList.removeSymbol(symbol);
             // Find the index of the Symbol in the watch list
-            var index = _this.user.WatchList.map(function (wlSymbol) {
+            var index = _this.user.selectedAccount.selectedWatchList.Symbols.map(function (wlSymbol) {
               return wlSymbol.Symbol;
             }).indexOf(symbol);
             // Remove the Symbol from the watch list
-            _this.user.WatchList.splice(index, 1);
-            // Set the selected symbol from the first watch list item
-            _this.user.selectedSymbol = _this.user.WatchList[0].Symbol;
-            // Set the selected tab from the User Preferences
-            _this.selectedTab = Constants.historicalDateRange()[_this.user.Preferences.selectedHistoricalIndex];
-            // Clear thehistoricalData so the animation doesn't skip
-            _this.user.selectedSymbol.historicalData = [];
-            // Get the historical graph data for the selected Symbol
-            _this.user.selectedSymbol.getHistoricalData(_this.selectedTab.startDate, _this.selectedTab.endDate);
-            _this.user.selectedSymbol.getSymbolNews();
+            _this.user.selectedAccount.selectedWatchList.Symbols.splice(index, 1);
+            // Set the selected Symbol
+            _this.user.selectSymbol(_this.user.selectedAccount.selectedWatchList.Symbols[0]);
           });
         };
 

@@ -2,7 +2,7 @@
   <md-toolbar class="md-primary md-hue-2">
     <div class="md-toolbar-tools">
       <h2>
-        Positions ({{$ctrl.user.Positions.length}})
+        Positions ({{$ctrl.user.selectedAccount.Positions.length}})
       </h2>
       <span flex></span>
       <md-menu md-offset="0 0">
@@ -83,8 +83,8 @@
 
     <md-content style="max-height:839px;">
       <md-list>
-        <md-list-item class="md-3-line" ng-repeat="position in $ctrl.user.Positions | filter:$ctrl.searchText"
-                      ng-click="$ctrl.user.selectSymbol(position.Symbol)"
+        <md-list-item class="md-3-line" ng-repeat="position in $ctrl.user.selectedAccount.Positions | filter:$ctrl.searchText"
+                      ng-click="$ctrl.user.selectSymbol(position)"
                       ng-class="{selected: false}">
           <div class="md-list-item-text">
 

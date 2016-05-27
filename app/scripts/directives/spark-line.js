@@ -57,10 +57,10 @@ angular.module('stockTrackAngularJsApp')
 
         $scope.yAxis = $scope.svg.append('g');
 
-        $scope.yOpenLine = $scope.svg.append("line");
+        $scope.yPreviousCloseLine = $scope.svg.append("line");
         $scope.yAskLine = $scope.svg.append("line");
 
-        $scope.openCircle = $scope.svg.append("circle");
+        $scope.previousCloseCircle = $scope.svg.append("circle");
         $scope.askCircle = $scope.svg.append("circle");
 
 
@@ -90,7 +90,7 @@ angular.module('stockTrackAngularJsApp')
         $scope.sparkLine = $scope.svg.append('svg:path');
 
         var isUpDay = function(d) {
-          return d.Ask > d.Open;
+          return d.Ask > d.PreviousClose;
         };
 
 
@@ -147,7 +147,7 @@ angular.module('stockTrackAngularJsApp')
 
 
 
-          $scope.yOpenLine
+          $scope.yPreviousCloseLine
             .attr("x1", 3)
             .attr("y1", 3)
             .attr("x2", 3)
@@ -166,7 +166,7 @@ angular.module('stockTrackAngularJsApp')
           $scope.askCircle
             .attr("cx", 3)
             .attr("cy", function (d) {
-              return $scope.y($scope.symbol.Open);
+              return $scope.y($scope.symbol.PreviousClose);
             })
 
             .attr("r", function(d) {
@@ -175,7 +175,7 @@ angular.module('stockTrackAngularJsApp')
             .attr("fill", "#3F51B5")
             .attr("stroke", "#fff");
 
-          $scope.openCircle
+          $scope.previousCloseCircle
             .attr("cx", 3)
             .attr("cy", function (d) {
               return $scope.y($scope.symbol.Ask);
@@ -194,13 +194,13 @@ angular.module('stockTrackAngularJsApp')
               return $scope.width - 3  - rectangleWidth;
             })
             .attr('y', function (d) {
-              return isUpDay($scope.symbol) ? $scope.y($scope.symbol.Ask) : $scope.y($scope.symbol.Open);
+              return isUpDay($scope.symbol) ? $scope.y($scope.symbol.Ask) : $scope.y($scope.symbol.PreviousClose);
             })
             .attr('width', rectangleWidth * 2)
             .attr('height', function (d) {
               return isUpDay($scope.symbol)
-                ? $scope.y($scope.symbol.Open) - $scope.y($scope.symbol.Ask)
-                : $scope.y($scope.symbol.Ask) - $scope.y($scope.symbol.Open);
+                ? $scope.y($scope.symbol.PreviousClose) - $scope.y($scope.symbol.Ask)
+                : $scope.y($scope.symbol.Ask) - $scope.y($scope.symbol.PreviousClose);
             })
             .classed({
               'up-day': function() {

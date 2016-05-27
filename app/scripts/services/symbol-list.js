@@ -104,6 +104,34 @@ angular.module('stockTrackAngularJsApp')
 
 
 
+      /**
+       * @ngdoc function
+       * @name SymbolList.createUniqueSymbolList
+       * @methodOf stockTrackAngularJsApp.service:SymbolList
+       *
+       * @description
+       * Adds a Symbol to the SymbolList.Symbols array if it is not already added.
+       *
+       * @param {Object} item Symbol to be added to the SymbolList.Symbols array
+       *
+       * @returns {Object} Returns the new Symbol
+       */
+      createUniqueSymbolList: function() {
+        // Create an array of only the Symbol symbols ['wfm', 'aapl', 'dis']
+        var wl = this.WatchList.Symbols.map(function(item) {return item.symbol.toLowerCase();});
+        // Create an array of only the Symbol symbols ['wfm', 'aapl', 'dis']
+        var ps = this.Positions.map(function(item) {return item.symbol.toLowerCase();});
+        // Concat the two lists together
+        var sList = wl.concat(ps.filter(function (item) {
+          // Remove any duplicates
+          return wl.indexOf(item) < 0;
+        }));
+        // Return a list of Symbols
+        return sList;
+      },
+
+
+
 
       /**
        * @ngdoc function
@@ -127,17 +155,8 @@ angular.module('stockTrackAngularJsApp')
         this.Positions = positions;
         // Add a reference to User.Preferences
         this.Preferences = preferences;
-        // Create an array of only the Symbol symbols ['wfm', 'aapl', 'dis']
-        var wl = watchList.map(function(item) {return item.symbol.toLowerCase();});
-        // Create an array of only the Symbol symbols ['wfm', 'aapl', 'dis']
-        var ps = positions.map(function(item) {return item.symbol.toLowerCase();});
-        // Concat the two lists together
-        var sList = wl.concat(ps.filter(function (item) {
-          // Remove any duplicates
-          return wl.indexOf(item) < 0;
-        }));
         // Get the Symbol details
-        return Symbol.http.all({list: sList}).$promise.then(function (data) {
+        return Symbol.http.all({list: this.createUniqueSymbolList()}).$promise.then(function (data) {
           return _this.setInitialSymbols(data);
         });
       },

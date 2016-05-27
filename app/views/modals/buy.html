@@ -40,11 +40,14 @@
     <md-toolbar class="md-accent" style="min-height: 33px !important;">
       <div class="md-toolbar-tools">
         <div layout="row" class="symbol-line">
-          <div flex="50">
+          <div flex="33">
             <p>Trade Cost: {{$ctrl.quantity * $ctrl.symbol.Ask | currency}}</p>
           </div>
-          <div flex="50" class="row-right">
-            <p>Available Cash: {{$ctrl.user.availableCash | currency}}</p>
+          <div flex="33" class="row-right">
+            <p>Available Cash: {{$ctrl.user.selectedAccount.availableCash | currency}}</p>
+          </div>
+          <div flex="33" class="row-right">
+            <p>Remaining: {{$ctrl.user.selectedAccount.availableCash - ($ctrl.quantity * $ctrl.symbol.Ask) | currency}}</p>
           </div>
         </div>
       </div>
@@ -67,7 +70,7 @@
           <input required type="number" step="any" name="quantity" ng-model="$ctrl.quantity" min="1" max="9999999">
         </md-input-container>
 
-        <span ng-show="!limitLocked">
+        <span ng-show="!$ctrl.limitLocked">
             <md-input-container class="md-icon-float">
               <label>Limit: </label>
               <md-icon ng-click="$ctrl.lockLimit()" md-svg-src="images/icons/lock.svg"></md-icon>
@@ -118,15 +121,17 @@
 
         <md-input-container class="md-block">
           <label>Account</label>
-          <md-select ng-model="$ctrl.account">
-            <md-option selected="true" value="$ctrl.user.accountNickname">{{$ctrl.user.accountNickname}}</md-option>
-          </md-select>
+          <input aria-label="Account Nickname"
+                 type="text"
+                 disabled
+                 name="Account Nickname"
+                 ng-model="$ctrl.user.selectedAccount.accountNickname">
         </md-input-container>
       </form>
     </md-content>
     <md-content layout-gt-sm="row" layout-padding>
       <p>Buy {{$ctrl.quantity}} shares of {{$ctrl.symbol.Symbol}} at {{$ctrl.symbol.Ask | currency}} a share for <b>{{$ctrl.quantity * $ctrl.symbol.Ask | currency}}</b></p>
-      <p>You will have {{$ctrl.user.availableCash -($ctrl.quantity * $ctrl.symbol.Ask) | currency}} in remaining cash.</p>
+      <p>You will have {{$ctrl.user.selectedAccount.availableCash - ($ctrl.quantity * $ctrl.symbol.Ask) | currency}} in remaining cash.</p>
     </md-content>
   </md-dialog-content>
 

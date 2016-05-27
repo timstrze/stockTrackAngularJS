@@ -24,7 +24,7 @@
                   <div class="md-list-item-text">
                     <h3>Ask: <span>{{$ctrl.symbol.Ask | currency}}</span></h3>
 
-                    <h4>Available Cash: <span>{{$ctrl.user.availableCash | currency}}</span></h4>
+                    <h4>Available Cash: <span>{{$ctrl.user.selectedAccount.availableCash | currency}}</span></h4>
 
                     <form name="sell">
                       <md-input-container>
@@ -39,7 +39,7 @@
                     </form>
 
                     <p>Sell {{$ctrl.quantity}} shares of {{$ctrl.symbol.Symbol}} at {{$ctrl.symbol.Ask | currency}} a share for <b>{{$ctrl.quantity * $ctrl.symbol.Ask | currency}}</b></p>
-                    <p>You will have {{$ctrl.user.availableCash -($ctrl.quantity * $ctrl.symbol.Ask) | currency}} in remaining cash.</p>
+                    <p>You will have {{$ctrl.user.selectedAccount.availableCash -($ctrl.quantity * $ctrl.symbol.Ask) | currency}} in remaining cash.</p>
                   </div>
               </md-list-item>
           </md-list>

@@ -17,7 +17,7 @@ angular.module('stockTrackAngularJsApp')
   .component('watchListDetails', {
       restrict: 'E',
       bindings: {
-        extras: '<',
+        // extras: '<',
         symbol: '<',
         user: '<'
       },
@@ -38,6 +38,15 @@ angular.module('stockTrackAngularJsApp')
         //    return item.slug;
         //  }
         //});
+
+        this.todos = [];
+        for (var i = 0; i < 15; i++) {
+          this.todos.push({
+            what: "Brunch this weekend?",
+            who: "Min Li Chan",
+            notes: "I'll be in your neighborhood doing errands."
+          });
+        }
 
         /**
          * @ngdoc property
@@ -80,11 +89,11 @@ angular.module('stockTrackAngularJsApp')
          */
         $scope.$watch('$ctrl.symbol', function () {
           // Make sure there is historical data
-          if (_this.symbol && _this.user && _this.user.Positions && _this.user.Positions.length) {
+          if (_this.symbol && _this.user && _this.user.selectedAccount && _this.user.selectedAccount.Positions && _this.user.selectedAccount.Positions.length) {
             _this.positions = {};
 
             // Loop over the Positions
-            angular.forEach(_this.user.Positions, function (position) {
+            angular.forEach(_this.user.selectedAccount.Positions, function (position) {
               // Check to see if Symbols match
               if (position.Symbol.Symbol.toLowerCase() === _this.symbol.Symbol.toLowerCase()) {
                 _this.positions = position;

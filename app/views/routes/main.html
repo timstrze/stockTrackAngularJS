@@ -9,23 +9,23 @@
         <md-button aria-label="StockTracker" class="md-fab">
           <ng-md-icon md-menu-origin icon="equalizer" style="fill: #fff" size="20"></ng-md-icon>
         </md-button>
-        <h2>
+        <h2 hide show-gt-sm>
           StockTracker
         </h2>
         <span flex></span>
-        <user-totals hide-md hide-sm user="$ctrl.User"></user-totals>
+        <user-totals user="$ctrl.User"></user-totals>
         <span flex></span>
         <md-button class="md-secondary" aria-label="Watchlist" ng-click="$ctrl.watchlistToggle()">
-          Watchlist ({{$ctrl.User.WatchList.length}})
+          Watchlist ({{$ctrl.User.selectedAccount.selectedWatchList.Symbols.length}})
         </md-button>
         <md-button class="md-secondary" aria-label="Positions" ng-click="$ctrl.positionsToggle()">
-          Positions ({{$ctrl.User.Positions.length}})
+          Positions ({{$ctrl.User.selectedAccount.Positions.length}})
         </md-button>
 
         <!--<md-icon md-svg-icon="images/icons/more_vert.svg"></md-icon>-->
 
         <md-button class="md-secondary" aria-label="User Preferences" ng-click="$ctrl.User.openUserPreferenceModal($event)">
-          {{$ctrl.User.lastName}}, {{$ctrl.User.firstName}}
+          {{$ctrl.User.selectedAccount.firstName}}
         </md-button>
       </div>
     </md-toolbar>
@@ -45,7 +45,7 @@
       <!--End Left Navbar-->
 
       <watch-list-details user="$ctrl.User"
-                          symbol="$ctrl.User.selectedSymbol">
+                          symbol="$ctrl.User.selectedAccount.selectedSymbol.Symbol">
       </watch-list-details>
 
     </section>

@@ -1,14 +1,121 @@
-<div class="user-totals" show-lg style="max-height: 46px">
-  <md-button class="md-secondary" aria-label="Daily P/L">
-    Daily P/L: {{$ctrl.dailyPNL | currency}}
+<div class="user-totals" style="max-height: 46px">
+
+  <md-menu>
+    <md-button hide show-xs show-sm class="md-secondary" aria-label="Daily P/L" ng-click="$mdOpenMenu($event)">
+      Net: {{$ctrl.netLiquidity | currency}}
+    </md-button>
+    <md-menu-content width="3">
+      <md-menu-item>
+        <md-button>
+          Daily P/L: {{$ctrl.dailyPNL | currency}}
+        </md-button>
+      </md-menu-item>
+      <md-menu-item>
+        <md-button>
+          Total P/L: {{$ctrl.totalPNL | currency}}
+        </md-button>
+      </md-menu-item>
+      <md-menu-item>
+        <md-button>
+          Total Value: {{$ctrl.totalValue | currency}}
+        </md-button>
+      </md-menu-item>
+      <md-menu-item>
+        <md-button>
+          Available Cash: {{$ctrl.user.selectedAccount.availableCash | currency}}
+        </md-button>
+      </md-menu-item>
+      <md-menu-divider></md-menu-divider>
+      <md-menu-item>
+        <md-button>
+          Net Liquidity: {{$ctrl.netLiquidity | currency}}
+        </md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+
+  <md-menu hide show-gt-md>
+    <md-button class="md-secondary" aria-label="Daily P/L" ng-click="$mdOpenMenu($event)">
+      Daily P/L: {{$ctrl.dailyPNL | currency}}
+    </md-button>
+    <md-menu-content width="3">
+      <md-menu-item ng-repeat="position in $ctrl.user.selectedAccount.Positions">
+        <md-button>
+          {{position.symbol}}: {{position.dailyPNL | currency}}
+        </md-button>
+      </md-menu-item>
+      <md-menu-divider></md-menu-divider>
+      <md-menu-item>
+        <md-button>
+          Daily P/L: {{$ctrl.dailyPNL | currency}}
+        </md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+
+  <md-menu hide show-gt-md>
+    <md-button class="md-secondary" aria-label="Daily P/L" ng-click="$mdOpenMenu($event)">
+      Total P/L: {{$ctrl.totalPNL | currency}}
+    </md-button>
+    <md-menu-content width="3">
+      <md-menu-item ng-repeat="position in $ctrl.user.selectedAccount.Positions">
+        <md-button>
+          {{position.symbol}}: {{position.totalPNL | currency}}
+        </md-button>
+      </md-menu-item>
+      <md-menu-divider></md-menu-divider>
+      <md-menu-item>
+        <md-button>
+          Total P/L: {{$ctrl.totalPNL | currency}}
+        </md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+
+  <md-menu hide show-gt-md>
+    <md-button class="md-secondary" ng-click="$mdOpenMenu($event)" aria-label="Total Value">
+      Total Value: {{$ctrl.totalValue | currency}}
+    </md-button>
+    <md-menu-content width="4">
+      <md-menu-item ng-repeat="position in $ctrl.user.selectedAccount.Positions">
+        <md-button>
+          {{position.symbol}}: {{position.totalValue | currency}}
+        </md-button>
+      </md-menu-item>
+      <md-menu-divider></md-menu-divider>
+      <md-menu-item>
+        <md-button>
+          Total Value: {{$ctrl.totalValue | currency}}
+        </md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+
+  <md-button hide show-gt-md class="md-secondary" aria-label="Available Cash">
+    Available Cash: {{$ctrl.user.selectedAccount.availableCash | currency}}
   </md-button>
-  <md-button class="md-secondary" aria-label="Total P/L">
-    Total P/L: {{$ctrl.totalPNL | currency}}
-  </md-button>
-  <md-button class="md-secondary" aria-label="Total Value">
-    Total Value: {{$ctrl.totalValue | currency}}
-  </md-button>
-  <md-button class="md-secondary" aria-label="Available Cash">
-    Available Cash: {{$ctrl.user.availableCash | currency}}
-  </md-button>
+
+  <md-menu hide show-gt-md>
+    <md-button class="md-secondary" ng-click="$mdOpenMenu($event)" aria-label="Net Liquidity">
+      Net Liquidity: {{$ctrl.netLiquidity | currency}}
+    </md-button>
+    <md-menu-content width="4">
+      <md-menu-item>
+        <md-button>
+          Total Value: {{$ctrl.totalValue | currency}}
+        </md-button>
+      </md-menu-item>
+      <md-menu-item>
+        <md-button>
+          Available Cash: {{$ctrl.user.selectedAccount.availableCash | currency}}
+        </md-button>
+      </md-menu-item>
+      <md-menu-divider></md-menu-divider>
+      <md-menu-item>
+        <md-button>
+          Net Liquidity: {{$ctrl.netLiquidity | currency}}
+        </md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
 </div>

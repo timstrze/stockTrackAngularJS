@@ -1,0 +1,59 @@
+<md-dialog aria-label="{{$ctrl.symbol.Name}}" class="modal-watchlist-create" md-theme="{{$ctrl.user.Preferences.theme.slug}}">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Watchlist Manager
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="$ctrl.cancel()">
+          <ng-md-icon icon="remove_circle_outline" size="20" style="fill:#fff;"
+                      aria-label="Close dialog"></ng-md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="min-width:600px;">
+      <md-content layout-padding>
+
+        <md-input-container class="md-block">
+          <label>WatchList Name</label>
+          <input ng-model="$ctrl.newWatchlistTitle">
+        </md-input-container>
+
+        <p>Suggested symbols to add:</p>
+
+        <md-chips ng-model="$ctrl.symbolSuggestions" name="symbolName" readonly="true">
+          <md-chip-template ng-click="$ctrl.addSymbolToWatchlist($chip)">
+            <strong>{{$chip}}</strong>
+          </md-chip-template>
+        </md-chips>
+
+        <md-autocomplete
+          md-search-text-change="null"
+          md-selected-item="$ctrl.selectedItem"
+          md-search-text="$ctrl.searchText"
+          md-selected-item-change="$ctrl.chooseSymbol(item)"
+          md-items="item in $ctrl.search($ctrl.searchText)"
+          md-item-text="item.display"
+          placeholder="Search Symbols">
+          <span md-highlight-text="$ctrl.searchText">{{item.display}}</span>
+        </md-autocomplete>
+
+        <p ng-show="$ctrl.symbolList.length > 0">Symbols added:</p>
+
+        <md-chips ng-show="$ctrl.symbolList.length > 0" ng-model="$ctrl.symbolList" readonly="false" name="symbolName">
+          <md-chip-template>
+            <strong>{{$chip}}</strong>
+          </md-chip-template>
+        </md-chips>
+
+      </md-content>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="$ctrl.cancel()" class="md-primary">
+        Close
+      </md-button>
+      <md-button ng-click="$ctrl.create()" class="md-primary">
+        Create
+      </md-button>
+    </md-dialog-actions>
+</md-dialog>

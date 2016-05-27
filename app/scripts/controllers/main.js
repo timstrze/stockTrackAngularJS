@@ -55,10 +55,19 @@ angular.module('stockTrackAngularJsApp')
     this.getUser = function () {
       // Gets the user
       User.http.get({}, function (results) {
-        // Sets the Accounts Object
-        _this.Accounts = new Accounts(results);
         // Creates the User Object and sets the scope variable
-        _this.User = new User(results[0]);
+        _this.User = new User(results);
+        // Create an empty account array
+        var accountObjs = [];
+        // Sets the Accounts Object
+        angular.forEach(_this.User.Accounts, function(account) {
+          // Add the new Account object to the array
+          accountObjs.push(new Accounts(account));
+        });
+        // Set the new Accounts Objects
+        _this.User.Accounts = accountObjs;
+        _this.User.selectedAccount = _this.User.Accounts[0];
+        _this.User.selectedAccount.selectedWatchList = _this.User.selectedAccount.WatchLists[0];
         // Set the theme from the Constants Object so it will fill out the form on first load
         _this.User.Preferences.theme = Constants.themeTypes.find(function (theme) {
           return theme.slug === _this.User.Preferences.theme.slug;
@@ -70,12 +79,7 @@ angular.module('stockTrackAngularJsApp')
           // Set the Symbols in the watch list
           _this.User.linkWatchlistSymbols();
           // Set the first symbol in the watchlist as the selected symbol
-          _this.User.selectedSymbol = _this.User.WatchList[0].Symbol;
-          //
-          var selectedTab = Constants.historicalDateRange()[_this.User.Preferences.selectedHistoricalIndex || 2];
-          //
-          _this.User.selectedSymbol.getHistoricalData(selectedTab.startDate, selectedTab.endDate);
-          _this.User.selectedSymbol.getSymbolNews();
+          _this.User.selectSymbol(_this.User.selectedAccount.selectedWatchList.Symbols[0]);
         });
       });
     };
@@ -98,7 +102,7 @@ angular.module('stockTrackAngularJsApp')
       this.showWatchlist = false;
       this.showPositions = true;
       // Only toggle the modal if small size
-      if($mdMedia('sm') || $mdMedia('md')) {
+      if(!$mdMedia('gt-md')) {
         $mdSidenav('positions').toggle();
       }
     };
@@ -139,7 +143,7 @@ angular.module('stockTrackAngularJsApp')
       this.showWatchlist = true;
       this.showPositions = false;
       // Only toggle the modal if small size
-      if($mdMedia('sm') || $mdMedia('md')) {
+      if(!$mdMedia('gt-md')) {
         $mdSidenav('watch-list').toggle();
       }
     };
