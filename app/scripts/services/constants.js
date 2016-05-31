@@ -71,22 +71,6 @@ angular.module('stockTrackAngularJsApp')
         slug: 'candlestick-chart'
       },
       {
-        title: 'Renko Chart',
-        slug: 'renko-chart'
-      },
-      {
-        title: 'Kagi Chart',
-        slug: 'kagi-chart'
-      },
-      {
-        title: 'Swing Chart',
-        slug: 'swing-chart'
-      },
-      {
-        title: 'Comparison Chart',
-        slug: 'comparison-chart'
-      },
-      {
         title: 'Volume',
         slug: 'volume-chart'
       }
@@ -120,10 +104,6 @@ angular.module('stockTrackAngularJsApp')
       {
         title: 'Positions',
         slug: 'sub-plot-points'
-      },
-      {
-        title: 'Split View',
-        slug: 'split-view'
       }
     ];
 

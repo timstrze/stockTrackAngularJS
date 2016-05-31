@@ -105,6 +105,8 @@ angular.module('stockTrackAngularJsApp')
          */
         $scope.render = function (askHistory) {
 
+          askHistory = askHistory.slice(Math.max(askHistory.length - 50, 1));
+
           var yScale = d3.scale.linear()
             .domain([$scope.symbol.DaysLow, $scope.symbol.DaysHigh])
             .range([$scope.height, 0]);
@@ -147,69 +149,69 @@ angular.module('stockTrackAngularJsApp')
 
 
 
-          $scope.yPreviousCloseLine
-            .attr("x1", 3)
-            .attr("y1", 3)
-            .attr("x2", 3)
-            .attr("y2", $scope.height)
-            .attr("stroke-width", 1)
-            .attr("stroke", "black");
+          // $scope.yPreviousCloseLine
+          //   .attr("x1", 3)
+          //   .attr("y1", 3)
+          //   .attr("x2", 3)
+          //   .attr("y2", $scope.height)
+          //   .attr("stroke-width", 1)
+          //   .attr("stroke", "black");
 
-          $scope.yAskLine
-            .attr("x1", $scope.width - 3)
-            .attr("y1", 3)
-            .attr("x2", $scope.width - 3)
-            .attr("y2", $scope.height)
-            .attr("stroke-width", 1)
-            .attr("stroke", "black");
+          // $scope.yAskLine
+          //   .attr("x1", $scope.width - 3)
+          //   .attr("y1", 3)
+          //   .attr("x2", $scope.width - 3)
+          //   .attr("y2", $scope.height)
+          //   .attr("stroke-width", 1)
+          //   .attr("stroke", "black");
 
-          $scope.askCircle
-            .attr("cx", 3)
-            .attr("cy", function (d) {
-              return $scope.y($scope.symbol.PreviousClose);
-            })
+          // $scope.askCircle
+          //   .attr("cx", 3)
+          //   .attr("cy", function (d) {
+          //     return $scope.y($scope.symbol.PreviousClose);
+          //   })
+          //
+          //   .attr("r", function(d) {
+          //     return 3;
+          //   })
+          //   .attr("fill", "#3F51B5")
+          //   .attr("stroke", "#fff");
+          //
+          // $scope.previousCloseCircle
+          //   .attr("cx", 3)
+          //   .attr("cy", function (d) {
+          //     return $scope.y($scope.symbol.Ask);
+          //   })
+          //
+          //   .attr("r", function(d) {
+          //     return 3;
+          //   })
+          //   .attr("fill", "yellow")
+          //   .attr("stroke", "#fff");
 
-            .attr("r", function(d) {
-              return 3;
-            })
-            .attr("fill", "#3F51B5")
-            .attr("stroke", "#fff");
-
-          $scope.previousCloseCircle
-            .attr("cx", 3)
-            .attr("cy", function (d) {
-              return $scope.y($scope.symbol.Ask);
-            })
-
-            .attr("r", function(d) {
-              return 3;
-            })
-            .attr("fill", "yellow")
-            .attr("stroke", "#fff");
-
-          var rectangleWidth = 3;
-
-          $scope.candleStick
-            .attr('x', function (d) {
-              return $scope.width - 3  - rectangleWidth;
-            })
-            .attr('y', function (d) {
-              return isUpDay($scope.symbol) ? $scope.y($scope.symbol.Ask) : $scope.y($scope.symbol.PreviousClose);
-            })
-            .attr('width', rectangleWidth * 2)
-            .attr('height', function (d) {
-              return isUpDay($scope.symbol)
-                ? $scope.y($scope.symbol.PreviousClose) - $scope.y($scope.symbol.Ask)
-                : $scope.y($scope.symbol.Ask) - $scope.y($scope.symbol.PreviousClose);
-            })
-            .classed({
-              'up-day': function() {
-                return isUpDay($scope.symbol)
-              },
-              'down-day': function() {
-                return !isUpDay($scope.symbol)
-              }
-            })
+          // var rectangleWidth = 3;
+          //
+          // $scope.candleStick
+          //   .attr('x', function (d) {
+          //     return $scope.width - 3  - rectangleWidth;
+          //   })
+          //   .attr('y', function (d) {
+          //     return isUpDay($scope.symbol) ? $scope.y($scope.symbol.Ask) : $scope.y($scope.symbol.PreviousClose);
+          //   })
+          //   .attr('width', rectangleWidth * 2)
+          //   .attr('height', function (d) {
+          //     return isUpDay($scope.symbol)
+          //       ? $scope.y($scope.symbol.PreviousClose) - $scope.y($scope.symbol.Ask)
+          //       : $scope.y($scope.symbol.Ask) - $scope.y($scope.symbol.PreviousClose);
+          //   })
+          //   .classed({
+          //     'up-day': function() {
+          //       return isUpDay($scope.symbol)
+          //     },
+          //     'down-day': function() {
+          //       return !isUpDay($scope.symbol)
+          //     }
+          //   })
 
 
         };

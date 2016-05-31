@@ -85,7 +85,7 @@
       <md-list>
         <md-list-item class="md-3-line" ng-repeat="position in $ctrl.user.selectedAccount.Positions | filter:$ctrl.searchText"
                       ng-click="$ctrl.user.selectSymbol(position)"
-                      ng-class="{selected: false}">
+                      ng-class="{'selected': position.Symbol.Symbol && position.Symbol.Symbol.toLowerCase() === $ctrl.user.selectedAccount.selectedSymbol.Symbol.Symbol.toLowerCase()}">
           <div class="md-list-item-text">
 
             <h3>

@@ -23,30 +23,27 @@ angular.module('stockTrackAngularJsApp')
       },
       templateUrl: 'views/components/watch-list-details.html',
 
-      controller: ['$mdDialog', '$window', 'SymbolList', 'Constants', 'SvgArtist', '$scope', function ($mdDialog, $window, SymbolList, Constants, SvgArtist, $scope) {
+      controller: ['$mdDialog', '$window', 'SymbolList', 'Constants', 'SvgArtist', '$filter',  '$scope', function ($mdDialog, $window, SymbolList, Constants, SvgArtist, $filter, $scope) {
         var _this = this;
 
         this.Constants = Constants;
+
+        this.filterReverse = false;
+        this.filterType = 'created';
 
         this.settings = {showLine: true, showText: true, showSave: true};
         this.svgChartArtist = {};
         this.svgChartArtist = new SvgArtist({target: '.svg-chart'});
 
         this.selectedChart = Constants.chartTypes[0].slug;
-        //this.selectedExtras = Constants.chartExtras.map(function(item, index) {
-        //  if(index === 0) {
-        //    return item.slug;
-        //  }
-        //});
 
-        this.todos = [];
-        for (var i = 0; i < 15; i++) {
-          this.todos.push({
-            what: "Brunch this weekend?",
-            who: "Min Li Chan",
-            notes: "I'll be in your neighborhood doing errands."
-          });
-        }
+        this.filterPositions = function (filterType) {
+
+          this.filterType = filterType;
+          this.filterReverse = !this.filterReverse;
+
+          this.positions.buys = $filter('orderBy')(this.positions.buys, this.filterType, this.filterReverse);
+        };
 
         /**
          * @ngdoc property
@@ -99,7 +96,8 @@ angular.module('stockTrackAngularJsApp')
                 _this.positions = position;
               }
             });
-
+          }else{
+            _this.positions = {};
           }
         }, true);
 

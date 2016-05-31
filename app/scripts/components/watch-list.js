@@ -17,7 +17,7 @@ angular.module('stockTrackAngularJsApp')
       templateUrl: 'views/components/watch-list.html',
       restrict: 'E',
       bindings: {
-        user: '<'
+        user: '='
       },
       controller: ['$filter', '$mdDialog', 'Symbol', 'Constants', 'SymbolList', function ($filter, $mdDialog, Symbol, Constants, SymbolList) {
 

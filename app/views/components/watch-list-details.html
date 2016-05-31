@@ -65,7 +65,8 @@
     <!--Start Historical Data Line Chart-->
     <div style="height:500px;"
          ng-class="{'use-cross-hairs': $ctrl.svgChartArtist.createLineActive, 'use-grab': $ctrl.svgChartArtist.selectItemActive}">
-      <svg-chart subPlots="$ctrl.user.selectedAccount.Positions[0].buys"
+
+      <svg-chart sub-plots="$ctrl.positions.buys"
                  selected-extras="$ctrl.selectedExtras"
                  selected-theme="$ctrl.user.Preferences.theme"
                  selected-chart="$ctrl.selectedChart"
@@ -588,9 +589,6 @@
           </md-tab>
           <md-tab label="earnings">
             <div layout="column" flex layout-fill ng-cloak>
-              <!--<md-toolbar md-scroll-shrink>-->
-              <!--<div class="md-toolbar-tools">{{$ctrl.symbol.Name}}</div>-->
-              <!--</md-toolbar>-->
               <md-content ng-hide="!positions.buys">
                 <section>
                   <md-subheader class="md-primary">
@@ -632,16 +630,35 @@
                       {{$ctrl.positions.totalQuantity}} total shares of {{$ctrl.symbol.Symbol.toUpperCase()}}:  {{$ctrl.symbol.Name}}
                       valuing {{$ctrl.positions.totalValue | currency}}
                     </h3>
+                    <span flex></span>
+                    <md-button>
+                      Daily P/L: {{$ctrl.positions.dailyPNL | currency}}
+                    </md-button>
+                    <md-button>
+                      Total P/L: {{$ctrl.positions.totalPNL | currency}}
+                    </md-button>
                   </div>
                 </md-toolbar>
                 <md-subheader class="md-primary">
                   <div layout="row">
                     <div flex="15">Quantity</div>
                     <div flex="17">Ask</div>
-                    <div flex="17">Daily P/L</div>
-                    <div flex="17">Total P/L</div>
-                    <div flex="17">Value</div>
-                    <div flex="17">Created</div>
+                    <div flex="17">Daily P/L
+                    </div>
+                    <div flex="17">Total P/L
+                    </div>
+                    <div flex="17">
+                      <a ng-click="$ctrl.filterPositions('value')">
+                        Value<ng-md-icon ng-show="$ctrl.filterType === 'value' && $ctrl.filterReverse;" icon="arrow_drop_up"></ng-md-icon>
+                        <ng-md-icon ng-show="$ctrl.filterType === 'value' && !$ctrl.filterReverse" icon="arrow_drop_down"></ng-md-icon>
+                      </a>
+                    </div>
+                    <div flex="17">
+                      <a ng-click="$ctrl.filterPositions('created')">
+                        Created<ng-md-icon ng-show="$ctrl.filterType === 'created' && $ctrl.filterReverse;" icon="arrow_drop_up"></ng-md-icon>
+                        <ng-md-icon ng-show="$ctrl.filterType === 'created' && !$ctrl.filterReverse" icon="arrow_drop_down"></ng-md-icon>
+                      </a>
+                    </div>
                   </div>
                 </md-subheader>
                 <md-divider></md-divider>
@@ -684,8 +701,8 @@
 </div>
 
 
-<canvas class="export-canvas" width="960" height="500" style="display:none"></canvas>
+<!--<canvas class="export-canvas" width="960" height="500" style="display:none"></canvas>-->
 
-<div id="svgdataurl" style="display:none"></div>
-<div id="pngdataurl" style="display:none"></div>
+<!--<div id="svgdataurl" style="display:none"></div>-->
+<!--<div id="pngdataurl" style="display:none"></div>-->
 
