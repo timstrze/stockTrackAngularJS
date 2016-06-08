@@ -588,95 +588,9 @@
             </div>
           </md-tab>
           <md-tab label="earnings">
-            <div layout="column" flex layout-fill ng-cloak>
-              <md-content ng-hide="!positions.buys">
-                <section>
-                  <md-subheader class="md-primary">
-                    Total Quantity: {{positions.totalQuantity}}
-                    Total PNL: {{positions.totalPNL}}
-                    Daily PNL: {{positions.dailyPNL}}
-                    Total Value: {{positions.totalValue}}
-                  </md-subheader>
-                  <md-list layout-padding>
-                    <md-list-item class="md-3-line"
-                                  ng-repeat="position in positions.buys | orderBy:position.created:true">
-                      <img ng-src="{{message.face}}" class="md-avatar" alt="{{message.who}}">
-
-                      <div class="md-list-item-text">
-                        <h3>{{position.ask}} x {{position.quantity}} = {{position.value}}</h3>
-                        <h4>Total PNL: {{position.totalPNL}}</h4>
-
-                        <p>
-                          Daily PNL: {{position.dailyPNL}} <br/>
-                          Buy value: {{position.value}} <br/>
-                          Created {{position.created}}
-                        </p>
-                      </div>
-                    </md-list-item>
-                  </md-list>
-                </section>
-              </md-content>
-
-              <md-content ng-show="!$ctrl.positions.buys" class="md-padding">
-                <section>
-                  <h3>You do not have any positions with {{$ctrl.symbol.Symbol}}</h3>
-                </section>
-              </md-content>
-
-              <md-content ng-show="$ctrl.positions.buys">
-                <md-toolbar md-scroll-shrink>
-                  <div class="md-toolbar-tools">
-                    <h3>
-                      {{$ctrl.positions.totalQuantity}} total shares of {{$ctrl.symbol.Symbol.toUpperCase()}}:  {{$ctrl.symbol.Name}}
-                      valuing {{$ctrl.positions.totalValue | currency}}
-                    </h3>
-                    <span flex></span>
-                    <md-button>
-                      Daily P/L: {{$ctrl.positions.dailyPNL | currency}}
-                    </md-button>
-                    <md-button>
-                      Total P/L: {{$ctrl.positions.totalPNL | currency}}
-                    </md-button>
-                  </div>
-                </md-toolbar>
-                <md-subheader class="md-primary">
-                  <div layout="row">
-                    <div flex="15">Quantity</div>
-                    <div flex="17">Ask</div>
-                    <div flex="17">Daily P/L
-                    </div>
-                    <div flex="17">Total P/L
-                    </div>
-                    <div flex="17">
-                      <a ng-click="$ctrl.filterPositions('value')">
-                        Value<ng-md-icon ng-show="$ctrl.filterType === 'value' && $ctrl.filterReverse;" icon="arrow_drop_up"></ng-md-icon>
-                        <ng-md-icon ng-show="$ctrl.filterType === 'value' && !$ctrl.filterReverse" icon="arrow_drop_down"></ng-md-icon>
-                      </a>
-                    </div>
-                    <div flex="17">
-                      <a ng-click="$ctrl.filterPositions('created')">
-                        Created<ng-md-icon ng-show="$ctrl.filterType === 'created' && $ctrl.filterReverse;" icon="arrow_drop_up"></ng-md-icon>
-                        <ng-md-icon ng-show="$ctrl.filterType === 'created' && !$ctrl.filterReverse" icon="arrow_drop_down"></ng-md-icon>
-                      </a>
-                    </div>
-                  </div>
-                </md-subheader>
-                <md-divider></md-divider>
-                <md-list>
-                  <md-list-item class="md-3-line" ng-repeat="position in $ctrl.positions.buys">
-                    <div class="md-list-item-text" layout="row" layout-padding-sm>
-                      <p flex="15">{{position.quantity}}</p>
-                      <p flex="17">{{position.ask | currency}}</p>
-                      <p flex="17">{{position.dailyPNL | currency}}</p>
-                      <p flex="17">{{position.totalPNL | currency}}</p>
-                      <p flex="17">{{position.value | currency}}</p>
-                      <p flex="17">{{position.created | date}}</p>
-                    </div>
-                    <md-divider inset></md-divider>
-                  </md-list-item>
-                </md-list>
-              </md-content>
-            </div>
+            <earnings-table
+              symbol="$ctrl.user.selectedAccount.selectedSymbol"
+              positions="$ctrl.positions"></earnings-table>
           </md-tab>
           <md-tab label="news">
             <md-list ng-repeat="newsItem in $ctrl.symbol.$news">

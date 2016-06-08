@@ -4,3 +4,7 @@
 .positions .md-icon-button{
   margin-top: 8px;
 }
+
+.positions .selected {
+  border-left: solid rgb(86, 86, 86) 3px;
+}

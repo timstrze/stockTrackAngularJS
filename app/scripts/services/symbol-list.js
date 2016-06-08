@@ -149,6 +149,8 @@ angular.module('stockTrackAngularJsApp')
       init: function(watchList, positions, preferences) {
         // Store a reference to this
         var _this = this;
+        // Remove the window.setInterval stored on the SymbolList
+        $interval.cancel(this.interval);
         // Add a reference to User.WatchList
         this.WatchList = watchList;
         // Add a reference to User.Positions

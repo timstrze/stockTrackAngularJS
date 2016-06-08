@@ -107,31 +107,31 @@ angular.module('stockTrackAngularJsApp')
 
           askHistory = askHistory.slice(Math.max(askHistory.length - 50, 1));
 
-          var yScale = d3.scale.linear()
-            .domain([$scope.symbol.DaysLow, $scope.symbol.DaysHigh])
-            .range([$scope.height, 0]);
-
-          var yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient('left')
-            .ticks(0);
+          // var yScale = d3.scale.linear()
+          //   .domain([$scope.symbol.DaysLow, $scope.symbol.DaysHigh])
+          //   .range([$scope.height, 0]);
+          //
+          // var yAxis = d3.svg.axis()
+          //   .scale(yScale)
+          //   .orient('left')
+          //   .ticks(0);
 
 
           // X scale will fit values from 0-10 within pixels 0-100
           $scope.x = d3.scale.linear().domain([0, askHistory.length]).range([0, $scope.width]);
           // Y scale will fit values from 0-10 within pixels 0-100
-          $scope.y = d3.scale.linear().domain([$scope.symbol.DaysHigh, $scope.symbol.DaysLow]).range([0 , $scope.height]);
+          // $scope.y = d3.scale.linear().domain([$scope.symbol.DaysHigh, $scope.symbol.DaysLow]).range([0 , $scope.height]);
 
-          //var y = d3.scale.linear().domain([d3.min(askHistory), d3.max(askHistory)]).range([$scope.symbol.DaysLow, $scope.symbol.DaysHigh]);
+          $scope.y = d3.scale.linear().domain([d3.min(askHistory), d3.max(askHistory)]).range([0 , $scope.height - 10]);
           // create a line object that represents the SVN line we're creating
           var line = d3.svg.line()
             // assign the X function to plot our line as we wish
             .x(function (d, i) {
-              // return the X coordinate where we want to plot this datapoint
+              // return the X coordinate where we want to plot this data point
               return $scope.x(i);
             })
             .y(function (d) {
-              // return the Y coordinate where we want to plot this datapoint
+              // return the Y coordinate where we want to plot this data point
               return $scope.y(d);
             });
 

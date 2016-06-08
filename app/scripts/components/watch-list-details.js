@@ -37,14 +37,6 @@ angular.module('stockTrackAngularJsApp')
 
         this.selectedChart = Constants.chartTypes[0].slug;
 
-        this.filterPositions = function (filterType) {
-
-          this.filterType = filterType;
-          this.filterReverse = !this.filterReverse;
-
-          this.positions.buys = $filter('orderBy')(this.positions.buys, this.filterType, this.filterReverse);
-        };
-
         /**
          * @ngdoc property
          * @name historicalDateRange

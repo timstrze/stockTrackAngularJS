@@ -1,0 +1,89 @@
+<div layout="column" flex layout-fill ng-cloak>
+  <md-content ng-show="!$ctrl.positions.buys" class="md-padding">
+    <section>
+      <h3>You do not have any positions with {{$ctrl.symbol.Symbol.Symbol}}</h3>
+    </section>
+  </md-content>
+
+  <md-content ng-show="$ctrl.positions.buys">
+    <md-toolbar md-scroll-shrink>
+      <div class="md-toolbar-tools">
+        <h3>
+          {{$ctrl.positions.totalQuantity}} total shares of {{$ctrl.symbol.Symbol.Symbol.toUpperCase()}}:  {{$ctrl.symbol.Symbol.Name}}
+          valuing {{$ctrl.positions.totalValue | currency}}
+        </h3>
+        <span flex></span>
+        <md-button>
+          Daily P/L: {{$ctrl.positions.dailyPNL | currency}}
+        </md-button>
+        <md-button>
+          Total P/L: {{$ctrl.positions.totalPNL | currency}}
+        </md-button>
+        <md-button>
+          P/L %: {{$ctrl.positions.percentagePNL}}
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-subheader class="md-primary">
+      <div layout="row">
+        <div flex="15">
+          <a ng-click="$ctrl.filterPositions('quantity')">
+            Quantity<ng-md-icon ng-show="$ctrl.filterType === 'quantity' && $ctrl.filterReverse;" icon="arrow_drop_up"></ng-md-icon>
+            <ng-md-icon ng-show="$ctrl.filterType === 'quantity' && !$ctrl.filterReverse" icon="arrow_drop_down"></ng-md-icon>
+          </a>
+        </div>
+        <div flex="17">
+          <a ng-click="$ctrl.filterPositions('ask')">
+            Ask<ng-md-icon ng-show="$ctrl.filterType === 'ask' && $ctrl.filterReverse;" icon="arrow_drop_up"></ng-md-icon>
+            <ng-md-icon ng-show="$ctrl.filterType === 'ask' && !$ctrl.filterReverse" icon="arrow_drop_down"></ng-md-icon>
+          </a>
+        </div>
+        <div flex="17">
+          <a ng-click="$ctrl.filterPositions('dailyPNL')">
+            Daily P/L<ng-md-icon ng-show="$ctrl.filterType === 'dailyPNL' && $ctrl.filterReverse;" icon="arrow_drop_up"></ng-md-icon>
+            <ng-md-icon ng-show="$ctrl.filterType === 'dailyPNL' && !$ctrl.filterReverse" icon="arrow_drop_down"></ng-md-icon>
+          </a>
+        </div>
+        <div flex="17">
+          <a ng-click="$ctrl.filterPositions('totalPNL')">
+            Total P/L<ng-md-icon ng-show="$ctrl.filterType === 'totalPNL' && $ctrl.filterReverse;" icon="arrow_drop_up"></ng-md-icon>
+            <ng-md-icon ng-show="$ctrl.filterType === 'totalPNL' && !$ctrl.filterReverse" icon="arrow_drop_down"></ng-md-icon>
+          </a>
+        </div>
+        <div flex="17">
+          <a ng-click="$ctrl.filterPositions('percentagePNL')">
+            P/L %<ng-md-icon ng-show="$ctrl.filterType === 'percentagePNL' && $ctrl.filterReverse;" icon="arrow_drop_up"></ng-md-icon>
+            <ng-md-icon ng-show="$ctrl.filterType === 'percentagePNL' && !$ctrl.filterReverse" icon="arrow_drop_down"></ng-md-icon>
+          </a>
+        </div>
+        <div flex="17">
+          <a ng-click="$ctrl.filterPositions('value')">
+            Value<ng-md-icon ng-show="$ctrl.filterType === 'value' && $ctrl.filterReverse;" icon="arrow_drop_up"></ng-md-icon>
+            <ng-md-icon ng-show="$ctrl.filterType === 'value' && !$ctrl.filterReverse" icon="arrow_drop_down"></ng-md-icon>
+          </a>
+        </div>
+        <div flex="17">
+          <a ng-click="$ctrl.filterPositions('created')">
+            Created<ng-md-icon ng-show="$ctrl.filterType === 'created' && $ctrl.filterReverse;" icon="arrow_drop_up"></ng-md-icon>
+            <ng-md-icon ng-show="$ctrl.filterType === 'created' && !$ctrl.filterReverse" icon="arrow_drop_down"></ng-md-icon>
+          </a>
+        </div>
+      </div>
+    </md-subheader>
+    <md-divider></md-divider>
+    <md-list>
+      <md-list-item class="md-3-line" ng-repeat="position in $ctrl.positions.buys">
+        <div class="md-list-item-text" layout="row" layout-padding-sm>
+          <p flex="14">{{position.quantity}}</p>
+          <p flex="14">{{position.ask | currency}}</p>
+          <p flex="14">{{position.dailyPNL | currency}}</p>
+          <p flex="14">{{position.totalPNL | currency}}</p>
+          <p flex="14">{{position.percentagePNL | number:2}}%</p>
+          <p flex="14">{{position.value | currency}}</p>
+          <p flex="14">{{position.created | date}}</p>
+        </div>
+        <md-divider inset></md-divider>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</div>

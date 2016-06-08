@@ -40,6 +40,7 @@ angular.module('stockTrackAngularJsApp')
             var totalQuantity = 0;
             var totalPNL = 0;
             var dailyPNL = 0;
+            var totalOriginalValue = 0;
             // Loop over the buys Array
             angular.forEach(position.buys, function (buy) {
               // Add the quantity
@@ -61,9 +62,12 @@ angular.module('stockTrackAngularJsApp')
                   buy.dailyPNL = (position.Symbol.Ask * buy.quantity) - (position.Symbol.PreviousClose * buy.quantity);
                 }
 
-                //buy.totalQuantity = totalQuantity;
+                buy.originalValue = (position.Symbol) ? (position.ask * buy.quantity) : 0;
+                totalOriginalValue = (position.Symbol) ? totalOriginalValue + buy.originalValue : 0;
+
                 buy.totalPNL = (position.Symbol.Ask * buy.quantity) - (buy.ask * buy.quantity);
                 buy.value = (position.Symbol) ? (position.Symbol.Ask * buy.quantity) : 0;
+                buy.percentagePNL = (position.Symbol) ? ((buy.value) - (buy.ask * buy.quantity)) * 100 / (buy.ask * buy.quantity) : 0;
               }
             });
             // Set the scope values
@@ -71,6 +75,10 @@ angular.module('stockTrackAngularJsApp')
             position.totalPNL = totalPNL;
             position.dailyPNL = dailyPNL;
             position.totalValue = (position.Symbol) ? (position.Symbol.Ask * totalQuantity) : 0;
+            position.totalOriginalValue = totalOriginalValue;
+
+            // position.percentagePNL = ((buy.value) - (buy.ask * buy.quantity)) * 100 / (buy.ask * buy.quantity);
+
           });
         };
 
