@@ -379,12 +379,12 @@ angular.module('stockTrackAngularJsApp')
     User.prototype.selectSymbol = function (symbol) {
       // Set the selected Symbol
       this.selectedAccount.selectedSymbol = symbol;
-      // Set the selected tab from the User Preferences
-      this.selectedTab = Constants.historicalDateRange()[this.Preferences.selectedHistoricalIndex];
+      // Set the selected date range from the User Preferences
+      this.selectedDateRange = Constants.historicalDateRange()[this.Preferences.selectedHistoricalIndex];
       // Clear the historicalData so the animation doesn't skip
       this.selectedAccount.selectedSymbol.historicalData = [];
       // Get the historical graph data for the selected Symbol
-      symbol.Symbol.getHistoricalData(this.selectedTab.startDate, this.selectedTab.endDate);
+      symbol.Symbol.getHistoricalData(this.selectedDateRange.slug);
       symbol.Symbol.getSymbolNews();
     };
 

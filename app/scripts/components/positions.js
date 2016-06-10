@@ -19,7 +19,7 @@ angular.module('stockTrackAngularJsApp')
       },
       templateUrl: 'views/components/positions.html',
       restrict: 'E',
-      controller: ['SymbolList', 'Constants', '$filter', '$scope',function (SymbolList, Constants, $filter, $scope) {
+      controller: function (SymbolList, Constants, $filter, $scope) {
 
         var _this = this;
 
@@ -127,5 +127,5 @@ angular.module('stockTrackAngularJsApp')
             _this.totalPositions();
           }
         }, true);
-      }]
+      }
   });

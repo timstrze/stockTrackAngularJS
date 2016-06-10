@@ -199,6 +199,20 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
+     * @name Constants.today
+     * @propertyOf stockTrackAngularJsApp.service:Constants
+     *
+     * @description
+     * Returns a string formatted as Wed Aug 26 2015 12:18:00 GMT-0500 (CDT)
+     *
+     * @returns {String} date formatted as Wed Aug 26 2015 12:18:00 GMT-0500 (CDT)
+     *
+     */
+    Constants.today = new Date();
+
+
+    /**
+     * @ngdoc function
      * @name Constants.fiveDaysFromtoday
      * @propertyOf stockTrackAngularJsApp.service:Constants
      *

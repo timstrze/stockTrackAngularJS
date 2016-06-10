@@ -8,7 +8,7 @@
  * Factory Object for Symbols containing properties and methods.
  */
 angular.module('stockTrackAngularJsApp')
-  .factory('Symbol', function ($resource) {
+  .factory('Symbol', function ($resource, Constants) {
 
     var Symbol = function (properties) {
       // Create a reference to this
@@ -33,11 +33,18 @@ angular.module('stockTrackAngularJsApp')
      * @description
      * Gets the historical data that the graphs need.
      *
-     * @param {String} startDate A starting date formatted "2015-08-31"
-     * @param {String} endDate A starting date formatted "2015-08-31"
+     * @param {String} dateRange An amount of time "6-months"
      *
      */
-    Symbol.prototype.getHistoricalData = function (startDate, endDate) {
+    Symbol.prototype.getHistoricalData = function (dateRange) {
+      // Find the date range object based on slug
+      var historicalDateRange = Constants.historicalDateRange().find(function (dRange) {
+        return dRange.slug === dateRange;
+      });
+      // Return false if there is no range found
+      if(!historicalDateRange) {
+        return false;
+      }
       // Store a reference to this
       var _this = this;
       // Get the historical data by symbol, start date, and end date
@@ -45,9 +52,9 @@ angular.module('stockTrackAngularJsApp')
         // Example: aapl
         symbol: this.Symbol,
         // Example: "2015-05-31"
-        startDate: startDate,
+        startDate: historicalDateRange.startDate,
         // Example: "2015-08-31"
-        endDate: endDate
+        endDate: historicalDateRange.endDate
       }).$promise.then(function (results) {
         // Set the historical data on the Symbol
         _this.historicalData = results.query.results.quote;

@@ -19,7 +19,7 @@ angular.module('stockTrackAngularJsApp')
       bindings: {
         user: '='
       },
-      controller: ['$filter', '$mdDialog', 'Symbol', 'Constants', 'SymbolList', function ($filter, $mdDialog, Symbol, Constants, SymbolList) {
+      controller: function ($filter, $mdDialog, Symbol, Constants, SymbolList) {
 
         /**
          * @ngdoc function
@@ -269,5 +269,5 @@ angular.module('stockTrackAngularJsApp')
           });
         };
 
-      }]
+      }
   });

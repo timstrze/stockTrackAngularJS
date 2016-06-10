@@ -172,8 +172,8 @@ describe('Directive: watch-list', function() {
     // Tests
     expect(angular.equals(element.isolateScope().selectedSymbol, newSymbol)).toBe(true);
     // Make sure the default tab is being selected
-    expect(element.isolateScope().selectedTab.slug).toBe('3-month');
-    expect(element.isolateScope().selectedTab.title).toBe('3 Month');
+    expect(element.isolateScope().selectedDateRange.slug).toBe('3-month');
+    expect(element.isolateScope().selectedDateRange.title).toBe('3 Month');
     expect(newSymbol.getHistoricalData).toHaveBeenCalled();
   });
 

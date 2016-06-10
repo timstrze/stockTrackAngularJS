@@ -23,7 +23,7 @@ angular.module('stockTrackAngularJsApp')
       },
       templateUrl: 'views/components/watch-list-details.html',
 
-      controller: ['$mdDialog', '$window', 'SymbolList', 'Constants', 'SvgArtist', '$filter',  '$scope', function ($mdDialog, $window, SymbolList, Constants, SvgArtist, $filter, $scope) {
+      controller: function ($mdDialog, $window, SymbolList, Constants, SvgArtist, $filter, $scope) {
         var _this = this;
 
         this.Constants = Constants;
@@ -31,7 +31,12 @@ angular.module('stockTrackAngularJsApp')
         this.filterReverse = false;
         this.filterType = 'created';
 
-        this.settings = {showLine: true, showText: true, showSave: true};
+        this.settings = {
+          showLine: true,
+          showText: true,
+          showSave: true
+        };
+        
         this.svgChartArtist = {};
         this.svgChartArtist = new SvgArtist({target: '.svg-chart'});
 
@@ -93,5 +98,5 @@ angular.module('stockTrackAngularJsApp')
           }
         }, true);
 
-      }]
+      }
   });
