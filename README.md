@@ -1,4 +1,5 @@
-# stock-track-angular-js
+# Stock Tracker
+Built using AngularJS, Material Design, and D3.js for visualizations.
 
 
 ## First Install
