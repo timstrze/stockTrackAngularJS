@@ -3,6 +3,7 @@ Built using AngularJS, Material Design, and D3.js for visualizations.
 
 ![alt tag] (https://github.com/timstrze/stockTrackAngularJS/blob/master/app/images/screen-shot.png)
 ![alt tag] (https://github.com/timstrze/stockTrackAngularJS/blob/master/app/images/screen-shot-3.png)
+![alt tag] (https://github.com/timstrze/stockTrackAngularJS/blob/master/app/images/screen-shot-4.png)
 
 ## First Install
 
