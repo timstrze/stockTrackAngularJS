@@ -1,7 +1,8 @@
 # Stock Tracker
 Built using AngularJS, Material Design, and D3.js for visualizations.
 
-![alt tag] (https://github.com/timstrze/stockTrackAngularJS/blob/master/app/images/Screen%20Shot%202016-06-13%20at%2012.26.21%20PM.png)
+![alt tag] (https://github.com/timstrze/stockTrackAngularJS/blob/master/app/images/screen-shot.png)
+![alt tag] (https://github.com/timstrze/stockTrackAngularJS/blob/master/app/images/screen-shot-2.png)
 
 ## First Install
 
