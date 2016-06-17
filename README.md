@@ -1,6 +1,8 @@
 # Stock Tracker
-Stock tracking software that allows you to track your favorite symbols but also your profits. Visualize your trades and use 
-any modern web device to view the site.
+Stock tracking software that allows you to track your favorite symbols and your profits. A responsive design allows you to visualize your trades on
+any modern web device.
+
+*This is currently under construction and I am currently building out the new buy modal
 
 Built using AngularJS, Material Design, and D3.js for visualizations.
 
