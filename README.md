@@ -2,7 +2,7 @@
 Stock tracking software that allows you to track your favorite symbols and your profits. A responsive design allows you to visualize your trades on
 any modern web device.
 
-*This is currently under construction and I am currently building out the new buy modal
+*This is currently under construction and I am currently building out the new buy modal and news tab.
 
 Built using AngularJS, Material Design, and D3.js for visualizations.
 
