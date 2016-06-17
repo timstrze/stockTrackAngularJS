@@ -1,4 +1,7 @@
 # Stock Tracker
+Stock tracking software that allows you to track your favorite symbols but also your profits. Visualize your trades and use 
+any modern web device to view the site.
+
 Built using AngularJS, Material Design, and D3.js for visualizations.
 
 ![alt tag] (https://github.com/timstrze/stockTrackAngularJS/blob/master/app/images/screen-shot.png)
