@@ -17,6 +17,7 @@ angular
     'ngSanitize',
     'ngMaterial',
     'ngMessages',
+    'md.data.table',
     'ngMdIcons',
     'svgArtistApp',
     'svgChartsApp'

@@ -1,0 +1,180 @@
+{
+  "count": 2229,
+  "data": [
+    {
+      "_id": "57581b95dd0b1b03004c658e",
+      "name": " ",
+      "nameToLower": " ",
+      "__v": 0,
+      "iron": {
+        "value": 1,
+        "unit": "%"
+      },
+      "calcium": {
+        "value": 0,
+        "unit": "%"
+      },
+      "sodium": {
+        "value": 1,
+        "unit": "mg"
+      },
+      "protein": {
+        "value": 1,
+        "unit": "g"
+      },
+      "carbs": {
+        "value": 1,
+        "unit": "g"
+      },
+      "fat": {
+        "value": 1,
+        "unit": "g"
+      },
+      "calories": {
+        "value": 1,
+        "unit": "Cal"
+      },
+      "serving": "100g"
+    },
+    {
+      "_id": "575abed79e5bd20300fe69b6",
+      "name": " Bitch",
+      "nameToLower": " bitch",
+      "__v": 0,
+      "iron": {
+        "value": 1,
+        "unit": "%"
+      },
+      "calcium": {
+        "value": 1,
+        "unit": "%"
+      },
+      "sodium": {
+        "value": 1,
+        "unit": "mg"
+      },
+      "protein": {
+        "value": 1,
+        "unit": "g"
+      },
+      "carbs": {
+        "value": 1,
+        "unit": "g"
+      },
+      "fat": {
+        "value": 1,
+        "unit": "g"
+      },
+      "calories": {
+        "value": 1,
+        "unit": "Cal"
+      },
+      "serving": "100g"
+    },
+    {
+      "_id": "576364fc84ff5f03005883cd",
+      "name": " una base de verdad",
+      "nameToLower": " una base de verdad",
+      "__v": 0,
+      "iron": {
+        "value": 2,
+        "unit": "%"
+      },
+      "calcium": {
+        "value": 1,
+        "unit": "%"
+      },
+      "sodium": {
+        "value": 2,
+        "unit": "mg"
+      },
+      "protein": {
+        "value": 2,
+        "unit": "g"
+      },
+      "carbs": {
+        "value": 1,
+        "unit": "g"
+      },
+      "fat": {
+        "value": 2,
+        "unit": "g"
+      },
+      "calories": {
+        "value": 12,
+        "unit": "Cal"
+      },
+      "serving": "100g"
+    },
+    {
+      "_id": "5756bdf3550874030073b4c4",
+      "name": "0",
+      "nameToLower": "0",
+      "__v": 0,
+      "iron": {
+        "value": 1,
+        "unit": "%"
+      },
+      "calcium": {
+        "value": 1,
+        "unit": "%"
+      },
+      "sodium": {
+        "value": 1,
+        "unit": "mg"
+      },
+      "protein": {
+        "value": 1,
+        "unit": "g"
+      },
+      "carbs": {
+        "value": 1,
+        "unit": "g"
+      },
+      "fat": {
+        "value": 1,
+        "unit": "g"
+      },
+      "calories": {
+        "value": 1,
+        "unit": "Cal"
+      },
+      "serving": "100g"
+    },
+    {
+      "_id": "575710f4dd0b1b03004c657a",
+      "name": "0 encular.js",
+      "nameToLower": "0 encular.js",
+      "__v": 0,
+      "iron": {
+        "value": 0,
+        "unit": "%"
+      },
+      "calcium": {
+        "value": 0,
+        "unit": "%"
+      },
+      "sodium": {
+        "value": 0,
+        "unit": "mg"
+      },
+      "protein": {
+        "value": 0,
+        "unit": "g"
+      },
+      "carbs": {
+        "value": 0,
+        "unit": "g"
+      },
+      "fat": {
+        "value": 0,
+        "unit": "g"
+      },
+      "calories": {
+        "value": 0,
+        "unit": "Cal"
+      },
+      "serving": "100g"
+    }
+  ]
+}

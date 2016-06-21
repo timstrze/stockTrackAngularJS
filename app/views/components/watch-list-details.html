@@ -16,6 +16,10 @@
           <h2 hide-sm>{{$ctrl.symbol.Name}}</h2>
         </span>
 
+        <md-button buy-button aria-label="Buy" ng-click="$ctrl.user.openOptionChainModal($event, $ctrl.symbol)">
+          <span>Option Chain</span>
+        </md-button>
+
         <md-button buy-button aria-label="Buy" ng-click="$ctrl.user.openBuyModal($event, $ctrl.symbol)">
           <span>Buy</span>
         </md-button>

@@ -9,7 +9,7 @@
  *
  */
 angular.module('stockTrackAngularJsApp')
-  .factory('User', function ($resource, $mdDialog, $filter, $window, Constants, Symbol, SymbolList) {
+  .factory('User', function ($resource, $mdDialog, $filter, $window, Constants, Symbol, SymbolList, OptionChain) {
 
 
     var User = function (properties) {
@@ -46,7 +46,7 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name changeWatchList
+     * @name User.changeWatchList
      * @methodOf stockTrackAngularJsApp.services:User
      *
      * @description
@@ -73,7 +73,7 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name openSellModal
+     * @name User.openSellModal
      * @methodOf stockTrackAngularJsApp.services:User
      *
      * @description
@@ -106,9 +106,63 @@ angular.module('stockTrackAngularJsApp')
       });
     };
 
+
+
+
     /**
      * @ngdoc function
-     * @name sell
+     * @name User.openOptionChainModal
+     * @methodOf stockTrackAngularJsApp.services:User
+     *
+     * @description
+     * Opens the sell modal. Sets the default quantity to 1.
+     *
+     */
+    User.prototype.openOptionChainModal = function (event, symbol) {
+      // Create a reference to this
+      var _this = this;
+      // Open sell modal
+      $mdDialog.show({
+        controller: function ($scope, $http) {
+          // Set the Symbol
+          this.symbol = symbol;
+          // Set the User
+          this.user = _this;
+
+          this.OptionChain = OptionChain;
+
+          // Closes the modal
+          this.cancel = function () {
+            $mdDialog.cancel();
+          };
+
+          this.selected = [];
+
+          this.query = {
+            order: 'strike',
+            limit: 5,
+            page: 1
+          };
+
+          this.success = function(desserts) {
+            $scope.desserts = desserts;
+          };
+
+          this.optionsPromise = OptionChain.getChain(this.symbol).$promise;
+
+          this.getDesserts = function () {};
+
+        },
+        bindToController: true,
+        controllerAs: '$ctrl',
+        templateUrl: 'views/modals/option-chain.html',
+        targetEvent: event
+      });
+    };
+
+    /**
+     * @ngdoc function
+     * @name User.sell
      * @methodOf stockTrackAngularJsApp.services:User
      *
      * @description
@@ -170,11 +224,11 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name User.openBuyModal
+     * @name User.openUserPreferenceModal
      * @methodOf stockTrackAngularJsApp.services:User
      *
      * @description
-     * Opens the buy modal. Sets the default quantity to 1.
+     * Opens the user preferences modal.
      *
      */
     User.prototype.openUserPreferenceModal = function (event) {
@@ -351,7 +405,7 @@ angular.module('stockTrackAngularJsApp')
 
     /**
      * @ngdoc function
-     * @name refreshSymbols
+     * @name User.refreshSymbols
      * @methodOf stockTrackAngularJsApp.service:User
      *
      * @description

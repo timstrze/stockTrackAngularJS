@@ -15,7 +15,8 @@
     "moment": "latest",
     "moment-timezone": "latest",
     "svg-artist": "https://timstrze@github.com/timstrze/svgArtist.git#latest",
-    "svg-charts": "https://timstrze@github.com/timstrze/svgCharts.git#latest"
+    "svg-charts": "https://timstrze@github.com/timstrze/svgCharts.git#latest",
+    "angular-material-data-table": "^0.10.9"
   },
   "devDependencies": {
     "angular-mocks": "latest"
