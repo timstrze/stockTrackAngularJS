@@ -138,8 +138,18 @@ angular.module('stockTrackAngularJsApp')
 
           this.selected = [];
 
+          this.changeExpiration = function () {
+
+            // expd:29
+            // expm:7
+            // expy:2016
+
+          };
+
+
+
           this.query = {
-            order: 'strike',
+            order: 'call.strike',
             limit: 5,
             page: 1
           };
@@ -431,10 +441,14 @@ angular.module('stockTrackAngularJsApp')
      *
      */
     User.prototype.selectSymbol = function (symbol) {
+      // Create a reference to this
+      var _this = this;
       // Set the selected Symbol
       this.selectedAccount.selectedSymbol = symbol;
       // Set the selected date range from the User Preferences
-      this.selectedDateRange = Constants.historicalDateRange()[this.Preferences.selectedHistoricalIndex];
+      this.selectedDateRange = Constants.historicalDateRange().find(function (hRange) {
+        return hRange.slug === _this.Preferences.selectedHistoricalDateRange;
+      });
       // Clear the historicalData so the animation doesn't skip
       this.selectedAccount.selectedSymbol.historicalData = [];
       // Get the historical graph data for the selected Symbol

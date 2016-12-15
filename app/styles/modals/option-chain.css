@@ -1,3 +1,16 @@
 .modal-option-chain {
 
 }
+
+.modal-option-chain .in-the-money {
+  background-color: #00d6b2;
+}
+
+.modal-option-chain .out-of-the-money {
+  background-color: #1f6377;
+}
+
+.modal-option-chain .strike-price {
+  background-color: lightgrey;
+  text-align: center;
+}

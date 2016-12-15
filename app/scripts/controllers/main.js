@@ -18,7 +18,7 @@ angular.module('stockTrackAngularJsApp')
     // Default Properties
     this.showWatchlist = true;
     this.showPositions = false;
-    
+
 
 
 

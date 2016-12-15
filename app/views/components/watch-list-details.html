@@ -44,8 +44,8 @@
 
 
         <md-input-container>
-          <md-select ng-model="$ctrl.selectedHistoricalDateRange" placeholder="Select a Date"
-                     ng-change="$ctrl.symbol.getHistoricalData($ctrl.selectedHistoricalDateRange)">
+          <md-select ng-model="$ctrl.user.Preferences.selectedHistoricalDateRange" placeholder="Select a Date"
+                     ng-change="$ctrl.symbol.getHistoricalData($ctrl.user.Preferences.selectedHistoricalDateRange)">
             <md-option ng-value="opt.slug" ng-repeat="opt in $ctrl.historicalDateRange">{{ opt.title }}</md-option>
           </md-select>
         </md-input-container>

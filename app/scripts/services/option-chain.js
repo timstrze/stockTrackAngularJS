@@ -42,7 +42,7 @@ angular.module('stockTrackAngularJsApp')
     }, {
       get: {
         method: 'GET',
-        url: 'http://www.google.com/finance/option_chain',
+        url: 'https://www.google.com/finance/option_chain',
         // url: 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.options where symbol="DIS"',
         params: {
           output: 'json',
@@ -75,31 +75,88 @@ angular.module('stockTrackAngularJsApp')
      * Public access to the GET, PUT, and POST methods
      *
      * @param {String} symbol of program version
+     * @param {Object} expiration expiration dates m, d, y
      *
      */
-    OptionChain.getChain = function (symbol) {
-      return $http.get('http://www.google.com/finance/option_chain?output=json&q=' + symbol.Symbol, {
+    OptionChain.getChain = function (symbol, expiration) {
+
+      // expd:29
+      // expm:7
+      // expy:2016
+
+      return $http.get('https://www.google.com/finance/option_chain?output=json&q=' + symbol.Symbol, {
         transformResponse: function(response) {
           return JSON.parse(OptionChain.preprocessJSON(response));
         }
       })
-      .success(function(data) {
+        .success(function(data) {
 
-        OptionChain.Chain = data;
-        OptionChain.Chain.callsAndPuts = [];
+          OptionChain.Chain = data;
 
-        angular.forEach(data.calls, function (call, $index) {
-          OptionChain.Chain.callsAndPuts.push({
-            call: call,
-            put: data.puts[$index]
+          OptionChain.Chain.selectedExpiration = data.expirations[0];
+
+          OptionChain.Chain.callsAndPuts = [];
+
+          angular.forEach(data.calls, function (call, $index) {
+
+            // var test = {a:put.a,
+            //   b:"203.35",
+            //   c:"0.00",
+            //   cid:"921546344579887",
+            //   cp:"0.00",
+            //   cs:"chb",
+            //   e:"OPRA",
+            //   expiry:"Jun 24, 2016",
+            //   name:"",
+            //   oi:"1",
+            //   p:"182.00",
+            //   s:"AMZN160624C00510000",
+            //   strike:"510.00",
+            //   vol:"-"};
+
+
+            var put = data.puts[$index];
+
+            var putObject = {
+              a: put.a,
+              b: put.b,
+              c: put.c,
+              cid: put.cid,
+              cp: put.cp,
+              cs: put.cs,
+              e: put.e,
+              expiry: put.expiry,
+              name: put.name,
+              oi: parseFloat(put.oi),
+              p: put.p,
+              s: put.s,
+              strike: (put.strike * 100)/100,
+              vol: (put.vol.includes('-')) ? 0: parseFloat(put.vol)
+            };
+
+            var callObject = {
+              a: call.a,
+              b: call.b,
+              c: call.c,
+              cid: call.cid,
+              cp: call.cp,
+              cs: call.cs,
+              e: call.e,
+              expiry: call.expiry,
+              name: call.name,
+              oi: parseFloat(call.oi),
+              p: call.p,
+              s: call.s,
+              strike: (call.strike * 100)/100,
+              vol: (call.vol.includes('-')) ? 0: parseFloat(call.vol)
+            };
+
+            OptionChain.Chain.callsAndPuts.push({
+              call: callObject,
+              put: putObject
+            });
           });
         });
-
-
-
-
-        // console.log(OptionChain.Chain.puts.length, OptionChain.Chain.calls.length)
-      });
     };
 
 

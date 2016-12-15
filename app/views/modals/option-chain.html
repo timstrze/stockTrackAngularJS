@@ -18,78 +18,99 @@
             </div>
         </md-toolbar>
         <md-dialog-content>
+          <!--{{$ctrl.OptionChain.Chain.expiry}}-->
+          <md-select aria-label="Expirations" ng-model="$ctrl.OptionChain.Chain.selectedExpiration"
+                     ng-change="$ctrl.changeExpiration()">
+            <md-option ng-value="expiration" ng-repeat="expiration in $ctrl.OptionChain.Chain.expirations">
+              {{expiration.m}}/{{expiration.d}}/{{expiration.y}}
+            </md-option>
+          </md-select>
 
-          <md-list>
-              <md-list-item class="md-2-line">
-                  <div class="md-list-item-text">
-                    <h3>Symbol: <span>{{$ctrl.symbol.Symbol}}</span></h3>
-                  </div>
-              </md-list-item>
-          </md-list>
+          <div layout="row">
+            <div flex="40" style="text-align: center;">
+              <h4>Call Options</h4>
+            </div>
+            <div flex="20" style="text-align: center;">
+              <h3>{{$ctrl.symbol.Symbol | uppercase}} @ {{$ctrl.symbol.Ask | number:2}}</h3>
+            </div>
+            <div flex="40" style="text-align: center;">
+              <h4>Put Options</h4>
+            </div>
+          </div>
 
           <!-- exact table from live demo -->
           <md-table-container>
             <table md-table ng-model="ctrl.selected" md-progress="ctrl.optionsPromise">
-              <thead md-head md-order="ctrl.query.order" md-on-reorder="ctrl.getDesserts">
+              <thead md-head md-order="ctrl.query.order">
               <tr md-row>
-
-                <th md-column md-numeric>Price</th>
-                <th md-column md-numeric>Bid</th>
-                <th md-column md-numeric md-order-by="a">Ask</th>
-                <th md-column md-numeric>Volume</th>
-                <th md-column md-numeric>Open Int</th>
-                <th md-column md-numeric>Strike</th>
-                <th md-column md-numeric>Price</th>
-                <th md-column md-numeric>Bid</th>
-                <th md-column md-numeric>Ask</th>
-                <th md-column md-numeric>Volume</th>
-                <th md-column md-numeric>Open Int</th>
-
-
-                <!--<th md-column md-order-by="nameToLower"><span>Dessert (100g serving)</span></th>-->
-                <!--<th md-column md-numeric md-order-by="calories.value"><span>Calories</span></th>-->
-                <!--<th md-column md-numeric>Fat (g)</th>-->
-                <!--<th md-column md-numeric>Carbs (g)</th>-->
-                <!--<th md-column md-numeric>Protein (g)</th>-->
-                <!--<th md-column md-numeric>Sodium (mg)</th>-->
-                <!--<th md-column md-numeric>Calcium (%)</th>-->
-                <!--<th md-column md-numeric>Iron (%)</th>-->
+                <th md-column md-numeric></th>
+                <th md-column md-numeric md-order-by="call.p">Price</th>
+                <th md-column md-numeric md-order-by="call.b">Bid</th>
+                <th md-column md-numeric md-order-by="call.a">Ask</th>
+                <th md-column md-numeric md-order-by="call.vol">Volume</th>
+                <th md-column md-numeric md-order-by="call.oi">Open Int</th>
+                <th md-column md-numeric md-order-by="call.strike">Strike</th>
+                <th md-column md-numeric md-order-by="put.p">Price</th>
+                <th md-column md-numeric md-order-by="put.b">Bid</th>
+                <th md-column md-numeric md-order-by="put.a">Ask</th>
+                <th md-column md-numeric md-order-by="put.vol">Volume</th>
+                <th md-column md-numeric md-order-by="put.oi">Open Int</th>
+                <!--<th md-column md-numeric md-order-by="put.expiry">Expiry</th>-->
+                <th md-column md-numeric></th>
               </tr>
               </thead>
               <tbody md-body>
 
-              <tr md-row md-select="$ctrl.optionCall" md-select-id="name" md-auto-select ng-repeat="optionChain in $ctrl.OptionChain.Chain.callsAndPuts">
-                <!--<td md-cell>{{optionCall.name}}</td>-->
-                <!--<td md-cell>{{option.calories.value}}</td>-->
-                <!--<td md-cell>{{option.fat.value | number: 1}}</td>-->
-                <!--<td md-cell>{{option.carbs.value}}</td>-->
-                <!--<td md-cell>{{option.protein.value | number: 1}}</td>-->
-                <!--<td md-cell>{{option.sodium.value}}</td>-->
-                <!--<td md-cell>{{option.calcium.value}}{{option.calcium.unit}}</td>-->
-                <!--<td md-cell>{{option.iron.value}}{{option.iron.unit}}</td>-->
+              <tr md-row
+                  ng-repeat="optionChain in $ctrl.OptionChain.Chain.callsAndPuts | orderBy: ctrl.query.order">
 
-                <td md-cell>{{optionChain.call.p}}</td>
-                <td md-cell>{{optionChain.call.b}}</td>
-                <td md-cell>{{optionChain.call.a}}</td>
-                <td md-cell>{{optionChain.call.vol}}</td>
-                <td md-cell>{{optionChain.call.oi}}</td>
-                <td md-cell>{{optionChain.call.strike}}</td>
-                <!--<td md-cell>{{optionCall.BindingStrike}}</td>-->
+                <td md-cell>
+                  <input type="checkbox" />
+                </td>
+
+                <td md-cell
+                    ng-class="{'in-the-money': optionChain.call.strike< ($ctrl.symbol.LastTradePriceOnly * 100)/100, 'out-of-the-money': (optionChain.call.strike * 100)/100 > ($ctrl.symbol.LastTradePriceOnly * 100)/100}">
+                  {{optionChain.call.p}}
+                </td>
+                <td md-cell
+                    ng-class="{'in-the-money': optionChain.call.strike< ($ctrl.symbol.LastTradePriceOnly * 100)/100, 'out-of-the-money': (optionChain.call.strike * 100)/100 > ($ctrl.symbol.LastTradePriceOnly * 100)/100}">
+                {{optionChain.call.b}}
+                </td>
+                <td md-cell
+                    ng-class="{'in-the-money': optionChain.call.strike< ($ctrl.symbol.LastTradePriceOnly * 100)/100, 'out-of-the-money': (optionChain.call.strike * 100)/100 > ($ctrl.symbol.LastTradePriceOnly * 100)/100}">
+                  {{optionChain.call.a}}
+                </td>
+                <td md-cell
+                    ng-class="{'in-the-money': optionChain.call.strike< ($ctrl.symbol.LastTradePriceOnly * 100)/100, 'out-of-the-money': (optionChain.call.strike * 100)/100 > ($ctrl.symbol.LastTradePriceOnly * 100)/100}">
+                {{optionChain.call.vol}}
+                </td>
+                <td md-cell
+                    ng-class="{'in-the-money': optionChain.call.strike< ($ctrl.symbol.LastTradePriceOnly * 100)/100, 'out-of-the-money': (optionChain.call.strike * 100)/100 > ($ctrl.symbol.LastTradePriceOnly * 100)/100}">
+                {{optionChain.call.oi}}
+                </td>
+                <td md-cell
+                    class="strike-price">
+                  {{optionChain.call.strike}}
+                </td>
+
+                <!--'out-of-the-money': parseFloat(call.strike) < parseFloat($ctrl.symbol.LastTradePriceOnly)-->
 
                 <td md-cell>{{optionChain.put.p}}</td>
                 <td md-cell>{{optionChain.put.b}}</td>
                 <td md-cell>{{optionChain.put.a}}</td>
                 <td md-cell>{{optionChain.put.vol}}</td>
                 <td md-cell>{{optionChain.put.oi}}</td>
+                <!--<td md-cell>{{optionChain.put.expiry}}</td>-->
 
+                <td md-cell>
+                  <input type="checkbox" />
+                </td>
               </tr>
               </tbody>
             </table>
           </md-table-container>
 
           <!--<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>-->
-
-
 
         </md-dialog-content>
         <md-dialog-actions layout="row">
