@@ -16,33 +16,53 @@
           <h2 hide-sm>{{$ctrl.symbol.Name}}</h2>
         </span>
 
-        <md-button buy-button aria-label="Buy" ng-click="$ctrl.user.openOptionChainModal($event, $ctrl.symbol)">
+        <md-button buy-button
+                   aria-label="Buy"
+                   hide show-gt-sm
+                   ng-click="$ctrl.user.openOptionChainModal($event, $ctrl.symbol)">
           <span>Option Chain</span>
         </md-button>
 
-        <md-button buy-button aria-label="Buy" ng-click="$ctrl.user.openBuyModal($event, $ctrl.symbol)">
+        <md-button buy-button
+                   aria-label="Buy"
+                   hide show-gt-sm
+                   ng-click="$ctrl.user.openBuyModal($event, $ctrl.symbol)">
           <span>Buy</span>
         </md-button>
 
-        <md-button aria-label="Sell" ng-click="$ctrl.user.openSellModal($event, $ctrl.symbol)">
+        <md-button aria-label="Sell"
+                   hide show-gt-sm
+                   ng-click="$ctrl.user.openSellModal($event, $ctrl.symbol)">
           <span>Sell</span>
         </md-button>
+
+        <md-menu md-offset="0 0" hide-gt-sm>
+          <md-button aria-label="Open menu" ng-click="$mdOpenMenu($event)">
+            <ng-md-icon md-menu-origin icon="more_vert" style="fill: #fff" size="20"></ng-md-icon>
+          </md-button>
+          <md-menu-content width="2">
+            <md-menu-item>
+              <md-button aria-label="Option Chain" ng-click="$ctrl.user.openOptionChainModal($event, $ctrl.symbol)"><span
+                md-menu-align-target>Option Chain</span></md-button>
+            </md-menu-item>
+
+            <md-menu-item>
+              <md-button aria-label="Buy" ng-click="$ctrl.user.openBuyModal($event, $ctrl.symbol)"><span
+                md-menu-align-target>Buy</span></md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="Sell" ng-click="$ctrl.user.openSellModal($event, $ctrl.symbol)"><span
+                md-menu-align-target>Sell</span></md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
       </div>
     </md-toolbar>
 
     <div layout="row">
       <div flex="100" class="chart-buttons">
         <!--Start Historical Data Tab Switcher-->
-        <!--<md-tabs md-selected="$ctrl.user.Preferences.selectedHistoricalIndex" md-border-bottom-->
-        <!--style="min-height: inherit !important;">-->
-        <!--<md-tab ng-repeat="tab in historicalTabs"-->
-        <!--ng-disabled="tab.disabled"-->
-        <!--label="{{tab.title}}"-->
-        <!--md-on-select="$ctrl.symbol.getHistoricalData(tab.startDate, tab.endDate)">-->
-        <!--</md-tab>-->
-        <!--</md-tabs>-->
-
-
         <md-input-container>
           <md-select ng-model="$ctrl.user.Preferences.selectedHistoricalDateRange" placeholder="Select a Date"
                      ng-change="$ctrl.symbol.getHistoricalData($ctrl.user.Preferences.selectedHistoricalDateRange)">

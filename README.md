@@ -6,8 +6,8 @@ any modern web device with our responsive design.
 
 Built using AngularJS, Material Design, and D3.js for visualizations.
 
-![alt tag] (https://github.com/timstrze/stockTrackAngularJS/blob/master/app/images/screen-shot.png)
-![alt tag] (https://github.com/timstrze/stockTrackAngularJS/blob/master/app/images/screen-shot-3.png)
+![alt text] (https://github.com/timstrze/stockTrackAngularJS/blob/master/app/images/screen-shot.png?raw=true)
+![alt text] (https://github.com/timstrze/stockTrackAngularJS/blob/master/app/images/screen-shot-3.png?raw=true)
 
 ## First Install
 

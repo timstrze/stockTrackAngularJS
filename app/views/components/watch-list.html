@@ -79,7 +79,7 @@
           <!--watchListItem.Symbol.Symbol-->
           <div class="md-list-item-text">
             <h3>
-              <span style="text-transform: uppercase;">{{watchListItem.Symbol.Symbol}}:</span> <span
+              <span style="text-transform: uppercase;">{{::watchListItem.Symbol.Symbol}}:</span> <span
               ng-class="{positive: watchListItem.Symbol.Change.indexOf('+') > -1, negative: watchListItem.Symbol.Change.indexOf('-') > -1}">{{watchListItem.Symbol.Ask}} {{watchListItem.Symbol.Change}} ({{watchListItem.Symbol.ChangeinPercent}})</span>
             </h3>
             <p ng-show="!$ctrl.user.Preferences.minimizeWatchListView" style="float:left;">
