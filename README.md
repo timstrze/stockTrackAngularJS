@@ -6,8 +6,8 @@ any modern web device with our responsive design.
 
 Built using AngularJS, Material Design, and D3.js for visualizations.
 
-![Screenshot] (/app/images/screen-shot.png?raw=true)
-![Screenshot] (./app/images/screen-shot-3.png?raw=true)
+![Screenshot] (app/images/screen-shot.png?raw=true)
+![Screenshot] (./app/images/screen-shot-3.png)
 
 ## First Install
 
